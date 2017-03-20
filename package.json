@@ -1,9 +1,14 @@
 {
   "name": "music-io-shared-server",
   "version": "1.0.0",
+  "engines": {
+    "npm": "3.10.10",
+    "node": "6.10.0"
+  },
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

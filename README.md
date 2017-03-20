@@ -12,3 +12,16 @@ docker pull lmasello/music-io-shared-server
 ```bash
 docker run -p 8888:3000 lmasello/music-io-shared-server
 ```
+
+## Deploy to Heroku
+Execute the following commands at the root of the project:
+ - Add the heroku remote
+```bash
+heroku git:remote -a music-io-shared-server
+```
+ - Deploy changes
+```bash
+git push heroku development:master
+```
+
+For further information see: https://devcenter.heroku.com/articles/git
