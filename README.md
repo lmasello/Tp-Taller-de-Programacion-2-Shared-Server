@@ -1,6 +1,9 @@
 # tp-taller-de-programacion-2-Shared-Server
 Shared server repository for the semestral project of the subject 'Taller de Programación II' of the University of Buenos Aires which consist of doing an application similar to Spotify.
 
+## Heroku instance
+https://music-io-shared-server.herokuapp.com/
+
 ## Run docker container
 Execute the following commands at the root of the project:
 
@@ -10,7 +13,7 @@ docker pull lmasello/music-io-shared-server
 ```
  - Run the image
 ```bash
-docker run -p 8888:3000 lmasello/music-io-shared-server
+docker run -p 8888:[server_port] lmasello/music-io-shared-server
 ```
 
 ## Deploy to Heroku
