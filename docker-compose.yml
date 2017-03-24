@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_ROOT_PASSWORD: Mus1c10Sh4red
+  shared-server:
+    depends_on:
+      - postgres
+    image: lmasello/music-io-shared-server
+    environment:
+      DB_HOST: postgres:3306
+      DB_PASSWORD: Mus1c10Sh4red
+    ports:
+      - "8080:80"
