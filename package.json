@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/lmasello/Tp-Taller-de-Programacion-2-Shared-Server#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "winston": "^2.3.1"
   }
 }

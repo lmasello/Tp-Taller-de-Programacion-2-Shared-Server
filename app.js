@@ -1,4 +1,5 @@
 var express = require('express');
+var logger = require('./config/logger/winston.js');
 var app = express();
 var port_number = process.env.PORT || 3000;
 
