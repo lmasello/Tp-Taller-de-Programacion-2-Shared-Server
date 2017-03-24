@@ -1,32 +1,32 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
 2 info using npm@3.10.10
-3 info using node@v6.10.0
+3 info using node@v6.9.5
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle music-io-shared-server@1.0.0~prestart: music-io-shared-server@1.0.0
 6 silly lifecycle music-io-shared-server@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle music-io-shared-server@1.0.0~start: music-io-shared-server@1.0.0
 8 verbose lifecycle music-io-shared-server@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle music-io-shared-server@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/lmasello/Documents/FIUBA/[7552] Taller de programacion II/tp/Tp-Taller-de-Programacion-2-Shared-Server/node_modules/.bin:/home/lmasello/.rbenv/plugins/ruby-build/bin:/home/lmasello/.rbenv/shims:/home/lmasello/.rbenv/bin:/home/lmasello/bin:/home/lmasello/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-10 verbose lifecycle music-io-shared-server@1.0.0~start: CWD: /home/lmasello/Documents/FIUBA/[7552] Taller de programacion II/tp/Tp-Taller-de-Programacion-2-Shared-Server
+9 verbose lifecycle music-io-shared-server@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/german/workspace/Tp-Taller-de-Programacion-2-Shared-Server/node_modules/.bin:/home/german/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/usr/local/hadoop/sbin:/usr/local/hadoop/bin:/home/german/gradle-3.0/bin:/home/german/idea-IC-145.597.3/bin:/home/german/Descargas/Sublime Text 2/
+10 verbose lifecycle music-io-shared-server@1.0.0~start: CWD: /home/german/workspace/Tp-Taller-de-Programacion-2-Shared-Server
 11 silly lifecycle music-io-shared-server@1.0.0~start: Args: [ '-c', 'node bin/www' ]
 12 silly lifecycle music-io-shared-server@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle music-io-shared-server@1.0.0~start: Failed to exec start script
 14 verbose stack Error: music-io-shared-server@1.0.0 start: `node bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid music-io-shared-server@1.0.0
-16 verbose cwd /home/lmasello/Documents/FIUBA/[7552] Taller de programacion II/tp/Tp-Taller-de-Programacion-2-Shared-Server
-17 error Linux 4.4.0-66-generic
-18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
-19 error node v6.10.0
+16 verbose cwd /home/german/workspace/Tp-Taller-de-Programacion-2-Shared-Server
+17 error Linux 3.19.0-77-generic
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+19 error node v6.9.5
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error music-io-shared-server@1.0.0 start: `node bin/www`

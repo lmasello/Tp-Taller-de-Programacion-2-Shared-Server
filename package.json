@@ -6,7 +6,7 @@
     "node": "6.10.0"
   },
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
