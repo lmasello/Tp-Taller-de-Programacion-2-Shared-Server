@@ -2,3 +2,6 @@
 /node_modules
 
 .idea/
+
+# Ignore .env file for security reasons
+.env

@@ -1,16 +1,19 @@
 version: "2"
 
 services:
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_ROOT_PASSWORD: Mus1c10Sh4red
   shared-server:
     depends_on:
       - postgres
     image: lmasello/music-io-shared-server
     environment:
-      DB_HOST: postgres:3306
-      DB_PASSWORD: Mus1c10Sh4red
+      DATABASE_URL: postgres://music-io:Mus1c10Sh4red@postgres:5432/music-io-shared-server_development
     ports:
       - "8080:80"
+  postgres:
+    image: postgres
+    volumes:
+      - ./server/config/db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+    environment:
+      POSTGRES_USER: music-io
+      POSTGRES_PASSWORD: Mus1c10Sh4red
+      POSTGRES_DB: music-io-shared-server_development
