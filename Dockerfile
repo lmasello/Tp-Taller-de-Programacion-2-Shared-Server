@@ -9,7 +9,8 @@ RUN apt-get -yqq install nodejs
 RUN apt-get -yqq install build-essential
 
 # copy our application code
-ADD . /usr/src/music-io-shared-server
+COPY . /usr/src/music-io-shared-server
+RUN ls -la /usr/src/music-io-shared-server
 WORKDIR /usr/src/music-io-shared-server
 
 # fetch app specific deps
@@ -19,4 +20,4 @@ RUN npm install
 EXPOSE 3000
 
 # run the application
-CMD ["nodejs", "./app.js"]
+CMD ["nodejs", "./bin/www.js"]
