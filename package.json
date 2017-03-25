@@ -6,9 +6,9 @@
     "node": "6.10.0"
   },
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +28,15 @@
   },
   "homepage": "https://github.com/lmasello/Tp-Taller-de-Programacion-2-Shared-Server#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "dotenv": "^4.0.0",
     "express": "^4.15.2",
+    "jade": "~1.11.0",
     "winston": "^2.3.1"
+    "pg-promise": "^5.6.4",
+    "serve-favicon": "~2.3.2"
   }
 }
