@@ -51,3 +51,17 @@ git push heroku development:master
 ```
 
 For further information see: https://devcenter.heroku.com/articles/git
+
+## Logger
+In order to use logs during run time, we use the 'Winston' library
+(https://github.com/winstonjs/winston).
+Basically, you have to call `var logger = require('./config/logger/winston.js');` in your js file
+and then call it in the following ways:
+```
+logger.error('Error message');
+logger.warn('Warn message');
+logger.info('Info message');
+logger.debug('Debug message');
+```
+Note that the error and warn messages will be saved to the file 'logfile.log' whereas all kinds of
+messages (error, warn, info and debug) will appear on the console.
