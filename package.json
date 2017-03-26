@@ -9,7 +9,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node bin/www.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -35,8 +35,9 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "jade": "~1.11.0",
-    "winston": "^2.3.1"
+    "jasmine": "^2.5.3",
     "pg-promise": "^5.6.4",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "winston": "^2.3.1"
   }
 }
