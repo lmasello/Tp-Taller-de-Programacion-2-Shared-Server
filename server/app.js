@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var logger = require('./config/logger/winston.js');
 //controllers
 var user = require('./controllers/user-controller');
 var token = require('./controllers/token-controller');
@@ -30,6 +30,7 @@ app.use('/', token);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
+    logger.error(err.message);
     next(err);
 });
 
@@ -37,6 +38,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        logger.error(err.message);
         res.status( err.code || 500 )
             .json({
                 status: 'error',
@@ -48,6 +50,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    logger.error(err.message);
     res.status(err.status || 500)
         .json({
             status: 'error',
@@ -63,6 +66,7 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
+    logger.error(err.message);
     res.render('error');
 });
 

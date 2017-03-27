@@ -65,3 +65,9 @@ logger.debug('Debug message');
 ```
 Note that the error and warn messages will be saved to the file 'logfile.log' whereas all kinds of
 messages (error, warn, info and debug) will appear on the console.
+
+## Specs
+Execute the this command at the root of the project to run all tests:
+```
+jasmine
+```
