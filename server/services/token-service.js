@@ -39,12 +39,12 @@ function getToken(user) {
 
 function insertNewUser(user) {
     user.password = sha1(user.password);
-    return db.any('insert into auth(email, password) values(${email}, ${password})', user);
+    return db.any('insert into users(email, password) values(${email}, ${password})', user);
 
 }
 
 function findUserByEmail(email) {
-    return db.one('select * from auth where email = $1', email);
+    return db.one('select * from users where email = $1', email);
 }
 
 /**

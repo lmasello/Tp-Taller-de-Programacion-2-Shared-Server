@@ -29,16 +29,16 @@ function findUserById(userId) {
 }
 
 function createUser(user) {
-  return db.none('insert into users(email, first_name, last_name)' +
-          'values(${email}, ${first_name}, ${last_name})',
+  return db.none('insert into users(email, first_name, last_name, password)' +
+          'values(${email}, ${first_name}, ${last_name}, ${password})',
           user);
 }
 
-function updateUser(email, first_name, last_name) {
-  return db.none('update users set email=$1, first_name=$2, last_name=$3 where id=$5',
-          [email, first_name, last_name]);
+function updateUser(email, first_name, last_name, password) {
+  return db.none('update users set email=$1, first_name=$2, last_name=$3, password=$4 where id=$5',
+          [email, first_name, last_name, password]);
 }
 
 function removeUser(userId) {
-  return db.result('delete from users where id = $1', userID);
+  return db.result('delete from users where id = $1', userId);
 }
