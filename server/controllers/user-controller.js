@@ -60,7 +60,7 @@ function createUser(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-  userService.updateUser([req.body.email, req.body.first_name, req.body.last_name])
+  userService.updateUser([req.body.email, req.body.first_name, req.body.last_name, req.body.password])
       .then(function () {
         res.status(200)
             .json({
