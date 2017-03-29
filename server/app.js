@@ -28,7 +28,6 @@ app.use('/', token);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    logger.error(err.message);
     next(err);
 });
 
