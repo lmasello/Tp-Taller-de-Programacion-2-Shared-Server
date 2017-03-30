@@ -3,6 +3,11 @@ Shared server repository for the semestral project of the subject 'Taller de Pro
 of the University of Buenos Aires which consist of doing an application similar to Spotify.
 This application is called 'music-io'.
 
+## Build status
+[![BuildStatus](https://travis-ci.org/lmasello/Tp-Taller-de-Programacion-2-Shared-Server.svg?branch=development)](https://travis-ci.org/lmasello/Tp-Taller-de-Programacion-2-Shared-Server)
+[![codecov](https://codecov.io/gh/lmasello/Tp-Taller-de-Programacion-2-Shared-Server/branch/development/graph/badge.svg)](https://codecov.io/gh/lmasello/Tp-Taller-de-Programacion-2-Shared-Server)
+
+
 ## Heroku instance
 https://music-io-shared-server.herokuapp.com/
 

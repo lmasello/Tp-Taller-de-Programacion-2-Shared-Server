@@ -3,5 +3,8 @@
 
 .idea/
 
+# Ignore coverage files
+./coverage/
+
 # Ignore .env file for security reasons
 .env
