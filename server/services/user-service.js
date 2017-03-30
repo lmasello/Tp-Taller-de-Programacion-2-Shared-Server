@@ -2,6 +2,7 @@
 // http://mherman.org/blog/2016/03/13/designing-a-restful-api-with-node-and-postgres/#.WNHTFvHys8o
 var promise = require('bluebird');
 const config = require('../config/config');
+var sha1 = require('sha1');
 
 var options = {
   // Initialization Options
@@ -29,6 +30,7 @@ function findUserById(userId) {
 }
 
 function createUser(user) {
+  user.password = sha1(user.password);
   return db.none('insert into users(email, first_name, last_name, password)' +
           'values(${email}, ${first_name}, ${last_name}, ${password})',
           user);
