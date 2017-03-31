@@ -1,59 +1,32 @@
 const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const path = require('path');
-const rootPath = path.normalize(__dirname + '/../../');
-const logger = require('./logger/winston.js');
+const rootPath = path.join(__dirname, '/../../');
+const appName = 'shared-server';
+const port = process.env.PORT || 3000;
+const dbURI = process.env.DATABASE_URL;
+var logger = require('./logger/winston.js');
 /*
  * Load env variables
  */
-if (env == 'development' || env == 'test'){
- require('dotenv').load();
+if (env === 'development' || env === 'test'){
+  require('dotenv').load();
 }
 
 var allConfigurations = {
-    test: {
-        appName: 'shared-server',
-            rootPath: rootPath,
-            port: process.env.PORT || 3000,
-            logger : {
-            name : "shared-server | (Local)"
-        },
-        postgres: {
-            uri : process.env.DATABASE_URL
-        }
-    },
-    development: {
-        appName: 'shared-server',
-            rootPath: rootPath,
-            port: process.env.PORT || 3000,
-            logger : {
-            name : "shared-server | (Development)"
-        },
-        postgres: {
-            uri : process.env.DATABASE_URL
-        }
-    },
-    staging: {
-        appName: 'shared-server',
-            rootPath: rootPath,
-            port: process.env.PORT || 3000,
-            logger : {
-            name : "shared-server | (Staging)"
-        },
-        postgres: {
-          uri : process.env.DATABASE_URL
-        }
-    },
-    production: {
-        appName: 'shared-server',
-            rootPath: rootPath,
-            port: process.env.PORT || 3000,
-            logger : {
-            name : "shared-server | (Production)"
-        },
-        postgres: {
-          uri : process.env.DATABASE_URL
-        }
-    }
+  test: appConfig(appName, rootPath, port, 'shared-server | (Local)', dbURI),
+  development: appConfig(appName, rootPath, port, 'shared-server | (Development)', dbURI),
+  staging: appConfig(appName, rootPath, port, 'shared-server | (Staging)', dbURI),
+  production: appConfig(appName, rootPath, port, 'shared-server | (Production)', dbURI)
 };
+
+function appConfig(appName, rootPath, port, loggerName, dbURI){
+  return {
+      appName: 'shared-server',
+      rootPath: rootPath,
+      port: process.env.PORT || 3000,
+      logger : { name : "shared-server | (Production)" },
+      postgres: { uri : process.env.DATABASE_URL }
+  }
+}
 logger.debug(allConfigurations[env]);
 module.exports = allConfigurations[env];

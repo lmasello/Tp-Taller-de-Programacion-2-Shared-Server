@@ -1,5 +1,6 @@
 var connectionService = require('../services/connection-service');
 var sha1 = require('sha1');
+var logger = require('../config/logger/winston.js');
 
 // add query functions
 module.exports = {
@@ -20,13 +21,15 @@ function findUserById(userId) {
 
 function createUser(user) {
   user.password = sha1(user.password);
-  return connectionService.none('insert into users(email, first_name, last_name, password)' +
-          'values(${email}, ${first_name}, ${last_name}, ${password})', user);
+  return connectionService.one('insert into users(email, first_name, last_name, password) ' +
+                               'values(${email}, ${first_name}, ${last_name}, ${password}) ' +
+                               'RETURNING id, email, first_name, last_name', user);
 }
 
-function updateUser(email, first_name, last_name, password) {
-  return connectionService.none('update users set email=$1, first_name=$2, last_name=$3, password=$4 where id=$5',
-          [email, first_name, last_name, password]);
+function updateUser(user, id) {
+  return connectionService.result('update users set first_name=$1,' +
+                                  'last_name=$2, password=$3 where id=$4',
+                                   [user.first_name, user.last_name, user.password, id]);
 }
 
 function removeUser(userId) {

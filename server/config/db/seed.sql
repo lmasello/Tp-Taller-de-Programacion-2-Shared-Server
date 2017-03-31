@@ -1,10 +1,11 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
-  email VARCHAR,
-  first_name VARCHAR,
-  last_name VARCHAR,
-  password VARCHAR
+  email VARCHAR NOT NULL,
+  first_name VARCHAR NOT NULL,
+  last_name VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
+  CONSTRAINT unique_email UNIQUE (email)
 );
 
 INSERT INTO users (email, first_name, last_name, password)

@@ -5,7 +5,7 @@ var logger = new (winston.Logger)({
       timestamp: function() {
         return new Date().toISOString();
       },
-      level: 'info'
+      level: 'debug'
     }),
     new (winston.transports.File)({
       timestamp: function() {
