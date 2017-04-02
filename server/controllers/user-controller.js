@@ -1,22 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var connectionService = require('../services/user-service');
+var logger = require('../config/logger/winston.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-var userService = require('../services/user-service');
-
-router.get('/api/users', getAllUsers);
-router.get('/api/users/:id', getUserById);
-router.post('/api/users', createUser);
-router.put('/api/users/:id', updateUser);
-router.delete('/api/users/:id', removeUser);
+router.get('/users', getAllUsers);
+router.get('/users/:id', getUserById);
+router.post('/users', createUser);
+router.put('/users/:id', updateUser);
+router.delete('/users/:id', removeUser);
 
 function getAllUsers(req, res, next) {
-  userService.getAllUsers()
+  connectionService.getAllUsers()
       .then(function (data) {
+        logger.info(data);
         res.status(200)
             .json({
               status: 'success',
@@ -30,8 +31,9 @@ function getAllUsers(req, res, next) {
 }
 
 function getUserById(req, res, next) {
-  userService.getSingleUser(parseInt(req.params.id))
+  connectionService.getSingleUser(parseInt(req.params.id))
       .then(function (data) {
+        logger.info(data);
         res.status(200)
             .json({
               status: 'success',
@@ -46,8 +48,9 @@ function getUserById(req, res, next) {
 
 
 function createUser(req, res, next) {
-  userService.createUser(req.body)
+  connectionService.createUser(req.body)
       .then(function () {
+        logger.info('User created');
         res.status(200)
             .json({
               status: 'success',
@@ -60,8 +63,9 @@ function createUser(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-  userService.updateUser([req.body.email, req.body.first_name, req.body.last_name, req.body.password])
+  connectionService.updateUser([req.body.email, req.body.first_name, req.body.last_name, req.body.password])
       .then(function () {
+        logger.info('User updated');
         res.status(200)
             .json({
               status: 'success',
@@ -74,8 +78,9 @@ function updateUser(req, res, next) {
 }
 
 function removeUser(req, res, next) {
-  userService.removeUser(parseInt(req.params.id))
+  connectionService.removeUser(parseInt(req.params.id))
       .then(function (result) {
+        logger.info('User removed');
         res.status(200)
             .json({
               status: 'success',

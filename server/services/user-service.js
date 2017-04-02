@@ -1,16 +1,5 @@
-// Reference:
-// http://mherman.org/blog/2016/03/13/designing-a-restful-api-with-node-and-postgres/#.WNHTFvHys8o
-var promise = require('bluebird');
-const config = require('../config/config');
+var connectionService = require('../services/connection-service');
 var sha1 = require('sha1');
-
-var options = {
-  // Initialization Options
-  promiseLib: promise
-};
-
-var pgp = require('pg-promise')(options);
-var db = pgp(config.postgres.uri);
 
 // add query functions
 module.exports = {
@@ -22,25 +11,24 @@ module.exports = {
 };
 
 function findAll() {
-  return db.any('select * from users');
+  return connectionService.any('select * from users');
 }
 
 function findUserById(userId) {
-    return db.one('select * from users where id = $1', userId);
+    return connectionService.one('select * from users where id = $1', userId);
 }
 
 function createUser(user) {
   user.password = sha1(user.password);
-  return db.none('insert into users(email, first_name, last_name, password)' +
-          'values(${email}, ${first_name}, ${last_name}, ${password})',
-          user);
+  return connectionService.none('insert into users(email, first_name, last_name, password)' +
+          'values(${email}, ${first_name}, ${last_name}, ${password})', user);
 }
 
 function updateUser(email, first_name, last_name, password) {
-  return db.none('update users set email=$1, first_name=$2, last_name=$3, password=$4 where id=$5',
+  return connectionService.none('update users set email=$1, first_name=$2, last_name=$3, password=$4 where id=$5',
           [email, first_name, last_name, password]);
 }
 
 function removeUser(userId) {
-  return db.result('delete from users where id = $1', userId);
+  return connectionService.result('delete from users where id = $1', userId);
 }
