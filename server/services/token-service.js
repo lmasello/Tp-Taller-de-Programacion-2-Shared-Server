@@ -1,27 +1,9 @@
-const config = require('../config/config');
-var sha1 = require('sha1');
-var pgp = require('pg-promise')();
-var db = pgp(config.postgres.uri);
+var connectionService = require('../services/connection-service');
 var jwt = require('jsonwebtoken');
-
+var sha1 = require('sha1');
 
 // add query functions
-module.exports = {
-    signUp: signUp,
-    getToken: getToken
-};
-
-/**
- * Create a new user on the system
- */
-function signUp(user) {
-    return findUserByEmail(user.email)
-        .then(byEmail => {
-            throw new Error('User with email ' + byEmail.email + ' already exists');
-        }, error => {
-            return insertNewUser(user);
-        });
-}
+module.exports = { getToken: getToken };
 
 /**
  * Return a new access_token for the user.
@@ -37,14 +19,8 @@ function getToken(user) {
         }, error => {throw error});
 }
 
-function insertNewUser(user) {
-    user.password = sha1(user.password);
-    return db.any('insert into users(email, password) values(${email}, ${password})', user);
-
-}
-
 function findUserByEmail(email) {
-    return db.one('select * from users where email = $1', email);
+    return connectionService.one('select * from users where email = $1', email);
 }
 
 /**

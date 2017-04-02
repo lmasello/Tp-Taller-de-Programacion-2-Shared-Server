@@ -1,15 +1,13 @@
 const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/../../');
-
+const logger = require('./logger/winston.js');
 /*
  * Load env variables
  */
 if (env == 'development' || env == 'test'){
  require('dotenv').load();
 }
-
-console.log(process.env.DATABASE_URL);
 
 var allConfigurations = {
     test: {
@@ -57,5 +55,5 @@ var allConfigurations = {
         }
     }
 };
-
+logger.debug(allConfigurations[env]);
 module.exports = allConfigurations[env];
