@@ -11,7 +11,7 @@ module.exports = { getToken: getToken };
 function getToken(user) {
     return findUserByEmail(user.email)
         .then(byEmail => {
-            if (byEmail.password != sha1(user.password)) {
+            if (byEmail.password !== sha1(user.password)) {
                 //this message should not be exposed in the response...
                 throw new Error('Wrong password');
             }
