@@ -1,6 +1,7 @@
 var connectionService = require('../services/connection-service');
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');
+const config = require('../config/config');
 
 // add query functions
 module.exports = { getToken: getToken };
@@ -37,5 +38,5 @@ function generateJwt(user) {
         sub: user.id,
         aud: 'io-music',
         email: user.email
-    }, 'shhhhh', { expiresIn: '24h' });
+    }, config.secret, { expiresIn: '7d' });
 }

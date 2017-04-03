@@ -25,7 +25,8 @@ function appConfig(appName, rootPath, port, loggerName, dbURI){
       rootPath: rootPath,
       port: process.env.PORT || 3000,
       logger : { name : "shared-server | (Production)" },
-      postgres: { uri : process.env.DATABASE_URL }
+      postgres: { uri : process.env.DATABASE_URL },
+      secret: process.env.JWT_SECRET_KEY
   }
 }
 logger.debug(allConfigurations[env]);
