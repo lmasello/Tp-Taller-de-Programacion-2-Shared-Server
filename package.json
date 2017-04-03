@@ -41,9 +41,18 @@
     "pg-promise": "^5.6.4",
     "serve-favicon": "~2.3.2",
     "sha1": "^1.1.1",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "angular-jwt": "^0.1.8"
   },
   "devDependencies": {
-    "codecov": "^2.1.0"
+    "codecov": "^2.1.0",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.0",
+    "main-bower-files": "^2.13.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-htmlmin": "^3.0.0",
+    "run-sequence": "^1.1.5",
+    "stream-series": "^0.1.1",
+    "yargs": "^6.3.0"
   }
 }

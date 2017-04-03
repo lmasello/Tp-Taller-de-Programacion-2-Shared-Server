@@ -9,7 +9,6 @@
             templateUrl: '/public/app/login/login.html'
         });
 
-
     function loginCtrl() {
 
     }

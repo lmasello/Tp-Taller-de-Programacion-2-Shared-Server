@@ -10,9 +10,16 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope'];
+	musicCtrl.$inject = ['$scope', 'loginUtils'];
 	
 	function musicCtrl($scope) {
 		var self = this;
+
+		function isLogged() {
+			return true;
+			//return loginUtils.isLogged();
+		}
+
 	}
+
 } ());
