@@ -7,6 +7,8 @@ module.exports = function () {
 	const server = './server/';
 	const client = './client/';
 	const views = `${server }views/`;
+	const scssfolder = `${client }scss/`;
+	const mainscss = `${scssfolder }main.scss`;
 	const build = './build/';
 	const appFolder = `${client}app/`;
 	const assestFolder = `${client}assets/`;
@@ -20,12 +22,14 @@ module.exports = function () {
 		build,
 		server,
 		views,
+		mainscss,
+		scssfolder,
 		images: `${assestFolder}images/`,
 		fonts: `${assestFolder}fonts/`,
 		vendorfolder: `${client}vendor/`,
 		jsOrder: ['**/app.module.js', '**/*.module.js', '**/*.js'],
 		files: {
-			js: [`${client}**/*.js`, `!${client}**/*.templates.js`],
+			js: `${client}**/*.js`,
 			html: `${client}**/*.html`,
 			jade: `${client}**/*.jade`,
 			json: `${client}**/*.json`

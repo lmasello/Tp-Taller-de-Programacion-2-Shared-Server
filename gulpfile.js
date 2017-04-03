@@ -1,9 +1,14 @@
 'use strict';
 const config = require('./gulp.config.js')();
 const gulp = require('gulp');
+const concat = require('gulp-concat');
 const loadPlugins = require('gulp-load-plugins');
+const browserify = require('browserify');
+const vinylSourceStream = require('vinyl-source-stream');
+const vinylBuffer = require('vinyl-buffer');
 const series = require('stream-series');
 const runSequence = require('run-sequence');
+const mainBowerFiles = require('main-bower-files');
 const Gplugins = loadPlugins();
 const argv = require('yargs').argv;
 const env = process.env.NODE_ENV || 'development';
@@ -34,70 +39,39 @@ gulp.task('compile-jade', () => {
 });
 
 
-gulp.task('template-cache', ['compile-jade'], () => {
-
-
-	return gulp.src(`${config.appFolder }**/*.html`)
-		.pipe(Gplugins.angularTemplatecache(config.templateCache.file, config.templateCache.options))
-		.pipe(gulp.dest(config.appFolder));
-});
-
 /**
  * Concat app js files.
  */
-gulp.task('scripts-app', ['template-cache'], () => {
-	log('create app js files');
-
-	const sources = browserify({
-		entries: config.app,
-		// Build source maps
-		debug: !optimize
-	}).transform(babelify.configure({
-		// You can configure babel here!
-		// https://babeljs.io/docs/usage/options/
-		presets: ['es2015']
-	}));
-
-
-	return sources
-		.bundle()
-		.pipe(vinylSourceStream(`${config.projectName}.js`))
-		.pipe(vinylBuffer())
-		.pipe(Gplugins.if(!optimize, Gplugins.sourcemaps.init({
-			loadMaps: true // Load the sourcemaps browserify already generated
-		})))
-		.pipe(Gplugins.ngAnnotate())
-		.pipe(Gplugins.if(optimize, Gplugins.uglify()))
-		.pipe(Gplugins.if(!optimize, Gplugins.sourcemaps.write('./', {
-			includeContent: true
-		})))
-		.pipe(Gplugins.if(optimize, Gplugins.rename({extname: '.min.js'})))
-		.pipe(Gplugins.if(optimize, Gplugins.rev()))
+gulp.task('scripts-app', () => {
+	console.log('create app js files');
+	return gulp
+		.src(config.files.js)
+		.pipe(Gplugins.order(config.jsOrder))
+		.pipe(concat(`${config.projectName }.js`))
+		.pipe(Gplugins.ngAnnotate({add: true, single_quotes: true}))
 		.pipe(gulp.dest(config.build));
 
 });
 
-
-// Lint Javascript
-gulp.task('lint', () =>
-	gulp.src(paths.js)
-		// eslint() attaches the lint output to the "eslint" property
-		// of the file object so it can be used by other modules.
-		.pipe(Gplugins.eslint())
-		// eslint.format() outputs the lint results to the console.
-		// Alternatively use eslint.formatEach() (see Docs).
-		.pipe(Gplugins.eslint.format())
-		// To have the process exit with an error code (1) on
-		// lint error, return the stream and pipe to failAfterError last.
-		.pipe(Gplugins.eslint.failAfterError())
-);
-
+/**
+ * Compiling scss into css.
+ */
+gulp.task('styles-app', () => {
+	console.log('compiling app scss into css');
+	return gulp
+		.src(config.mainscss)
+		.pipe(Gplugins.sass())
+		.pipe(Gplugins.rename(`${config.projectName}.css`))
+		.pipe(Gplugins.if(optimize, Gplugins.csso()))
+		.pipe(Gplugins.if(optimize, Gplugins.rev()))
+		.pipe(gulp.dest(config.build));
+});
 
 /**
  * Concat vendor js files.
  */
 gulp.task('scripts-lib', () => {
-	log('concat vendor js files');
+	console.log('concat vendor js files');
 	return gulp
 		.src(mainBowerFiles('**/*.js'))
 		.pipe(Gplugins.concat(`${config.projectName }-lib.js`))
@@ -109,23 +83,8 @@ gulp.task('scripts-lib', () => {
 });
 
 
-/**
- * Compiling scss into css.
- */
-gulp.task('styles-app', () => {
-	log('compiling app scss into css');
-	return gulp
-		.src(config.mainscss)
-		.pipe(Gplugins.sass())
-		.pipe(Gplugins.rename(`${config.projectName}.css`))
-		.pipe(Gplugins.if(optimize, Gplugins.csso()))
-		.pipe(Gplugins.if(optimize, Gplugins.rev()))
-		.pipe(gulp.dest(config.build));
-});
-
-
 gulp.task('styles-lib', () => {
-	log('concat lib css');
+	console.log('concat lib css');
 	return gulp
 		.src(mainBowerFiles('**/*.css'))
 		.pipe(Gplugins.concat(`${config.projectName }-lib.css`))
@@ -137,21 +96,19 @@ gulp.task('styles-lib', () => {
 
 
 gulp.task('inject', ['build'], () => {
-	log('inject dependencies in layout');
+	console.log('inject dependencies in index');
 	// It's not necessary to read the files (will speed up things), we're only after their paths:
 	const styleLib = gulp.src([`${config.build}*lib*.css`], {read: false});
 	const scriptLib = gulp.src([`${config.build}*lib*.js`], {read: false});
 	const styleApp = gulp.src([`${config.build}*.css`, `!${config.build}*lib*.css`], {read: false});
 	const scriptApp = gulp.src([`${config.build}*.js`, `!${config.build}*lib*.js`], {read: false});
 
-
 	const injectOptions = {
 		//addRootSlash: false,
 		//ignorePath: config.build.replace('./', '').replace('/', ''),
-		addPrefix: 'trips'
 	};
 
-	return gulp.src(`${config.views}layout.jade`)
+	return gulp.src(`${config.views}index.jade`)
 		.pipe(Gplugins.inject(series(styleLib, scriptLib, styleApp, scriptApp), injectOptions))
 		.pipe(gulp.dest(config.views));
 
@@ -213,7 +170,7 @@ gulp.task('fonts', ['iconfont'], () => {
 /**
  * Build!!!!
  */
-gulp.task('build', ['styles-lib', 'styles-app', 'scripts-lib', 'scripts-app', 'images', 'fonts', 'i18n']);
+gulp.task('build', ['styles-lib', 'styles-app', 'scripts-lib', 'scripts-app']);
 
 
 /**

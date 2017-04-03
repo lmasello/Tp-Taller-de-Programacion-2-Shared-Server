@@ -11,15 +11,16 @@ var token = require('./controllers/token-controller');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /client
-//server.use(favicon(path.join(__dirname, 'client', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../client/assets/icon', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 
 app.use('/', user);

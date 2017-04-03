@@ -3,16 +3,16 @@ html(lang='es')
     head
         meta(charset='UTF-8')
         title Music-io
+        link(rel="stylesheet", href="/public/stylesheets/style.css")
+        //- inject:css
+        //- endinject
 
-        link(rel='stylesheet', href='public/stylesheets/style.css')
+body(data-ng-app='Music-io')
+    main
 
-    body(data-ng-app='Music-io')
-        main
+    //- inject:js
+    script(src="/build/music-io-shared-server-lib.js")
+    script(src="/build/music-io-shared-server.js")
+    //- endinject
 
-        script(src='node_modules/angular-jwt/index.js')
-        script(src = 'http://code.angularjs.org/snapshot/angular.js')
-        script(src='public/app/login/login.module.js')
-        script(src='public/app/login/login.component.js')
-        script(src='public/app/music-io.module.js')
-        script(src='public/app/music-io.component.js')
 

@@ -5,6 +5,8 @@ npm-debug.log*
 
 # Ignore node modules
 /node_modules
+/bower_components
+/build
 
 .idea/
 

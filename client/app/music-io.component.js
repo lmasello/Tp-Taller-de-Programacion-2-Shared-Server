@@ -10,7 +10,7 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope', 'loginUtils'];
+	musicCtrl.$inject = ['$scope'];
 	
 	function musicCtrl($scope) {
 		var self = this;
