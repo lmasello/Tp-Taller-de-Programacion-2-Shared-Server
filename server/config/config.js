@@ -29,7 +29,7 @@ var allConfigurations = {
             name : "shared-server | (Development)"
         },
         postgres: {
-            uri : process.env.DATABASE_URL
+            uri : process.env.DATABASE_URL || 'postgres://postgres:123456@localhost:5432/music-io-shared-server_development'
         }
     },
     staging: {

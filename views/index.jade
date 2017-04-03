@@ -1,5 +1,17 @@
-extends layout
+doctype html
+html(lang='es')
+    head
+        meta(charset='UTF-8')
+        title Music-io
 
-block content
-  h1= title
-  p Welcome to #{title}
+        link(rel='stylesheet', href='public/stylesheets/style.css')
+
+    body(data-ng-app='Music-io')
+        main
+
+        script(src = 'http://code.angularjs.org/snapshot/angular.js')
+        script(src='public/app/login/login.module.js')
+        script(src='public/app/login/login.component.js')
+        script(src='public/app/music-io.module.js')
+        script(src='public/app/music-io.component.js')
+

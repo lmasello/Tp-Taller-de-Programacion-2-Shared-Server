@@ -1,0 +1,53 @@
+body{background-color: 	#292323; margin: 2%; text-align: center; font-family: Arial, Helvetica, sans-serif;}
+section {width: 80%; display: inline;font-size: 0}
+section button {
+  width: 50%;
+  background-color: #626262;
+  border: none;
+  color: #E6E6E6;
+  padding: 15px 32px;
+  font-size: 16px;
+}
+section button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+h1 {
+  color: #E6E6E6;
+  font-weight: normal;
+  padding: 20px;
+}
+
+form input {
+  padding: 15px 32px;
+  width: 100%;
+  margin-top: 50px;
+  display: inline;
+  border: 2px solid #626262;
+  background-color: #292323;
+  color: #E6E6E6;
+  font-size: 16px;
+}
+
+form input[type=text] {
+  width: 40%;
+}
+
+form input::placeholder {
+  font-size: 18px;
+}
+
+form input[type=submit] {
+  background-color: #4CAF50;
+  font-size: 32px;
+
+  color: white;
+  border: none;
+}
+
+form input[type=submit]:hover {
+  background-color: #63B566;
+  color: white;
+  border: none;
+}
