@@ -1,6 +1,7 @@
 var connectionService = require('../services/connection-service');
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');
+const config = require('../config/config');
 
 // add query functions
 module.exports = { getToken: getToken };
@@ -11,7 +12,7 @@ module.exports = { getToken: getToken };
 function getToken(user) {
     return findUserByEmail(user.email)
         .then(byEmail => {
-            if (byEmail.password != sha1(user.password)) {
+            if (byEmail.password !== sha1(user.password)) {
                 //this message should not be exposed in the response...
                 throw new Error('Wrong password');
             }
@@ -38,5 +39,5 @@ function generateJwt(user) {
         aud: 'io-music',
         email: user.email,
         first_name: user.first_name
-    }, 'shhhhh', { expiresIn: '24h' });
+    }, config.secret, { expiresIn: '7d' });
 }

@@ -67,6 +67,7 @@
     "vinyl-buffer": "^1.0.0",
     "run-sequence": "^1.1.5",
     "stream-series": "^0.1.1",
-    "yargs": "^6.3.0"
+    "yargs": "^6.3.0",
+    "standard": "^9.0.2"
   }
 }

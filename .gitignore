@@ -11,7 +11,11 @@ npm-debug.log*
 .idea/
 
 # Ignore coverage files
-./coverage/
+/coverage
 
 # Ignore .env file for security reasons
 .env
+
+# Ignore log files
+logFile.log
+npm-debug.log
