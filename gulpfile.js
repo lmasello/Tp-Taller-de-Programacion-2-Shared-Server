@@ -38,6 +38,11 @@ gulp.task('compile-jade', () => {
 		.pipe(gulp.dest(config.appFolder));
 });
 
+gulp.task('watch', function() {
+	gulp.watch([config.files.jade], ['inject']);
+	gulp.watch([config.files.js], ['inject']);
+});
+
 
 /**
  * Concat app js files.
@@ -95,7 +100,7 @@ gulp.task('styles-lib', () => {
 });
 
 
-gulp.task('inject', ['build'], () => {
+gulp.task('inject', ['build', 'compile-jade'], () => {
 	console.log('inject dependencies in index');
 	// It's not necessary to read the files (will speed up things), we're only after their paths:
 	const styleLib = gulp.src([`${config.build}*lib*.css`], {read: false});

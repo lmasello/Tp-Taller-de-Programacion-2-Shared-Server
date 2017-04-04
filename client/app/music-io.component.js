@@ -10,16 +10,27 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope'];
+	musicCtrl.$inject = ['$scope', 'loginUtils'];
 	
-	function musicCtrl($scope) {
+	function musicCtrl($scope, loginUtils) {
 		var self = this;
 
-		function isLogged() {
-			return true;
-			//return loginUtils.isLogged();
-		}
+		this.isLogged = function isLogged() {
+			return loginUtils.isLogged();
+		};
 
+		this.login = function login() {
+			location.href = '/login';
+		};
+
+		this.signUp = function signUp() {
+			location.href = '/signup	';
+		};
+
+		this.logout = function logout() {
+			loginUtils.logout();
+			location.reload();
+		};
 	}
 
 } ());

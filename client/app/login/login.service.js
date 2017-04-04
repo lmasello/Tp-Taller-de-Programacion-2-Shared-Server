@@ -19,8 +19,7 @@
 
         var isLogged = function() {
             var token = this.getToken();
-            return false;
-            //return (token == undefined) ? false : !this.isTokenExpired(token);
+            return (token == undefined) ? false : !this.isTokenExpired(token);
         };
 
         var isTokenExpired = function (token) {

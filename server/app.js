@@ -4,10 +4,6 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('./config/logger/winston.js');
-//controllers
-var user = require('./controllers/user-controller');
-var token = require('./controllers/token-controller');
-
 var app = express();
 
 // view engine setup
@@ -23,8 +19,14 @@ app.use(cookieParser());
 app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 
-app.use('/', user);
-app.use('/', token);
+//Api controllers
+app.use('/', require('./controllers/user-controller'));
+app.use('/', require('./controllers/token-controller'));
+
+//View controller
+app.use('/', require('./controllers/login-controller'));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
