@@ -55,6 +55,9 @@ heroku git:remote -a music-io-shared-server
 git push heroku development:master
 ```
 
+Connect to heroku postgres
+`heroku pg:psql postgresql-rigid-81805 --app music-io-shared-server`
+
 For further information see: https://devcenter.heroku.com/articles/git
 
 ## Logger

@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function findAll() {
-  return connectionService.any('select * from users');
+  return connectionService.any('select email from users');
 }
 
 function findUserById(userId) {
