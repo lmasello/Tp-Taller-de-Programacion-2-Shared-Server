@@ -19,15 +19,14 @@ app.use(cookieParser());
 app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 
-//Api controllers
-app.use('/', require('./controllers/token-controller'));
-app.use('/', require('./controllers/user-controller'));
-
 //View controller
 app.use('/', require('./controllers/home-controller'));
 app.use('/', require('./controllers/login-controller'));
 app.use('/', require('./controllers/signup-controller'));
 
+//Api controllers
+app.use('/', require('./controllers/token-controller'));
+app.use('/', require('./controllers/user-controller'));
 
 
 // catch 404 and forward to error handler
