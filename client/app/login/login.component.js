@@ -17,7 +17,6 @@
         this.submitLogin = function() {
             $http.post('/api/token', self.data)
                 .then(response => {
-                    console.log(response);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },

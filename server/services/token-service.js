@@ -36,6 +36,7 @@ function generateJwt(user) {
         iat: Math.floor(Date.now() / 1000),
         sub: user.id,
         aud: 'io-music',
-        email: user.email
+        email: user.email,
+        first_name: user.first_name
     }, 'shhhhh', { expiresIn: '24h' });
 }

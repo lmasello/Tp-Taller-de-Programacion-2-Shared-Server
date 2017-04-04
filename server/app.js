@@ -24,7 +24,9 @@ app.use('/', require('./controllers/user-controller'));
 app.use('/', require('./controllers/token-controller'));
 
 //View controller
+app.use('/', require('./controllers/home-controller'));
 app.use('/', require('./controllers/login-controller'));
+app.use('/', require('./controllers/signup-controller'));
 
 
 

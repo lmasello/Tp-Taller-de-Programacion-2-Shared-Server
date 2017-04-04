@@ -3,11 +3,6 @@ var router = express.Router();
 var connectionService = require('../services/user-service');
 var logger = require('../config/logger/winston.js');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUserById);
 router.post('/users', createUser);

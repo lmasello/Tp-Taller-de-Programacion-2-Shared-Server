@@ -31,6 +31,10 @@
 			loginUtils.logout();
 			location.reload();
 		};
+
+		this.getFirstName = function getFirstName () {
+			return loginUtils.getFirstName();
+		};
 	}
 
 } ());

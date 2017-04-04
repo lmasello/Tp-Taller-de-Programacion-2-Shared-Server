@@ -45,6 +45,11 @@
             return (token == undefined) ? undefined : jwtHelper.decodeToken(token).jti;
         };
 
+        var getFirstName= function() {
+            var token = this.getToken();
+            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).first_name;
+        };
+
         var logout= function() {
             localStorage.removeItem('id_token');
             localStorage.removeItem('profile');
@@ -57,6 +62,7 @@
             hasRole: hasRole,
             getProfile: getProfile,
             getUserId: getUserId,
+            getFirstName: getFirstName,
             logout: logout,
             isLogged: isLogged
         };

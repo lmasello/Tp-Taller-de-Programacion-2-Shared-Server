@@ -3,7 +3,7 @@ header
     ul
         li Premium
         li Sucursales
-        li(ng-show="$ctrl.isLogged()") Hola Extraño
+        li(ng-show="$ctrl.isLogged()") Hola {{$ctrl.getFirstName()}}
         li(ng-show="$ctrl.isLogged()")
             a(ng-click="$ctrl.logout()") Salir
 
