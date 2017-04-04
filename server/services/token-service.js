@@ -4,7 +4,7 @@ var sha1 = require('sha1');
 const config = require('../config/config');
 
 // add query functions
-module.exports = { getToken: getToken };
+module.exports = { getToken: getToken, generateJwt: generateJwt };
 
 /**
  * Return a new access_token for the user.

@@ -17,5 +17,5 @@ npm-debug.log*
 .env
 
 # Ignore log files
-logFile.log
+logfile.log
 npm-debug.log
