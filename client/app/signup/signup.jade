@@ -2,25 +2,27 @@ header
     img(src='public/assets/images/logo.png')
 
 section
-    form(data-ng-submit="$ctrl.signup()")
-        input(type='first_name',
-        name='first_name'
-        placeholder="First name *",
-        data-ng-model="$ctrl.data.first_name",
-        )
-        input(type='last_name',
-        name='last_name'
-        placeholder="Last name *",
-        data-ng-model="$ctrl.data.last_name",
-        )
-        input(type='email',
-        name='email'
-        placeholder="test@music-io.com",
-        data-ng-model="$ctrl.data.email",
-        )
-        input(type='password',
-        name='password',
-        placeholder="Password",
-        data-ng-model="$ctrl.data.password",
-        required)
-        input(type='submit', value="Login")
+    .music-io-form
+        form(data-ng-submit="$ctrl.signup()")
+            input(type='first_name',
+            name='first_name'
+            placeholder="First name *",
+            data-ng-model="$ctrl.data.first_name",
+            )
+            input(type='last_name',
+            name='last_name'
+            placeholder="Last name *",
+            data-ng-model="$ctrl.data.last_name",
+            )
+            input(type='email',
+            name='email'
+            placeholder="test@music-io.com",
+            data-ng-model="$ctrl.data.email",
+            )
+            input(type='password',
+            name='password',
+            placeholder="Password",
+            data-ng-model="$ctrl.data.password",
+            required)
+            .submit
+                input(ng-click="$ctrl.signup()", value="SIGN UP")
