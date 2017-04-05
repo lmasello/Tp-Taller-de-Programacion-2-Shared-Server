@@ -2,6 +2,12 @@ header
     img(src='public/assets/images/logo.png')
 
 section
+    form(ng-click="$ctrl.facebookLogin()")
+        a.btn-facebook LOG IN WITH FACEBOOK
+
+p Or..
+
+section
     form(data-ng-submit="$ctrl.submitLogin()")
         input(type='email',
         name='email'

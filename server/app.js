@@ -20,9 +20,9 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 
 //View controller
-app.use('/', require('./controllers/home-controller'));
-app.use('/', require('./controllers/login-controller'));
-app.use('/', require('./controllers/signup-controller'));
+app.use('/', require('./controllers/public/home-controller'));
+app.use('/', require('./controllers/public/login-controller'));
+app.use('/', require('./controllers/public/signup-controller'));
 
 //Api controllers
 app.use('/', require('./controllers/api/token-controller'));
