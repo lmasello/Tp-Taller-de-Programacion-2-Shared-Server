@@ -28,7 +28,9 @@ server.listen(port, function () {
 });
 server.on('error', onError);
 server.on('listening', onListening);
-
+exports.closeServer = function(){
+  server.close();
+};
 /**
  * Event listener for HTTP server "error" event.
  */

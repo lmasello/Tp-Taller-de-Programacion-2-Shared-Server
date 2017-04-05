@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var connectionService = require('../services/token-service');
+var connectionService = require('../../services/token-service');
 
 router.post('/tokens', function (req, res, next) {
     var user = req.body;

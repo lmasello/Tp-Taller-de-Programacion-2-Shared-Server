@@ -25,8 +25,8 @@ app.use('/', require('./controllers/login-controller'));
 app.use('/', require('./controllers/signup-controller'));
 
 //Api controllers
-app.use('/', require('./controllers/token-controller'));
-app.use('/', require('./controllers/user-controller'));
+app.use('/', require('./controllers/api/token-controller'));
+app.use('/', require('./controllers/api/user-controller'));
 
 
 // catch 404 and forward to error handler

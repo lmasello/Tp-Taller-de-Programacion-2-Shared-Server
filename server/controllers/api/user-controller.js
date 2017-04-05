@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var connectionService = require('../services/user-service');
-var logger = require('../config/logger/winston.js');
-var config = require('../config/config');
+var connectionService = require('../../services/user-service');
+var logger = require('../../config/logger/winston.js');
+var config = require('../../config/config');
 var jwt = require('jsonwebtoken');
 
 // Except sign up from authentication
