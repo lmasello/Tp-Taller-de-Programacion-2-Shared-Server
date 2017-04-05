@@ -5,11 +5,6 @@ var logger = require('../config/logger/winston.js');
 var config = require('../config/config');
 var jwt = require('jsonwebtoken');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Music IO Shared Server' });
-});
-
 // Except sign up from authentication
 router.post('/users', createUser);
 

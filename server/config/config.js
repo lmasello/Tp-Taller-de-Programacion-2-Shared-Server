@@ -3,7 +3,7 @@ const path = require('path');
 const rootPath = path.join(__dirname, '/../../');
 const appName = 'shared-server';
 const port = process.env.PORT || 3000;
-const dbURI = process.env.DATABASE_URL;
+const dbURI = process.env.DATABASE_URL ||  'postgres://postgres:123456@localhost:5432/music-io-shared-server_development';
 var logger = require('./logger/winston.js');
 /*
  * Load env variables
@@ -21,11 +21,11 @@ var allConfigurations = {
 
 function appConfig(appName, rootPath, port, loggerName, dbURI){
   return {
-      appName: 'shared-server',
+      appName: appName,
       rootPath: rootPath,
-      port: process.env.PORT || 3000,
-      logger : { name : "shared-server | (Production)" },
-      postgres: { uri : process.env.DATABASE_URL },
+      port: port || 3000,
+      logger : { name : loggerName },
+      postgres: { uri : dbURI },
       secret: process.env.JWT_SECRET_KEY
   }
 }

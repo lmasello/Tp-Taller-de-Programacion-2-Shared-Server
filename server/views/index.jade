@@ -1,0 +1,18 @@
+doctype html
+html(lang='es')
+    head
+        meta(charset='UTF-8')
+        title Music-io
+        link(rel="stylesheet", href="/public/stylesheets/style.css")
+        //- inject:css
+        //- endinject
+
+body(data-ng-app='Music-io')
+    main
+
+    //- inject:js
+    script(src="/build/music-io-shared-server-lib.js")
+    script(src="/build/music-io-shared-server.js")
+    //- endinject
+
+

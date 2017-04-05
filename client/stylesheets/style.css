@@ -1,0 +1,91 @@
+body {
+  background-color: black;
+  margin: 0;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+section button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+form input {
+  padding: 15px 32px;
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 5%;
+  display: block;
+  border: 2px solid #626262;
+  background-color: #292323;
+  color: #E6E6E6;
+  font-size: 16px;
+}
+
+
+form input::placeholder {
+  font-size: 18px;
+}
+
+form input[type=submit] {
+  background-color: #4CAF50;
+  font-size: 32px;
+
+  color: white;
+  border: none;
+}
+
+form input[type=submit]:hover {
+  background-color: #63B566;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+header {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  float: right;
+  background-color: rgba(0,0,0,.1);
+  color: rgba(160, 195, 210, 1);
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  position: relative;
+}
+
+header a {
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: rgba(160, 195, 210, 1);
+  line-height: 24px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+header a:hover{
+  text-decoration: none;
+  color: rgba(160, 195, 210, .8);
+}
+
+header ul {
+  float: right;
+}
+header ul li {
+  list-style-type: none;
+  width: 100px;
+  float: left;
+  box-sizing:border-box;
+}
+
+header img {
+  margin-left: 150px;
+  float: left;
+  padding: 16px;
+  width: 130px;
+}
