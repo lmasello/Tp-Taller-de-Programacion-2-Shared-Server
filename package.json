@@ -8,6 +8,7 @@
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
   "main": "server.js",
   "scripts": {
+    "postinstall": "bower install && gulp build",
     "start": "node bin/www.js",
     "test": "istanbul cover --include-all-sources jasmine-node spec/"
   },
@@ -44,10 +45,7 @@
     "pg-promise": "^5.6.4",
     "request": "^2.81.0",
     "serve-favicon": "~2.3.2",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {
-    "codecov": "^2.1.0",
+    "winston": "^2.3.1",
     "bower": "^1.8.0",
     "browserify": "^13.1.1",
     "gulp": "^3.9.1",
@@ -73,5 +71,8 @@
     "stream-series": "^0.1.1",
     "yargs": "^6.3.0",
     "standard": "^9.0.2"
+  },
+  "devDependencies": {
+    "codecov": "^2.1.0"
   }
 }
