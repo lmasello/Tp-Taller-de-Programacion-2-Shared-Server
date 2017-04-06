@@ -83,7 +83,7 @@ gulp.task('scripts-lib', () => {
 		.pipe(Gplugins.if(optimize, Gplugins.uglify()))
 		.pipe(Gplugins.if(optimize, Gplugins.stripDebug()))
 		.pipe(Gplugins.if(optimize, Gplugins.rename({extname: '.min.js'})))
-		.pipe(Gplugins.if(optimize, Gplugins.rev()))
+		//.pipe(Gplugins.if(optimize, Gplugins.rev()))
 		.pipe(gulp.dest(config.build));
 });
 
@@ -209,15 +209,7 @@ gulp.task('clean', () => {
 });
 
 
-gulp.task('release', () => runSequence('clean', 'bundle'));
-
-// gulp serve for development
-gulp.task('default', () => runSequence('clean', 'bundle', 'serve-dev'));
-
-
-gulp.task('serve-dev', () => {
-	serve(true /*isDev*/);
-});
+gulp.task('default', ['build']);
 
 
 /**
