@@ -3,33 +3,14 @@ var router = express.Router();
 var connectionService = require('../../services/user-service');
 var logger = require('../../config/logger/winston.js');
 var config = require('../../config/config');
-var jwt = require('jsonwebtoken');
+var jwtMiddleware = require('../../middlewares/jwtMiddleware');
 
 // Except sign up from authentication
 router.post('/users', createUser);
-
-// route middleware to verify a token
-router.use(function(req, res, next) {
-  var token = req.headers['authorization'];
-  if (token) {
-    jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) {
-        logger.error(err);
-        return res.status(401).json({ success: false, message: 'Failed to authenticate token.' });
-      } else {
-        req.decoded = decoded;
-        logger.debug(decoded);
-        next();
-      }
-    });
-  } else {
-    return res.status(403).send( { success: false, message: 'No token provided.' } );
-  }
-});
-router.get('/users', getAllUsers);
-router.get('/users/:id', getUserById);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', removeUser);
+router.get('/users', jwtMiddleware, getAllUsers);
+router.get('/users/:id', jwtMiddleware, getUserById);
+router.put('/users/:id', jwtMiddleware, updateUser);
+router.delete('/users/:id', jwtMiddleware, removeUser);
 
 function getAllUsers(req, res, next) {
   connectionService.getAllUsers()

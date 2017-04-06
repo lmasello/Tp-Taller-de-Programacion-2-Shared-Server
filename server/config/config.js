@@ -24,7 +24,8 @@ function appConfig(appName, rootPath, port, loggerName, dbURI){
       port: port || 3000,
       logger: { name: loggerName },
       postgres: { uri : dbURI },
-      secret: process.env.JWT_SECRET_KEY
+      secret: process.env.JWT_SECRET_KEY,
+      facebookAppId: process.env.FACEBOOK_APP_ID
   }
 }
 logger.debug(allConfigurations[env]);

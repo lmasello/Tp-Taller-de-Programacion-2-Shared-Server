@@ -1,10 +1,16 @@
 var connectionService = require('../services/connection-service');
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');
+var FB = require('fb');
+
 const config = require('../config/config');
 
 // add query functions
-module.exports = { getToken: getToken, generateJwt: generateJwt };
+module.exports = {
+    getToken: getToken,
+    generateJwt: generateJwt,
+    getSocialToken: getSocialToken,
+};
 
 /**
  * Return a new access_token for the user.
@@ -18,6 +24,32 @@ function getToken(user) {
             }
             return Promise.resolve(generateJwt(byEmail));
         }, error => {throw error});
+}
+
+/**
+ * Return a new access_token for the social user.
+ */
+function getSocialToken(user, callback) {
+    var fb = new FB.Facebook({
+        accessToken: user.accessToken,
+        appId: config.facebookAppId
+    });
+
+    fb.api('me', {fields: 'email,id,age_range,name,first_name,last_name,gender,picture'}, function (res) {
+        if(!res || res.error) {
+            throw new Error('Unexpected error happen while validating access_token');
+        }
+
+        var fbData = {
+            id : res.id,
+            first_name: res.first_name,
+            email : res.email,
+            avatar: res.picture.data.url
+        };
+
+        callback(generateJwt(fbData));
+    });
+
 }
 
 function findUserByEmail(email) {

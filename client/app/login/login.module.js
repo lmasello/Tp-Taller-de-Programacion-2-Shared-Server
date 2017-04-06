@@ -2,12 +2,18 @@
     'use strict';
 
     angular
-        .module('Login', ['angular-jwt'])
-        .config(config);
+        .module('Login', ['angular-jwt', 'facebook'])
 
-    config.$inject = ['$httpProvider'];
+        .config(function(FacebookProvider) {
+            // Setting application id for music-io
+            FacebookProvider.init('444061072611756');
+        })
+        .config(JwtInterceptorConfig);
 
-    function config ($httpProvider, $q) {
+
+    JwtInterceptorConfig.$inject = ['$httpProvider'];
+
+    function JwtInterceptorConfig ($httpProvider, $q) {
         $httpProvider.interceptors.push(function($q) {
             return {
                 request: function(config) {
