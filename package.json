@@ -8,7 +8,6 @@
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
   "main": "server.js",
   "scripts": {
-    "postinstall": "bower install && gulp build",
     "start": "node bin/www.js",
     "test": "istanbul cover --include-all-sources jasmine-node spec/"
   },
