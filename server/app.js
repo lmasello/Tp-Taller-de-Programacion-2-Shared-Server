@@ -40,9 +40,15 @@ app.use(function(req, res, next) {
 // error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    logger.error(err.message);
-    res.status(err.status || 500)
-       .json( { status: 'error', message: err.message } );
+  logger.warn(err.message);
+  if (err.received === 0){
+    return res.status(404)
+              .json( { status: 'error', message: 'Resource not found' } );
+  }
+  else {
+    return res.status(err.status || 500)
+              .json( { status: 'error', message: err.message } );
+  }
 });
 
 module.exports = app;

@@ -19,7 +19,7 @@ function getAllUsers(req, res, next) {
                      res.status(200).json({ users: data });
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -30,7 +30,7 @@ function getUserById(req, res, next) {
                      res.status(200).json({ user: data });
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -42,7 +42,7 @@ function createUser(req, res, next) {
                      res.status(201).json({ user: data});
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -55,7 +55,7 @@ function updateUser(req, res, next) {
                      res.status(204).json(true);
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -66,7 +66,7 @@ function removeUser(req, res, next) {
                      res.status(200).json(response('success', `Removed ${result.rowCount} user`));
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -74,8 +74,4 @@ function response(status, message) {
   return { status: status, message: message };
 }
 
-function error_response(err, res){
-  return res.status(err.status || 500)
-            .json( { status: 'error', message: err.message } );
-}
 module.exports = router;
