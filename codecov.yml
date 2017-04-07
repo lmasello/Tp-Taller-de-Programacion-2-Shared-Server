@@ -1,4 +1,5 @@
 codecov:
+  branch: development
   notify:
     require_ci_to_pass: yes
 
@@ -12,8 +13,17 @@ coverage:
     patch: yes
     changes: no
 
+  ignore: # files and folders for processing
+    - build/*
+    - client/*
+    - server/views/*
+    - server/controllers/public/*
+    - spec/*
+    - gulpfile*
+    - gulp.config*
+
 parsers:
-  lcov:
+  gcov:
     branch_detection:
       conditional: yes
       loop: yes
