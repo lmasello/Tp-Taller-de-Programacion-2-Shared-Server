@@ -8,12 +8,14 @@ var jwtMiddleware = require('../../middlewares/jwtMiddleware');
 // Except sign up from authentication
 router.post('/users', createUser);
 router.get('/users', jwtMiddleware, getAllUsers);
+router.get('/users/me', jwtMiddleware, getUserByToken);
 router.get('/users/:id', jwtMiddleware, getUserById);
+router.put('/users/me', jwtMiddleware, updateUserByToken);
 router.put('/users/:id', jwtMiddleware, updateUser);
 router.delete('/users/:id', jwtMiddleware, removeUser);
 
 function getAllUsers(req, res, next) {
-  connectionService.getAllUsers()
+  connectionService.getAllUsers(req.query.ids)
                    .then(function (data) {
                      logger.info(data);
                      res.status(200).json({ users: data });
@@ -34,6 +36,16 @@ function getUserById(req, res, next) {
                    });
 }
 
+function getUserByToken(req, res, next) {
+  connectionService.getSingleUser(parseInt(req.user.sub))
+                   .then(function (data) {
+                     logger.info(data);
+                     res.status(200).json({ user: data });
+                   })
+                   .catch(function (err) {
+                     error_response(err, res);
+                   });
+}
 
 function createUser(req, res, next) {
   connectionService.createUser(req.body)
@@ -59,6 +71,18 @@ function updateUser(req, res, next) {
                    });
 }
 
+function updateUserByToken(req, res, next) {
+  logger.info(req.body.email);
+  connectionService.updateUser(req.body, req.user.sub)
+                   .then(function (data) {
+                     logger.debug(data);
+                     res.status(204).json(true);
+                   })
+                   .catch(function (err) {
+                     error_response(err, res);
+                   });
+}
+
 function removeUser(req, res, next) {
   connectionService.removeUser(parseInt(req.params.id))
                    .then(function (result) {
@@ -75,7 +99,13 @@ function response(status, message) {
 }
 
 function error_response(err, res){
-  return res.status(err.status || 500)
-            .json( { status: 'error', message: err.message } );
+  if (err.received === 0){
+    return res.status(404)
+              .json( { status: 'error', message: 'Resource not found' } );
+  }
+  else {
+    return res.status(err.status || 400)
+              .json( { status: 'error', message: err.message } );
+  }
 }
 module.exports = router;

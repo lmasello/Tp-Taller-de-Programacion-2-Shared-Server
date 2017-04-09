@@ -6,7 +6,6 @@ router.post('/tokens', function (req, res, next) {
     var user = req.body;
     var email = user.email || undefined;
     var password = user.password || undefined;
-
     if (email != undefined && password != undefined) {
       connectionService.getToken({email : email, password: password})
                        .then(token => {
