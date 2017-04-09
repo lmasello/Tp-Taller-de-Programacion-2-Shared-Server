@@ -6,6 +6,8 @@ var logger = require('../config/logger/winston.js');
 module.exports = {
   getAllUsers: findAll,
   getSingleUser: findUserById,
+  getContacts: findAllContactsFromUser,
+  addContact: addContact,
   createUser: createUser,
   updateUser: updateUser,
   removeUser: removeUser
@@ -13,13 +15,25 @@ module.exports = {
 
 function findAll(ids) {
   if (ids)
-    return connectionService.any('select id, email from users where id in (' + ids + ')');
+    return connectionService.any('SELECT id, email FROM users WHERE id IN (' + ids + ')');
   else
-    return connectionService.any('select id, email from users');
+    return connectionService.any('SELECT id, email FROM users');
+}
+
+function findAllContactsFromUser(id) {
+  return connectionService.any('SELECT friend_id, email ' +
+                               'FROM user_contacts ' +
+                               'INNER JOIN users ON user_contacts.friend_id = users.id ' +
+                               'WHERE user_id = $1 ' +
+                               'UNION ' +
+                               'SELECT user_id, email ' +
+                               'FROM user_contacts ' +
+                               'INNER JOIN users ON user_contacts.user_id = users.id ' +
+                               'WHERE friend_id = $1 ', id);
 }
 
 function findUserById(userId) {
-    return connectionService.one('select * from users where id = $1', userId);
+    return connectionService.one('SELECT * FROM users WHERE id = $1', userId);
 }
 
 function createUser(user) {
@@ -27,6 +41,12 @@ function createUser(user) {
   return connectionService.one('insert into users(email, first_name, last_name, password) ' +
                                'values(${email}, ${first_name}, ${last_name}, ${password}) ' +
                                'RETURNING id, email, first_name, last_name', user);
+}
+
+function addContact(user_id, contact_id) {
+  return connectionService.one('insert into user_contacts(user_id, friend_id) ' +
+                               'values($1, $2) ' +
+                               'RETURNING id, user_id, friend_id', [user_id, contact_id]);
 }
 
 function updateUser(user, id) {

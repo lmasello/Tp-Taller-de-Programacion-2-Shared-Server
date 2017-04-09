@@ -101,6 +101,46 @@ describe('Users Controller', function() {
     });
   });
 
+  describe('GET /users/me/contacts', function() {
+    var base_url = 'http://localhost:3000/users/me/contacts';
+
+    it('returns http status code successful', function(done) {
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(JSON.parse(response.statusCode)).toBe(200);
+        done();
+      });
+    });
+
+    it('returns the user contacts', function(done) {
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+          expect(JSON.parse(response.body)['contacts'][0]['friend_id']).toBe(2);
+          done();
+      });
+    });
+
+    it('returns the contacts as a two way relationship', function(done) {
+      //this user (2) has two relationships (2, 3) and (1, 2)
+      var auth_user = { id: 2, email: 'gguzelj@gmail.com' }
+      var token = tokenService.generateJwt(auth_user);
+      var headers = { 'Authorization': 'Bearer ' + token };
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        var friends = JSON.parse(response.body)['contacts'];
+        expect(friends[0]['friend_id']).toBe(1);
+        expect(friends[1]['friend_id']).toBe(3);
+        expect(friends.length).toBe(2);
+        done();
+      });
+    })
+
+    it('returns http status code unauthorized if there is no token', function(done) {
+      request( { url: base_url }, function(error, response, body) {
+          expect(response.statusCode).toBe(401);
+          done();
+      });
+    });
+  })
+
   describe('PUT /users/me', function() {
     var base_url = 'http://localhost:3000/users/me';
     params = { first_name: 'Lea', last_name: 'M' };
@@ -174,6 +214,32 @@ describe('Users Controller', function() {
       params = { email: 'maselloleandro+1@gmail.com',
                 password: '12345678' };
       request.post({ url: base_url, form: params }, function(error, response, body) {
+        expect(response.statusCode).toBe(400);
+        done();
+      });
+    });
+  });
+  describe('POST /users/me/contacts', function() {
+    var base_url = 'http://localhost:3000/users/me/contacts';
+
+    // TODO Improve this cleanup
+    beforeEach(function(){
+      resource_url = 'http://localhost:3000/users/48';
+      request.delete( { url:resource_url, headers: headers });
+    })
+
+    it('returns http status code created (201)', function(done) {
+      params = { contact_id: 3 };
+      request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
+        console.log(response.body);
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+    });
+
+    it('returns http error if the params are invalid', function(done) {
+      params = { contact_id: 0 };
+      request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
       });

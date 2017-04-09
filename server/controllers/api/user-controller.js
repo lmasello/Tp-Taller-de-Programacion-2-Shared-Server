@@ -10,6 +10,8 @@ router.post('/users', createUser);
 router.get('/users', jwtMiddleware, getAllUsers);
 router.get('/users/me', jwtMiddleware, getUserByToken);
 router.get('/users/:id', jwtMiddleware, getUserById);
+router.get('/users/me/contacts', jwtMiddleware, getContacts);
+router.post('/users/me/contacts', jwtMiddleware, addContact);
 router.put('/users/me', jwtMiddleware, updateUserByToken);
 router.put('/users/:id', jwtMiddleware, updateUser);
 router.delete('/users/:id', jwtMiddleware, removeUser);
@@ -41,6 +43,28 @@ function getUserByToken(req, res, next) {
                    .then(function (data) {
                      logger.info(data);
                      res.status(200).json({ user: data });
+                   })
+                   .catch(function (err) {
+                     error_response(err, res);
+                   });
+}
+
+function getContacts(req, res, next) {
+  connectionService.getContacts(parseInt(req.user.sub))
+                   .then(function (data) {
+                     logger.info(data);
+                     res.status(200).json({ contacts: data });
+                   })
+                   .catch(function (err) {
+                     error_response(err, res);
+                   });
+}
+
+function addContact(req, res, next) {
+  connectionService.addContact(req.user.sub, req.body.contact_id)
+                   .then(function (data) {
+                     logger.info('relationship created');
+                     res.status(201).json({ friendship: data});
                    })
                    .catch(function (err) {
                      error_response(err, res);
