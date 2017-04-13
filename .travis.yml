@@ -1,6 +1,14 @@
 language: node_js
 node_js:
   - "6"
+services:
+  - postgresql
+env:
+  - DB=postgres
+  - DATABASE_TEST_URL=postgres://postgres@localhost:5432/music-io-shared-server_test
+before_script:
+  - psql -c 'create database "music-io-shared-server_test";' -U postgres
+  - psql -d "music-io-shared-server_test" -a -f server/config/db/seed.sql
 script:
   - npm test
   - codecov
