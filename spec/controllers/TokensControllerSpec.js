@@ -1,5 +1,5 @@
-var base_url = 'http://localhost:3000/tokens';
 var request = require('request');
+var base_url = 'http://localhost:3000/tokens';
 
 describe('Tokens Controller', function() {
   describe('POST /tokens', function() {

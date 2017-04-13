@@ -8,10 +8,11 @@ const rootPath = path.join(__dirname, '/../../');
 const appName = 'shared-server';
 const port = process.env.PORT || 3000;
 const dbURI = process.env.DATABASE_URL;
+const db_test_URI = process.env.DATABASE_TEST_URL || dbURI;
 var logger = require('./logger/winston.js');
 
 var allConfigurations = {
-  test: appConfig(appName, rootPath, port, 'shared-server | (Local)', dbURI),
+  test: appConfig(appName, rootPath, port, 'shared-server | (Test)', db_test_URI),
   development: appConfig(appName, rootPath, port, 'shared-server | (Development)', dbURI),
   staging: appConfig(appName, rootPath, port, 'shared-server | (Staging)', dbURI),
   production: appConfig(appName, rootPath, port, 'shared-server | (Production)', dbURI)
