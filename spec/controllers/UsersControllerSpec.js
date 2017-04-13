@@ -18,8 +18,7 @@ describe('Users Controller', function() {
 
     it('returns three resources', function(done) {
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        console.log(JSON.parse(response.body)['users']);
-        expect(JSON.parse(response.body)['users'].length).toBe(3);
+        expect(JSON.parse(response.body).length).toBe(3);
         done();
       });
     });
@@ -35,7 +34,7 @@ describe('Users Controller', function() {
 
       it('returns two resources', function(done) {
         request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body)['users'].length).toBe(2);
+          expect(JSON.parse(response.body).length).toBe(2);
           done();
         });
       });
@@ -88,7 +87,7 @@ describe('Users Controller', function() {
 
     it('returns the correct user', function(done) {
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body)['user']['id']).toBe(1);
+          expect(JSON.parse(response.body)['id']).toBe(1);
           done();
       });
     });
@@ -113,7 +112,7 @@ describe('Users Controller', function() {
 
     it('returns the user contacts', function(done) {
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body)['contacts'][0]['friend_id']).toBe(2);
+          expect(JSON.parse(response.body)[0]['friend_id']).toBe(2);
           done();
       });
     });
@@ -125,7 +124,7 @@ describe('Users Controller', function() {
       var headers = { 'Authorization': 'Bearer ' + token };
 
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        var friends = JSON.parse(response.body)['contacts'];
+        var friends = JSON.parse(response.body);
         expect(friends[0]['friend_id']).toBe(1);
         expect(friends[1]['friend_id']).toBe(3);
         expect(friends.length).toBe(2);

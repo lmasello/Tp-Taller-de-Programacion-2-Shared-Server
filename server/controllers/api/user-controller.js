@@ -20,7 +20,7 @@ function getAllUsers(req, res, next) {
   connectionService.getAllUsers(req.query.ids)
                    .then(function (data) {
                      logger.info(data);
-                     res.status(200).json({ users: data });
+                     res.status(200).json(data);
                    })
                    .catch(function (err) {
                      error_response(err, res);
@@ -31,7 +31,7 @@ function getUserById(req, res, next) {
   connectionService.getSingleUser(parseInt(req.params.id))
                    .then(function (data) {
                      logger.info(data);
-                     res.status(200).json({ user: data });
+                     res.status(200).json(data);
                    })
                    .catch(function (err) {
                      error_response(err, res);
@@ -42,7 +42,7 @@ function getUserByToken(req, res, next) {
   connectionService.getSingleUser(parseInt(req.user.sub))
                    .then(function (data) {
                      logger.info(data);
-                     res.status(200).json({ user: data });
+                     res.status(200).json(data);
                    })
                    .catch(function (err) {
                      error_response(err, res);
@@ -53,7 +53,7 @@ function getContacts(req, res, next) {
   connectionService.getContacts(parseInt(req.user.sub))
                    .then(function (data) {
                      logger.info(data);
-                     res.status(200).json({ contacts: data });
+                     res.status(200).json(data);
                    })
                    .catch(function (err) {
                      error_response(err, res);
