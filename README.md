@@ -77,5 +77,20 @@ messages (error, warn, info and debug) will appear on the console.
 ## Specs
 Execute the this command at the root of the project to run all tests:
 ```
-jasmine
+npm test
+```
+## Database - PostgreSQL
+Create role:
+```
+create role "music-io-shared-server" with createdb login password 'some_password';
+```
+Create databases:
+```
+CREATE DATABASE "music-io-shared-server_development" OWNER "music-io-shared-server";
+CREATE DATABASE "music-io-shared-server_test" OWNER "music-io-shared-server";
+```
+Then, do not forget to add them to your .env file at the root of the project.
+```
+DATABASE_URL=postgres://user:password@localhost:5432/music-io-shared-server_development
+DATABASE_TEST_URL=postgres://user:password@localhost:5432/music-io-shared-server_test
 ```

@@ -11,3 +11,7 @@ jasmine.Runner.prototype.finishCallback = function () {
     server.closeServer();
     done();
 };
+
+beforeEach(function(){
+  process.env.NODE_ENV='test';
+});

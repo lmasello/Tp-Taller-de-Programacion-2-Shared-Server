@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     logger.error(err.message);
-    res.status(err.status || 500)
+    res.status(err.status || 400)
        .json( { status: 'error', message: err.message } );
 });
 
