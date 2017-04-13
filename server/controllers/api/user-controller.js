@@ -23,7 +23,7 @@ function getAllUsers(req, res, next) {
                      res.status(200).json(data);
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -34,7 +34,7 @@ function getUserById(req, res, next) {
                      res.status(200).json(data);
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -78,7 +78,7 @@ function createUser(req, res, next) {
                      res.status(201).json({ user: data});
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -91,7 +91,7 @@ function updateUser(req, res, next) {
                      res.status(204).json(true);
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -114,7 +114,7 @@ function removeUser(req, res, next) {
                      res.status(200).json(response('success', `Removed ${result.rowCount} user`));
                    })
                    .catch(function (err) {
-                     error_response(err, res);
+                     next(err);
                    });
 }
 
@@ -122,14 +122,4 @@ function response(status, message) {
   return { status: status, message: message };
 }
 
-function error_response(err, res){
-  if (err.received === 0){
-    return res.status(404)
-              .json( { status: 'error', message: 'Resource not found' } );
-  }
-  else {
-    return res.status(err.status || 400)
-              .json( { status: 'error', message: err.message } );
-  }
-}
 module.exports = router;

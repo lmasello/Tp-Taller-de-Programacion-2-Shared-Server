@@ -11,5 +11,14 @@ describe('Tokens Controller', function() {
         done();
       });
     });
+
+    it('returns http status code not found (404) if there is no resource for the \
+        given params', function(done) {
+      params = { email: 'maselloleandro+100@gmail.com', password: '12345678' };
+      request.post({ url: base_url, form: params }, function(error, response, body) {
+        expect(response.statusCode).toBe(404);
+        done();
+      });
+    });
   });
 });

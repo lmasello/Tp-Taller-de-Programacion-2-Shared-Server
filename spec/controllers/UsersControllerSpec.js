@@ -59,8 +59,8 @@ describe('Users Controller', function() {
   });
 
   describe('GET /users/{user_id}', function() {
-    var base_url = 'http://localhost:3000/users/1';
     it('returns http status code successful (200)', function(done) {
+      var base_url = 'http://localhost:3000/users/1';
       request( { url:base_url, headers: headers }, function(error, response, body) {
           expect(response.statusCode).toBe(200);
           done();
