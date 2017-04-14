@@ -29,24 +29,16 @@ app.use('/', require('./controllers/api/token-controller'));
 app.use('/', require('./controllers/api/user-controller'));
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    logger.error(err.message);
-    next(err);
-});
-
 // error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   logger.warn(err.message);
-  if (err.received === 0){
+  if (err.received === 0 || err.message === 'Not Found'){
     return res.status(404)
               .json( { status: 'error', message: 'Resource not found' } );
   }
   else {
-    return res.status(err.status || 500)
+    return res.status(err.status || 400)
               .json( { status: 'error', message: err.message } );
   }
 });
