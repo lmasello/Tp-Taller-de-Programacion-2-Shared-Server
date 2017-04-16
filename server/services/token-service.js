@@ -1,4 +1,4 @@
-var connectionService = require('../services/connection-service');
+const orm = require('./../config/orm');
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');
 var FB = require('fb');
@@ -42,7 +42,7 @@ function getSocialToken(user, callback) {
 
         var fbData = {
             id : res.id,
-            first_name: res.first_name,
+            firstName: res.first_name,
             email : res.email,
             avatar: res.picture.data.url
         };
@@ -53,7 +53,7 @@ function getSocialToken(user, callback) {
 }
 
 function findUserByEmail(email) {
-    return connectionService.one('select * from users where email = $1', email);
+  return orm.models.user.findOne( { where: { email: email } });
 }
 
 /**
@@ -70,6 +70,6 @@ function generateJwt(user) {
         sub: user.id,
         aud: 'io-music',
         email: user.email,
-        first_name: user.first_name
+        firstName: user.firstName
     }, config.secret, { expiresIn: '7d' });
 }

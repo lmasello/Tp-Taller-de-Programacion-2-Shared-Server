@@ -4,11 +4,10 @@ node_js:
 services:
   - postgresql
 env:
-  - DB=postgres
-  - DATABASE_TEST_URL=postgres://postgres@localhost:5432/music-io-shared-server_test
+  - DATABASE_TEST_URL=postgres://postgres@localhost:5432/music-io-shared-server_test JWT_SECRET_KEY=shhhh
 before_script:
   - psql -c 'create database "music-io-shared-server_test";' -U postgres
-  - psql -d "music-io-shared-server_test" -a -f server/config/db/seed.sql
+  - node ./script/init_test_env.js
 script:
   - npm test
   - codecov
