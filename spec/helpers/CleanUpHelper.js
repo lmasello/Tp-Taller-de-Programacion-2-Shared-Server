@@ -18,9 +18,6 @@ jasmine.Runner.prototype.finishCallback = function () {
     models.define(db);
     db.sync({ force: true }).then(() => dataCreation.execute(db)).then(() => {
       exports.models = db.models;
-      var user = db.models.user;
-      user.belongsToMany(user, { as: 'Friend', through: 'user_contacts', foreignKey: 'friend_id' });
-      user.belongsToMany(user, { as: 'User', through: 'user_contacts', foreignKey: 'user_id' });
       exports.sequelize = db;
       server.closeServer();
     });

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 exports.getModel = (db) => {
-  return db.define('user', {
+  var User = db.define('user', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -12,7 +12,7 @@ exports.getModel = (db) => {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true
-    },    
+    },
     firstName: {
       type: Sequelize.STRING,
       allowNull: false
@@ -29,4 +29,7 @@ exports.getModel = (db) => {
     // freezeTableName: true,
     underscored: true
   });
+  User.belongsToMany(User, { as: 'Friend', through: 'user_contacts', foreignKey: 'friend_id' });
+  User.belongsToMany(User, { as: 'User', through: 'user_contacts', foreignKey: 'user_id' });
+  return User;
 };
