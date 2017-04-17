@@ -89,7 +89,6 @@ function updateUser(req, res, next) {
   userService.updateUser(req.body, req.params.id)
              .then(function (data) {
                logger.info('User updated');
-               logger.debug(data);
                res.status(204).json(true);
              })
              .catch(function (err) {
@@ -110,6 +109,10 @@ function updateUserByToken(req, res, next) {
 function removeUser(req, res, next) {
   userService.removeUser(parseInt(req.params.id))
              .then(function (result) {
+               if (result === 0) {
+                 var err = new Error('Not Found');
+                 return next(err);
+               }
                logger.info('User removed');
                res.status(200).json(response('success', `Removed ${result} user`));
              })

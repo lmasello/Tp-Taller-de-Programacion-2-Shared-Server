@@ -27,13 +27,14 @@ app.use('/', require('./controllers/public/signup-controller'));
 //Api controllers
 app.use('/', require('./controllers/api/token-controller'));
 app.use('/', require('./controllers/api/user-controller'));
+app.use('/', require('./controllers/api/songs-controller'));
 
 
 // error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   logger.warn(err.message);
-  if (err.received === 0 || err.message === 'Not Found'){
+  if (err.received === 0 || err.message === 'Not Found' || err.message === 'Cannot read property \'length\' of null'){
     return res.status(404)
               .json( { status: 'error', message: 'Resource not found' } );
   }

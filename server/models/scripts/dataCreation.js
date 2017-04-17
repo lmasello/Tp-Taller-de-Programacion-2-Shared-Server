@@ -18,5 +18,14 @@ exports.execute = (db) => {
     email: 'email3@gmail.com',
     password: sha1('12345678')
   });
+  db.models.song.create({
+    name: 'Goldberg Variations'
+  });
+  db.models.song.create({
+    name: 'Piano Sonata N.29'
+  });
+  db.models.song.create({
+    name: 'Symphony in C: Moderato alla breve'
+  });
   return Promise.resolve();
 };

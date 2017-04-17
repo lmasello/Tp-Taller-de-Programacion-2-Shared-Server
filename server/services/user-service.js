@@ -57,7 +57,7 @@ function addContact(user_id, friend_id) {
 function updateUser(user, id) {
   if (user.password)
     user.password = sha1(user.password);
-  return orm.models.user.update(user, { where: { id: id } });
+  return orm.models.user.update(user, { where: { id: id }, returning: true, plain: true });
 }
 
 function removeUser(userId) {

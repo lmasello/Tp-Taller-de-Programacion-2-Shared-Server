@@ -1,3 +1,4 @@
+require('dotenv').load();
 const Sequelize = require('sequelize'),
   models = require('./../server/models/models'),
   dataCreation = require('./../server/models/scripts/dataCreation'),
