@@ -8,7 +8,10 @@ module.exports = {
   getAllSongs: getAllSongs,
   getSongById: getSongById,
   updateSong: updateSong,
-  removeSong: removeSong
+  removeSong: removeSong,
+  rankSong: rankSong,
+  likeSong: likeSong,
+  dislikeSong: dislikeSong
 };
 
 function createSong(song) {
@@ -38,4 +41,22 @@ function updateSong(song, id) {
 
 function removeSong(songId) {
   return orm.models.song.destroy( { where: { id: songId }, returning: true, plain: true } );
+}
+
+function rankSong(songId, userId, values) {
+  return orm.models.song.findById(songId).then(function(song) {
+    return song.addUser(userId, { ranking: values.ranking });
+  });
+}
+
+function likeSong(songId, userId) {
+  return orm.models.song.findById(songId).then(function(song) {
+    return song.addUser(userId, { liked: true });
+  });
+}
+
+function dislikeSong(songId, userId) {
+  return orm.models.song.findById(songId).then(function(song) {
+    return song.addUser(userId, { liked: false });
+  });
 }

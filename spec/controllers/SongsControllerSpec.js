@@ -163,4 +163,102 @@ describe('Tracks Controller', function() {
       });
     });
   });
+
+  describe('POST /tracks/{track_id}/popularity', function() {
+    logger.info('Testing POST /tracks/{track_id}/popularity');
+    var base_url = 'http://localhost:3000/tracks/2/popularity';
+
+    it('returns http status code Created 204', function(done) {
+      params = { ranking: 5 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns 204 if everything is alright');
+      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+        expect(response.statusCode).toBe(204);
+        done();
+      });
+    });
+
+    it('returns the relation with the right value', function(done) {
+      params = { ranking: 5 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns the relation with the right value');
+      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+          expect(user_song.ranking).toBe(5)
+          done();
+        });
+      });
+    });
+
+    it('returns http status code bad request if the ranking is more than five', function(done) {
+      params = { ranking: 6 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the ranking is more than five');
+      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+        expect(response.statusCode).toBe(400);
+        done();
+      });
+    });
+
+    it('returns http status code bad request if the ranking is less than one', function(done) {
+      params = { ranking: 0 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the ranking is less than one');
+      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+        expect(response.statusCode).toBe(400);
+        done();
+      });
+    });
+
+    it('returns http status code unauthorized if there is no token', function(done) {
+      params = { ranking: 5 };
+      logger.info('Testing PUT /tracks/{track_id} - returns 401 if there is no token');
+      request.post( { url: base_url, form: params }, function(error, response, body) {
+          expect(response.statusCode).toBe(401);
+          done();
+      });
+    });
+  })
+
+  describe('POST /tracks/{track_id}/like', function() {
+    logger.info('Testing POST /tracks/{track_id}/like');
+    var base_url = 'http://localhost:3000/tracks/2/like';
+
+    it('returns http status code Created 204', function(done) {
+      logger.info('Testing POST /tracks/{track_id}/like - returns 204 if everything is alright');
+      request.post( { url: base_url, headers: headers }, function(error, response, body) {
+        expect(response.statusCode).toBe(204);
+        done();
+      });
+    });
+
+    it('sets the user song liked', function(done) {
+      logger.info('Testing POST /tracks/{track_id}/like - sets the user song liked');
+      request.post( { url: base_url, headers: headers }, function(error, response, body) {
+        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+          expect(user_song.liked).toBe(true)
+          done();
+        });
+      });
+    });
+  })
+
+  describe('DELETE /tracks/{track_id}/like', function() {
+    logger.info('Testing DELETE /tracks/{track_id}/like');
+    var base_url = 'http://localhost:3000/tracks/2/like';
+
+    it('returns http status code Created 204', function(done) {
+      logger.info('Testing DELETE /tracks/{track_id}/like - returns 204 if everything is alright');
+      request.delete( { url: base_url, headers: headers }, function(error, response, body) {
+        expect(response.statusCode).toBe(204);
+        done();
+      });
+    });
+
+    it('sets the user song liked', function(done) {
+      logger.info('Testing DELETE /tracks/{track_id}/like - sets the user song disliked');
+      request.delete( { url: base_url, headers: headers }, function(error, response, body) {
+        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+          expect(user_song.liked).toBe(false)
+          done();
+        });
+      });
+    });
+  })
 });

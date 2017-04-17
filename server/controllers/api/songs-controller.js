@@ -10,6 +10,9 @@ router.get('/tracks', jwtMiddleware, getAllSongs);
 router.get('/tracks/:id', jwtMiddleware, getSongById);
 router.put('/tracks/:id', jwtMiddleware, updateSong);
 router.delete('/tracks/:id', jwtMiddleware, removeSong);
+router.post('/tracks/:id/popularity', jwtMiddleware, rankSong);
+router.post('/tracks/:id/like', jwtMiddleware, likeSong);
+router.delete('/tracks/:id/like', jwtMiddleware, dislikeSong);
 
 function createSong(req, res, next) {
   songsService.createSong(req.body)
@@ -66,6 +69,39 @@ function removeSong(req, res, next) {
                 }
                 logger.info('Song removed');
                 res.status(200).json(response('success', `Removed ${result} user`));
+              })
+              .catch(function (err) {
+                next(err);
+              });
+}
+
+function rankSong(req, res, next) {
+  songsService.rankSong(parseInt(req.params.id), parseInt(req.user.sub), req.body)
+              .then(function (data) {
+                logger.info('Song ranked');
+                res.status(204).json(true);
+              })
+              .catch(function (err) {
+                next(err);
+              });
+}
+
+function likeSong(req, res, next) {
+  songsService.likeSong(parseInt(req.params.id), parseInt(req.user.sub))
+              .then(function (data) {
+                logger.info('UserSong updated');
+                res.status(204).json(true);
+              })
+              .catch(function (err) {
+                next(err);
+              });
+}
+
+function dislikeSong(req, res, next) {
+  songsService.dislikeSong(parseInt(req.params.id), parseInt(req.user.sub))
+              .then(function (data) {
+                logger.info('UserSong updated');
+                res.status(204).json(true);
               })
               .catch(function (err) {
                 next(err);
