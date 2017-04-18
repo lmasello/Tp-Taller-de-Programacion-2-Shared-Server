@@ -36,11 +36,11 @@ app.use(function(err, req, res, next) {
   logger.warn(err.message);
   if (err.received === 0 || err.message === 'Not Found' || err.message === 'Cannot read property \'length\' of null'){
     return res.status(404)
-              .json( { status: 'error', message: 'Resource not found' } );
+              .json( { code: 0, message: 'Resource not found' } );
   }
   else {
-    return res.status(err.status || 400)
-              .json( { status: 'error', message: err.message } );
+    return res.status(err.status || 500)
+              .json( { code: 0, message: err.message } );
   }
 });
 

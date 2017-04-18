@@ -4,7 +4,7 @@ var tokenService = require('../../server/services/token-service.js');
 var orm = require('./../../server/config/orm');
 
 describe('Tracks Controller', function() {
-  var auth_user = { id: 1, email: 'email1@gmail.com' }
+  var auth_user = { id: 1, userName: 'user1' }
   var token = tokenService.generateJwt(auth_user);
   var headers = { 'Authorization': 'Bearer ' + token };
 
@@ -15,7 +15,8 @@ describe('Tracks Controller', function() {
     it('returns three resources', function(done) {
       logger.info('Testing GET /tracks - returns three resources');
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        expect(JSON.parse(response.body).length).toBe(3);
+        console.log(response.body);
+        expect(JSON.parse(response.body).tracks.length).toBe(3);
         done();
       });
     });
@@ -45,7 +46,7 @@ describe('Tracks Controller', function() {
         logger.info('Testing GET /tracks?ids=1,2 - returns two resources');
 
         request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).length).toBe(2);
+          expect(JSON.parse(response.body).tracks.length).toBe(2);
           done();
         });
       });
@@ -79,7 +80,7 @@ describe('Tracks Controller', function() {
 
       var base_url = 'http://localhost:3000/tracks/1';
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).name).toBe('Goldberg Variations');
+          expect(JSON.parse(response.body).track.name).toBe('Goldberg Variations');
           done();
       });
     });
@@ -134,7 +135,7 @@ describe('Tracks Controller', function() {
         logger.info('Testing DELETE /tracks/{track_id} - Deletes the song');
         var songs = 'http://localhost:3000/tracks';
         request( { url: songs, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).length).toBe(2);
+          expect(JSON.parse(response.body).tracks.length).toBe(2);
           done();
         });
       });

@@ -18,7 +18,7 @@ router.post('/users', createUser);
 function getAllUsers(req, res, next) {
   userService.getAllUsers(req.query.ids)
              .then(function (data) {
-               res.status(200).json(data);
+               res.status(200).json({ users: data });
              })
              .catch(function (err) {
                next(err);
@@ -32,7 +32,7 @@ function getUserById(req, res, next) {
                  var err = new Error('Not Found');
                  return next(err);
                }
-               res.status(200).json(data);
+               res.status(200).json({ user: data });
              })
              .catch(function (err) {
                next(err);
@@ -46,7 +46,7 @@ function getUserByToken(req, res, next) {
                  var err = new Error('Not Found');
                  return next(err);
                }
-               res.status(200).json(data);
+               res.status(200).json({ user: data });
              })
              .catch(function (err) {
                next(err);
@@ -56,7 +56,7 @@ function getUserByToken(req, res, next) {
 function getContacts(req, res, next) {
   userService.getContacts(parseInt(req.user.sub))
              .then(function (data) {
-               res.status(200).json(data);
+               res.status(200).json({ contacts: data });
              })
              .catch(function (err) {
                next(err);
@@ -70,6 +70,8 @@ function addContact(req, res, next) {
                res.status(201).json(true);
              })
              .catch(function (err) {
+               var err = new Error(err.message);
+               err.status = 400;
                next(err);
              });
 }
@@ -81,6 +83,8 @@ function createUser(req, res, next) {
                res.status(201).json({ user: data});
              })
              .catch(function (err) {
+               var err = new Error(err.message);
+               err.status = 400;
                next(err);
              });
 }
@@ -92,6 +96,8 @@ function updateUser(req, res, next) {
                res.status(204).json(true);
              })
              .catch(function (err) {
+               var err = new Error(err.message);
+               err.status = 400;
                next(err);
              });
 }
@@ -102,6 +108,8 @@ function updateUserByToken(req, res, next) {
                res.status(204).json(true);
              })
              .catch(function (err) {
+               var err = new Error(err.message);
+               err.status = 400;
                next(err);
              });
 }
@@ -114,7 +122,7 @@ function removeUser(req, res, next) {
                  return next(err);
                }
                logger.info('User removed');
-               res.status(200).json(response('success', `Removed ${result} user`));
+               res.status(204).json(true);
              })
              .catch(function (err) {
                next(err);
