@@ -7,7 +7,9 @@ exports.execute = (db) => {
     email: 'email1@gmail.com',
     birthdate: '1990/01/01',
     country: 'Spain',
-    password: sha1('12345678')
+    password: sha1('12345678'),
+    fb: null,
+    images: []
   });
   db.models.user.create({
     userName: 'user2',
@@ -16,7 +18,9 @@ exports.execute = (db) => {
     email: 'email2@gmail.com',
     birthdate: '1991/04/21',
     country: 'Argentine',
-    password: sha1('12345678')
+    password: sha1('12345678'),
+    fb: null,
+    images: []
   });
   db.models.user.create({
     userName: 'user3',
@@ -25,16 +29,21 @@ exports.execute = (db) => {
     email: 'email3@gmail.com',
     birthdate: '1995/09/08',
     country: 'Italy',
-    password: sha1('12345678')
+    password: sha1('12345678'),
+    fb: null,
+    images: []
   });
   db.models.song.create({
-    name: 'Goldberg Variations'
+    name: 'Goldberg Variations',
+    duration: '390000'
   });
   db.models.song.create({
-    name: 'Piano Sonata N.29'
+    name: 'Piano Sonata N.29',
+    duration: '390000'
   });
   db.models.song.create({
-    name: 'Symphony in C: Moderato alla breve'
+    name: 'Symphony in C: Moderato alla breve',
+    duration: '390000'
   });
   return Promise.resolve();
 };

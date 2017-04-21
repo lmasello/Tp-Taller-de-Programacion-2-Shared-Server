@@ -55,7 +55,7 @@ function updateSong(req, res, next) {
   songsService.updateSong(req.body, req.params.id)
               .then(function (data) {
                 logger.info('Track updated');
-                res.status(204).json(true);
+                res.status(200).json(data[1].dataValues);
               })
               .catch(function (err) {
                 var err = new Error(err.message);
@@ -72,7 +72,7 @@ function removeSong(req, res, next) {
                   return next(err);
                 }
                 logger.info('Song removed');
-                res.status(200).json(response('success', `Removed ${result} user`));
+                res.status(204).json(true);
               })
               .catch(function (err) {
                 next(err);
@@ -125,7 +125,7 @@ function dislikeSong(req, res, next) {
               })
               .catch(function (err) {
                 var err = new Error(err.message);
-                err.status = 400;                
+                err.status = 400;
                 next(err);
               });
 }

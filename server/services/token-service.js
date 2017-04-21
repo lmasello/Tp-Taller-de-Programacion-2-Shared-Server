@@ -43,6 +43,7 @@ function getSocialToken(user, callback) {
         var fbData = {
             id : res.id,
             firstName: res.first_name,
+            lastName: res.last_name,
             email : res.email,
             avatar: res.picture.data.url
         };
@@ -69,7 +70,7 @@ function generateJwt(user) {
         iat: Math.floor(Date.now() / 1000),
         sub: user.id,
         aud: 'io-music',
-        userName: user.userName,
-        firstName: user.firstName
+        firstName: user.firstName,
+        lastName: user.lastName
     }, config.secret, { expiresIn: '7d' });
 }

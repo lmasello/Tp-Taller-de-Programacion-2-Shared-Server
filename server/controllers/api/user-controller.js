@@ -92,8 +92,12 @@ function createUser(req, res, next) {
 function updateUser(req, res, next) {
   userService.updateUser(req.body, req.params.id)
              .then(function (data) {
-               logger.info('User updated');
-               res.status(204).json(true);
+               if (!data) {
+                 var err = new Error('Not Found');
+                 return next(err);
+               }
+               logger.info('User updated. Changed: ' + data[1]._changed);
+               res.status(200).json(data[1].dataValues);
              })
              .catch(function (err) {
                var err = new Error(err.message);
@@ -105,7 +109,8 @@ function updateUser(req, res, next) {
 function updateUserByToken(req, res, next) {
   userService.updateUser(req.body, req.user.sub)
              .then(function (data) {
-               res.status(204).json(true);
+               logger.info('User updated.');
+               res.status(200).json(data[1].dataValues);
              })
              .catch(function (err) {
                var err = new Error(err.message);

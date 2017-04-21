@@ -37,6 +37,14 @@ exports.getModel = (db) => {
     birthdate: {
       type: Sequelize.DATE,
       allowNull: false
+    },
+    images: {
+      type: Sequelize.ARRAY(Sequelize.BLOB),
+      allowNull: true
+    },
+    fb: {
+      type: Sequelize.JSON,
+      allowNull: true
     }
   }, {
     // freezeTableName: true,

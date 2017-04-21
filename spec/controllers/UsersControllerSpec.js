@@ -196,10 +196,10 @@ describe('Users Controller', function() {
     var base_url = 'http://localhost:3000/users/me';
     params = { firstName: 'Lea', lastName: 'M' };
 
-    it('returns http status code No Content (204)', function(done) {
-      logger.info('Testing PUT /users/me - returns 204 if everything is alright');
+    it('returns http status code No Content (200)', function(done) {
+      logger.info('Testing PUT /users/me - returns 200 if everything is alright');
       request.put( { url:base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(204);
+          expect(response.statusCode).toBe(200);
           done();
       });
     });
@@ -211,15 +211,6 @@ describe('Users Controller', function() {
           done();
       });
     });
-
-    it('returns http status code bad request if there is a wrong param', function(done) {
-      logger.info('Testing PUT /users/me - returns 400 if there is a wrong param');
-      params = { firstName: null };
-      request.put( { url:base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(400);
-          done();
-      });
-    });
   })
 
   describe('PUT /users/{userId}', function() {
@@ -227,10 +218,10 @@ describe('Users Controller', function() {
     var base_url = 'http://localhost:3000/users/2';
     params = { firstName: 'G', password: '1234567890' };
 
-    it('returns http status code No Content (204)', function(done) {
-      logger.info('Testing PUT /users/{userId} - returns 204 if everything is alright');
+    it('returns http status code No Content (200)', function(done) {
+      logger.info('Testing PUT /users/{userId} - returns 200 if everything is alright');
       request.put( { url: base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(204);
+          expect(response.statusCode).toBe(200);
           done();
       });
     });

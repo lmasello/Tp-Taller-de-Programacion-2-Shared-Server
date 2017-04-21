@@ -80,7 +80,7 @@ describe('Tracks Controller', function() {
 
       var base_url = 'http://localhost:3000/tracks/1';
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).track.name).toBe('Goldberg Variations');
+          expect(JSON.parse(response.body).track.id).toBe(1);
           done();
       });
     });
@@ -101,10 +101,10 @@ describe('Tracks Controller', function() {
     var base_url = 'http://localhost:3000/tracks/2';
     params = { name: 'Concerto in C minor' };
 
-    it('returns http status code No Content (204)', function(done) {
-      logger.info('Testing PUT /tracks/{track_id} - returns 204 if everything is alright');
+    it('returns http status code No Content (200)', function(done) {
+      logger.info('Testing PUT /tracks/{track_id} - returns 200 if everything is alright');
       request.put( { url: base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(204);
+          expect(response.statusCode).toBe(200);
           done();
       });
     });
@@ -116,16 +116,25 @@ describe('Tracks Controller', function() {
           done();
       });
     });
+
+    it('returns http status code not found if there is no user', function(done) {
+      logger.info('Testing PUT /tracks/{track_id} - returns 404 if there is no user');
+      var wrong_url = 'http://localhost:3000/tracks/100000';
+      request.put( { url: wrong_url, headers: headers, form: params }, function(error, response, body) {
+          expect(response.statusCode).toBe(404);
+          done();
+      });
+    });
   })
 
   describe('DELETE /tracks/{track_id}', function() {
     logger.info('Testing DELETE /tracks/{track_id}');
     var base_url = 'http://localhost:3000/tracks/3';
 
-    it('returns http status code successful (200)', function(done) {
-      logger.info('Testing DELETE /tracks/{track_id} - Returns 200 if everything is alright');
+    it('returns http status code successful (204)', function(done) {
+      logger.info('Testing DELETE /tracks/{track_id} - Returns 204 if everything is alright');
       request.delete( { url: base_url, headers: headers }, function(error, response, body){
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(204);
         done();
       });
     });
@@ -147,7 +156,7 @@ describe('Tracks Controller', function() {
     logger.info('Testing POST /tracks');
 
     it('returns http status code created (201)', function(done) {
-      params = { name: 'Viva la vida' };
+      params = { name: 'Viva la vida', duration: '4000000' };
       logger.info('Testing POST /tracks - Returns 201');
       request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(201);
@@ -170,7 +179,7 @@ describe('Tracks Controller', function() {
     var base_url = 'http://localhost:3000/tracks/2/popularity';
 
     it('returns http status code Created 204', function(done) {
-      params = { ranking: 5 };
+      params = { rate: 5 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns 204 if everything is alright');
       request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(204);
@@ -179,28 +188,28 @@ describe('Tracks Controller', function() {
     });
 
     it('returns the relation with the right value', function(done) {
-      params = { ranking: 5 };
+      params = { rate: 5 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns the relation with the right value');
       request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
         return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
-          expect(user_song.ranking).toBe(5)
+          expect(user_song.rate).toBe(5)
           done();
         });
       });
     });
 
-    it('returns http status code bad request if the ranking is more than five', function(done) {
-      params = { ranking: 6 };
-      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the ranking is more than five');
+    it('returns http status code bad request if the rate is more than five', function(done) {
+      params = { rate: 6 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the rate is more than five');
       request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
       });
     });
 
-    it('returns http status code bad request if the ranking is less than one', function(done) {
-      params = { ranking: 0 };
-      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the ranking is less than one');
+    it('returns http status code bad request if the rate is less than one', function(done) {
+      params = { rate: 0 };
+      logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the rate is less than one');
       request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
@@ -208,7 +217,7 @@ describe('Tracks Controller', function() {
     });
 
     it('returns http status code unauthorized if there is no token', function(done) {
-      params = { ranking: 5 };
+      params = { rate: 5 };
       logger.info('Testing PUT /tracks/{track_id} - returns 401 if there is no token');
       request.post( { url: base_url, form: params }, function(error, response, body) {
           expect(response.statusCode).toBe(401);
