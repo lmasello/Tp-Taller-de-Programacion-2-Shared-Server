@@ -96,7 +96,7 @@ function updateUser(req, res, next) {
                  var err = new Error('Not Found');
                  return next(err);
                }
-               logger.info('User updated. Changed: ' + data[1]._changed);
+               logger.info('User updated');
                res.status(200).json(data[1].dataValues);
              })
              .catch(function (err) {

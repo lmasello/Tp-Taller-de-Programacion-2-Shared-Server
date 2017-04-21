@@ -28,6 +28,7 @@ app.use('/', require('./controllers/public/signup-controller'));
 app.use('/', require('./controllers/api/token-controller'));
 app.use('/', require('./controllers/api/user-controller'));
 app.use('/', require('./controllers/api/songs-controller'));
+app.use('/', require('./controllers/api/artists-controller'));
 
 
 // error handler

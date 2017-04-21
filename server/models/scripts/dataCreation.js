@@ -45,5 +45,15 @@ exports.execute = (db) => {
     name: 'Symphony in C: Moderato alla breve',
     duration: '390000'
   });
+  db.models.artist.create({
+    name: 'Antonio Vivaldi',
+    description: 'One of the best artist ever',
+    genres: ['Classical', 'Instrumental']
+  });
+  db.models.artist.create({
+    name: 'Ludwig Van Beethoven',
+    description: 'German composer and pianist.',
+    genres: ['Classical', 'Instrumental']
+  });
   return Promise.resolve();
 };

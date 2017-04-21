@@ -18,11 +18,13 @@ function findAll(ids) {
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.user.findAll({
       attributes: ['id', 'userName', 'email'],
-      where: { id: { $in: ids } }
+      where: { id: { $in: ids } },
+      order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.user.findAll({
-      attributes: ['id', 'userName', 'email']
+      attributes: ['id', 'userName', 'email'],
+      order: [ ['id', 'ASC'] ]
     });
 }
 
