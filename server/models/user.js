@@ -41,10 +41,6 @@ exports.getModel = (db) => {
     images: {
       type: Sequelize.ARRAY(Sequelize.BLOB),
       allowNull: true
-    },
-    fb: {
-      type: Sequelize.JSON,
-      allowNull: true
     }
   }, {
     // freezeTableName: true,
