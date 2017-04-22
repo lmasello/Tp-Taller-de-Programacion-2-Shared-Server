@@ -17,7 +17,6 @@ module.exports = {
 function createSong(song_params) {
   return orm.models.song.create(song_params).then(function(song) {
     var artists = JSON.parse(song_params.artists);
-    debugger;
     for (var artistIndex = 0, len = artists.length; artistIndex < len; artistIndex++) {
       artistId = artists[artistIndex];
       song.addArtist(artistId);

@@ -15,6 +15,7 @@ router.put('/artists/:id', jwtMiddleware, updateArtist);
 router.delete('/artists/:id', jwtMiddleware, removeArtist);
 
 function createArtist(req, res, next) {
+  req.body.genres = JSON.parse(req.body.genres);
   artistsService.createArtist(req.body)
               .then(function (data) {
                 logger.info('Artist created');
@@ -44,7 +45,7 @@ function unfollowArtist(req, res, next) {
                 if (!data) {
                   var err = new Error('Not Found');
                   return next(err);
-                }                
+                }
                 logger.info('Artist unfollowed');
                 res.status(204).json(true);
               })
@@ -121,10 +122,6 @@ function removeArtist(req, res, next) {
               .catch(function (err) {
                 next(err);
               });
-}
-
-function response(status, message) {
-  return { status: status, message: message };
 }
 
 module.exports = router;

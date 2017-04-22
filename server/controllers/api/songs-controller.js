@@ -18,7 +18,7 @@ function createSong(req, res, next) {
   songsService.createSong(req.body)
               .then(function (data) {
                 logger.info('Song created');
-                res.status(201).json({ track: data});
+                res.status(201).json({ track: data });
               })
               .catch(function (err) {
                 var err = new Error(err.message);
@@ -128,10 +128,6 @@ function dislikeSong(req, res, next) {
                 err.status = 400;
                 next(err);
               });
-}
-
-function response(status, message) {
-  return { status: status, message: message };
 }
 
 module.exports = router;
