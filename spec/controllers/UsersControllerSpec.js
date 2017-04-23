@@ -4,7 +4,7 @@ var tokenService = require('../../server/services/token-service.js');
 var orm = require('./../../server/config/orm');
 
 describe('Users Controller', function() {
-  var auth_user = { id: 1, email: 'email1@gmail.com' }
+  var auth_user = { id: 1, userName: 'user1' }
   var token = tokenService.generateJwt(auth_user);
   var headers = { 'Authorization': 'Bearer ' + token };
 
@@ -15,7 +15,7 @@ describe('Users Controller', function() {
     it('returns three resources', function(done) {
       logger.info('Testing GET /users - returns three resources');
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        expect(JSON.parse(response.body).length).toBe(3);
+        expect(JSON.parse(response.body).users.length).toBe(3);
         done();
       });
     });
@@ -45,7 +45,7 @@ describe('Users Controller', function() {
         logger.info('Testing GET /users?ids=1,2 - returns two resources');
 
         request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).length).toBe(2);
+          expect(JSON.parse(response.body).users.length).toBe(2);
           done();
         });
       });
@@ -110,7 +110,7 @@ describe('Users Controller', function() {
     it('returns the correct user', function(done) {
       logger.info('Testing GET /users/me - Returns the right user');
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body)['id']).toBe(1);
+          expect(JSON.parse(response.body).user['id']).toBe(1);
           done();
       });
     });
@@ -163,19 +163,19 @@ describe('Users Controller', function() {
     it('returns the user contacts', function(done) {
       logger.info('Testing GET /users/me/contacts - returns the friends of the user');
       request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body)[0]['friend_id']).toBe(3);
+          expect(JSON.parse(response.body).contacts[0]['friend_id']).toBe(3);
           done();
       });
     });
 
     it('returns the contacts as a two way relationship', function(done) {
       logger.info('Testing GET /users/me/contacts - returns the friends of the user in the other way');
-      var auth_user = { id: 3, email: 'email3@gmail.com' }
+      var auth_user = { id: 3, userName: 'user3' }
       var token = tokenService.generateJwt(auth_user);
       var headers = { 'Authorization': 'Bearer ' + token };
 
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        var friends = JSON.parse(response.body);
+        var friends = JSON.parse(response.body).contacts;
         expect(friends[0]['friend_id']).toBe(1);
         expect(friends.length).toBe(1);
         done();
@@ -196,10 +196,10 @@ describe('Users Controller', function() {
     var base_url = 'http://localhost:3000/users/me';
     params = { firstName: 'Lea', lastName: 'M' };
 
-    it('returns http status code No Content (204)', function(done) {
-      logger.info('Testing PUT /users/me - returns 204 if everything is alright');
+    it('returns http status code No Content (200)', function(done) {
+      logger.info('Testing PUT /users/me - returns 200 if everything is alright');
       request.put( { url:base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(204);
+          expect(response.statusCode).toBe(200);
           done();
       });
     });
@@ -218,10 +218,10 @@ describe('Users Controller', function() {
     var base_url = 'http://localhost:3000/users/2';
     params = { firstName: 'G', password: '1234567890' };
 
-    it('returns http status code No Content (204)', function(done) {
-      logger.info('Testing PUT /users/{userId} - returns 204 if everything is alright');
+    it('returns http status code No Content (200)', function(done) {
+      logger.info('Testing PUT /users/{userId} - returns 200 if everything is alright');
       request.put( { url: base_url, headers: headers, form: params }, function(error, response, body) {
-          expect(response.statusCode).toBe(204);
+          expect(response.statusCode).toBe(200);
           done();
       });
     });
@@ -242,7 +242,7 @@ describe('Users Controller', function() {
     it('returns http status code successful (200)', function(done) {
       logger.info('Testing DELETE /users/{userId} - Returns 200 if everything is alright');
       request.delete( { url: base_url, headers: headers }, function(error, response, body){
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(204);
         done();
       });
     });
@@ -252,7 +252,7 @@ describe('Users Controller', function() {
         logger.info('Testing DELETE /users/{userId} - Deletes the user');
         var users = 'http://localhost:3000/users';
         request( { url: users, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).length).toBe(2);
+          expect(JSON.parse(response.body).users.length).toBe(2);
           done();
         });
       });
@@ -265,7 +265,8 @@ describe('Users Controller', function() {
 
     it('returns http status code created (201)', function(done) {
       params = { email: 'maselloleandro+1@gmail.com', firstName: 'Leandro', lastName: 'Masello',
-                 password: '12345678' };
+                 password: '12345678', userName: 'anotherUser', country: 'Argentina',
+                 birthdate: '1991/08/06' };
       logger.info('Testing POST /users - Returns 201');
       request.post({ url: base_url, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(201);

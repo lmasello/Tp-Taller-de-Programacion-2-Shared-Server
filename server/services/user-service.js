@@ -17,12 +17,12 @@ function findAll(ids) {
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.user.findAll({
-      attributes: ['id', 'email'],
+      attributes: ['id', 'userName', 'email'],
       where: { id: { $in: ids } }
     });
   } else
     return orm.models.user.findAll({
-      attributes: ['id', 'email']
+      attributes: ['id', 'userName', 'email']
     });
 }
 

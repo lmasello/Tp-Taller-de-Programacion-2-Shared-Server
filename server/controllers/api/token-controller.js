@@ -4,10 +4,10 @@ var tokenService = require('../../services/token-service');
 
 router.post('/tokens', function (req, res, next) {
     var user = req.body;
-    var email = user.email || undefined;
+    var userName = user.userName || undefined;
     var password = user.password || undefined;
-    if (email != undefined && password != undefined) {
-      tokenService.getToken({email : email, password: password})
+    if (userName != undefined && password != undefined) {
+      tokenService.getToken({userName : userName, password: password})
                   .then(token => {
                     res.status(201).json({token : token});
                   }, error => {
@@ -15,7 +15,10 @@ router.post('/tokens', function (req, res, next) {
                     next(error);
                   })
     } else {
-      throw new Error('User and password are required');
+      var err = new Error('User and password are required');
+      err.status = 400;
+      console.log(err);
+      next(err);
     }
 });
 

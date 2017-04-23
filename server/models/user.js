@@ -8,6 +8,15 @@ exports.getModel = (db) => {
       allowNull: false,
       primaryKey: true
     },
+    userName: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -21,9 +30,21 @@ exports.getModel = (db) => {
       type: Sequelize.STRING,
       allowNull: false
     },
-    password: {
+    country: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    birthdate: {
+      type: Sequelize.DATE,
+      allowNull: false
+    },
+    images: {
+      type: Sequelize.ARRAY(Sequelize.BLOB),
+      allowNull: true
+    },
+    fb: {
+      type: Sequelize.JSON,
+      allowNull: true
     }
   }, {
     // freezeTableName: true,

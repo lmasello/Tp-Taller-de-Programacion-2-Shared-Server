@@ -16,13 +16,13 @@ module.exports = {
  * Return a new access_token for the user.
  */
 function getToken(user) {
-    return findUserByEmail(user.email)
-        .then(byEmail => {
-            if (byEmail.password !== sha1(user.password)) {
+    return findUserByUserName(user.userName)
+        .then(byUserName => {
+            if (byUserName.password !== sha1(user.password)) {
                 //this message should not be exposed in the response...
                 throw new Error('Wrong password');
             }
-            return Promise.resolve(generateJwt(byEmail));
+            return Promise.resolve(generateJwt(byUserName));
         }, error => {throw error});
 }
 
@@ -43,6 +43,7 @@ function getSocialToken(user, callback) {
         var fbData = {
             id : res.id,
             firstName: res.first_name,
+            lastName: res.last_name,
             email : res.email,
             avatar: res.picture.data.url
         };
@@ -52,8 +53,8 @@ function getSocialToken(user, callback) {
 
 }
 
-function findUserByEmail(email) {
-  return orm.models.user.findOne( { where: { email: email } });
+function findUserByUserName(userName) {
+  return orm.models.user.findOne( { where: { userName: userName } });
 }
 
 /**
@@ -69,7 +70,7 @@ function generateJwt(user) {
         iat: Math.floor(Date.now() / 1000),
         sub: user.id,
         aud: 'io-music',
-        email: user.email,
-        firstName: user.firstName
+        firstName: user.firstName,
+        lastName: user.lastName
     }, config.secret, { expiresIn: '7d' });
 }

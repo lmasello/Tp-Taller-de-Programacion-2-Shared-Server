@@ -40,12 +40,12 @@ function updateSong(song, id) {
 }
 
 function removeSong(songId) {
-  return orm.models.song.destroy( { where: { id: songId }, returning: true, plain: true } );
+  return orm.models.song.destroy( { where: { id: songId } } );
 }
 
 function rankSong(songId, userId, values) {
   return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { ranking: values.ranking });
+    return song.addUser(userId, { rate: values.rate });
   });
 }
 

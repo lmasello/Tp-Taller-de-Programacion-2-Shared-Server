@@ -21,6 +21,8 @@ function createSong(req, res, next) {
                 res.status(201).json({ track: data});
               })
               .catch(function (err) {
+                var err = new Error(err.message);
+                err.status = 400;
                 next(err);
               });
 }
@@ -28,7 +30,7 @@ function createSong(req, res, next) {
 function getAllSongs(req, res, next) {
   songsService.getAllSongs(req.query.ids)
               .then(function (data) {
-                res.status(200).json(data);
+                res.status(200).json({ tracks: data });
               })
               .catch(function (err) {
                 next(err);
@@ -42,7 +44,7 @@ function getSongById(req, res, next) {
                   var err = new Error('Not Found');
                   return next(err);
                 }
-                res.status(200).json(data);
+                res.status(200).json({ track: data });
               })
               .catch(function (err) {
                 next(err);
@@ -53,9 +55,11 @@ function updateSong(req, res, next) {
   songsService.updateSong(req.body, req.params.id)
               .then(function (data) {
                 logger.info('Track updated');
-                res.status(204).json(true);
+                res.status(200).json(data[1].dataValues);
               })
               .catch(function (err) {
+                var err = new Error(err.message);
+                err.status = 400;
                 next(err);
               });
 }
@@ -68,7 +72,7 @@ function removeSong(req, res, next) {
                   return next(err);
                 }
                 logger.info('Song removed');
-                res.status(200).json(response('success', `Removed ${result} user`));
+                res.status(204).json(true);
               })
               .catch(function (err) {
                 next(err);
@@ -78,10 +82,16 @@ function removeSong(req, res, next) {
 function rankSong(req, res, next) {
   songsService.rankSong(parseInt(req.params.id), parseInt(req.user.sub), req.body)
               .then(function (data) {
+                if (data === 0) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
                 logger.info('Song ranked');
                 res.status(204).json(true);
               })
               .catch(function (err) {
+                var err = new Error(err.message);
+                err.status = 400;
                 next(err);
               });
 }
@@ -89,10 +99,16 @@ function rankSong(req, res, next) {
 function likeSong(req, res, next) {
   songsService.likeSong(parseInt(req.params.id), parseInt(req.user.sub))
               .then(function (data) {
+                if (data === 0) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
                 logger.info('UserSong updated');
                 res.status(204).json(true);
               })
               .catch(function (err) {
+                var err = new Error(err.message);
+                err.status = 400;
                 next(err);
               });
 }
@@ -100,10 +116,16 @@ function likeSong(req, res, next) {
 function dislikeSong(req, res, next) {
   songsService.dislikeSong(parseInt(req.params.id), parseInt(req.user.sub))
               .then(function (data) {
+                if (data === 0) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
                 logger.info('UserSong updated');
                 res.status(204).json(true);
               })
               .catch(function (err) {
+                var err = new Error(err.message);
+                err.status = 400;
                 next(err);
               });
 }

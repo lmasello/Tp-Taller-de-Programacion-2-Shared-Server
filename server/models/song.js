@@ -12,6 +12,14 @@ exports.getModel = (db) => {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true
+    },
+    duration: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    albumId: {
+      type: Sequelize.INTEGER,
+      allowNull: true
     }
   }, {
     underscored: true
