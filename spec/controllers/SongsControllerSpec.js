@@ -156,7 +156,7 @@ describe('Tracks Controller', function() {
     logger.info('Testing POST /tracks');
 
     it('returns http status code created (201)', function(done) {
-      params = { name: 'Viva la vida', duration: '4000000' };
+      params = { name: 'Viva la vida', duration: '4000000', artists: '[ 3 ]' };
       logger.info('Testing POST /tracks - Returns 201');
       request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(201);

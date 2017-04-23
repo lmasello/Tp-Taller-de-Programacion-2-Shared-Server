@@ -14,20 +14,31 @@ module.exports = {
   dislikeSong: dislikeSong
 };
 
-function createSong(song) {
-  return orm.models.song.create(song);
+function createSong(song_params) {
+  return orm.models.song.create(song_params).then(function(song) {
+    var artists = JSON.parse(song_params.artists);
+    for (var artistIndex = 0, len = artists.length; artistIndex < len; artistIndex++) {
+      artistId = artists[artistIndex];
+      song.addArtist(artistId);
+    }
+    return song;
+  })
 }
 
 function getAllSongs(ids) {
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.song.findAll({
-      attributes: ['id', 'name'],
-      where: { id: { $in: ids } }
+      attributes: ['id', 'name', 'duration', 'albumId'],
+      include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      where: { id: { $in: ids } },
+      order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.song.findAll({
-      attributes: ['id', 'name']
+      attributes: ['id', 'name', 'duration', 'albumId'],
+      include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      order: [ ['id', 'ASC'] ]
     });
 }
 

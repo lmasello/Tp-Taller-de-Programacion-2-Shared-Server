@@ -34,7 +34,7 @@ exports.execute = (db) => {
     images: []
   });
   db.models.song.create({
-    name: 'Goldberg Variations',
+    name: 'Le quattro stagioni',
     duration: '390000'
   });
   db.models.song.create({
@@ -44,6 +44,28 @@ exports.execute = (db) => {
   db.models.song.create({
     name: 'Symphony in C: Moderato alla breve',
     duration: '390000'
+  });
+  db.models.artist.create({
+    name: 'Antonio Vivaldi',
+    description: 'One of the best artist ever',
+    genres: ['Classical', 'Instrumental'],
+    images: ['data:image/jpeg;base64,/9j/4AAQSk=']
+  });
+  db.models.artist.create({
+    name: 'Ludwig Van Beethoven',
+    description: 'German composer and pianist.',
+    genres: ['Classical', 'Instrumental']
+  });
+  db.models.artist.create({
+    name: 'Coldplay',
+    description: 'Coldplay are a British rock band formed in 1996 by lead vocalist and keyboardist Chris Martin and lead guitarist Jonny Buckland at University College London.',
+    genres: ['Pop', 'British']
+  });
+  db.models.artist.create({
+    name: 'Stevie Ray Vaughan',
+    description: 'Stephen "Stevie" Ray Vaughan (October 3, 1954 – August 27, 1990) was an American musician, singer, songwriter, and record producer.',
+    genres: ['Rock', 'Country', 'Blues'],
+    images: ['ajsdflakjdfl']
   });
   return Promise.resolve();
 };

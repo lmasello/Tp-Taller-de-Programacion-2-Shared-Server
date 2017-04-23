@@ -42,10 +42,6 @@ function getUserById(req, res, next) {
 function getUserByToken(req, res, next) {
   userService.getSingleUser(parseInt(req.user.sub))
              .then(function (data) {
-               if (!data) {
-                 var err = new Error('Not Found');
-                 return next(err);
-               }
                res.status(200).json({ user: data });
              })
              .catch(function (err) {
@@ -96,7 +92,7 @@ function updateUser(req, res, next) {
                  var err = new Error('Not Found');
                  return next(err);
                }
-               logger.info('User updated. Changed: ' + data[1]._changed);
+               logger.info('User updated');
                res.status(200).json(data[1].dataValues);
              })
              .catch(function (err) {
