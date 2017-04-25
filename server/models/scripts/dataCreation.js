@@ -67,5 +67,20 @@ exports.execute = (db) => {
     genres: ['Rock', 'Country', 'Blues'],
     images: ['ajsdflakjdfl']
   });
+  db.models.album.create({
+    name: 'Ghost stories',
+    release_date: '2014-5-16',
+    genres: ['Electronica', 'Pop', 'synth-pop']
+  }),
+  db.models.album.create({
+    name: 'In step',
+    release_date: '1989-6-6',
+    genres: ['Blues Rock', 'Jazz Blues']
+  }),
+  db.models.album.create({
+    name: 'Soul to soul',
+    release_date: '1985-9-30',
+    genres: ['Blues Rock', 'Jazz Blues', 'Texas Blues']
+  })
   return Promise.resolve();
 };
