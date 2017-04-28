@@ -26,7 +26,6 @@ function createAlbum(req, res, next) {
 }
 
 function getAllAlbums(req, res, next) {
-  debugger;
   albumsService.getAllAlbums(req.query.ids)
               .then(function (data) {
                 res.status(200).json({ albums: data });
@@ -84,17 +83,17 @@ function removeAlbum(req, res, next) {
 
 function removeSongFromAlbum(req, res, next) {
   albumsService.removeSongFromAlbum(parseInt(req.params.albumId), parseInt(req.params.trackId))
-              .then(function (result) {
-                if (result === 0) {
-                  var err = new Error('Not Found');
-                  return next(err);
-                }
-                logger.info('Song removed from album');
-                res.status(204).json(true);
-              })
-              .catch(function (err) {
-                next(err);
-              });
+               .then(function (result) {
+                 if (result === 0) {
+                   var err = new Error('Not Found');
+                   return next(err);
+                 }
+                 logger.info('Song removed from album');
+                 res.status(204).json(true);
+               })
+               .catch(function (err) {
+                 next(err);
+               });
 }
 
 module.exports = router;

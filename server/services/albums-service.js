@@ -14,7 +14,7 @@ module.exports = {
 
 function createAlbum(album_params) {
   return orm.models.album.create(album_params).then(function(album) {
-    var artists = JSON.parse(album_params.artists);
+    var artists = album_params.artists;
     for (var artistIndex = 0, len = artists.length; artistIndex < len; artistIndex++) {
       artistId = artists[artistIndex];
       album.addArtist(artistId);
@@ -45,7 +45,7 @@ function getAlbumById(albumId) {
   return orm.models.album.findOne({
     attributes: ['id', 'name', 'release_date', 'genres', 'images'],
     include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] } },
-               { model: orm.models.song }],    
+               { model: orm.models.song }],
     where: { id: albumId }
   });
 }
@@ -60,6 +60,6 @@ function removeAlbum(albumId) {
 
 function removeSongFromAlbum(albumId, songId) {
   return orm.models.album.findById(albumId).then(function(album) {
-    return album.deleteSong(songId);
+    return album.removeSong(songId);
   });
 }

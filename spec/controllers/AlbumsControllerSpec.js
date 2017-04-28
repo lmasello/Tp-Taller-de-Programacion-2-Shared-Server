@@ -177,7 +177,7 @@ describe('Albums Controller', function() {
                  release_date: '2002/09/18',
                  images: [ "https://en.wikipedia.org/wiki/File:The_Essential_Stevie_Ray_Vaughan_and_Double_Trouble.jpg#/media/File:The_Essential_Stevie_Ray_Vaughan_and_Double_Trouble.jpg" ],
                  genres: [ "Blues Rock" ],
-                 artists: '[ 4 ]'
+                 artists: [ 4 ]
                };
       logger.info('Testing POST /albums - Returns 201');
       request.post({ url: base_url, headers: headers, json: params }, function(error, response, body) {
@@ -193,6 +193,23 @@ describe('Albums Controller', function() {
       request.post({ url: base_url, headers: headers, json: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
+      });
+    });
+  });
+
+  describe('DELETE /albums/{album_id}/tracks/{track_id}', function() {
+    logger.info('Testing DELETE /albums/{album_id}/tracks/{track_id}');
+    var base_url = 'http://localhost:3000/albums/4/tracks/3';
+
+    it('returns http status code successful (204)', function(done) {
+      logger.info('Testing DELETE /albums/{album_id}/tracks/{track_id} - Returns 204 if everything is alright');
+      request.delete( { url: base_url, headers: headers }, function(error, response, body){
+        expect(response.statusCode).toBe(204);
+        var album = 'http://localhost:3000/albums/4';
+        request( { url: album, headers: headers }, function(error, response, body) {
+          expect(JSON.parse(response.body).songs.length).toBe(2);
+          done();
+        });
       });
     });
   });
