@@ -20,7 +20,7 @@ function createAlbum(album_params) {
       album.addArtist(artistId);
     }
     return album;
-  })
+  });
 }
 
 function getAllAlbums(ids) {
@@ -29,7 +29,7 @@ function getAllAlbums(ids) {
     return orm.models.album.findAll({
       attributes: ['id', 'name', 'release_date', 'genres', 'images'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] } },
-                 { model: orm.models.song, attributes: [ 'id', 'name' ], through: {attributes:[] } }],
+                 { model: orm.models.song }],
       where: { id: { $in: ids } },
       order: [ ['id', 'ASC'] ]
     });
@@ -42,7 +42,12 @@ function getAllAlbums(ids) {
 }
 
 function getAlbumById(albumId) {
-  return orm.models.album.findOne({ where: { id: albumId } });
+  return orm.models.album.findOne({
+    attributes: ['id', 'name', 'release_date', 'genres', 'images'],
+    include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] } },
+               { model: orm.models.song }],    
+    where: { id: albumId }
+  });
 }
 
 function updateAlbum(album, id) {
@@ -56,17 +61,5 @@ function removeAlbum(albumId) {
 function removeSongFromAlbum(albumId, songId) {
   return orm.models.album.findById(albumId).then(function(album) {
     return album.deleteSong(songId);
-  });
-}
-
-function likeSong(songId, userId) {
-  return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { liked: true });
-  });
-}
-
-function dislikeSong(songId, userId) {
-  return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { liked: false });
   });
 }

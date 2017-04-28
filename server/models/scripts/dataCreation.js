@@ -81,6 +81,11 @@ exports.execute = (db) => {
     name: 'Soul to soul',
     release_date: '1985-9-30',
     genres: ['Blues Rock', 'Jazz Blues', 'Texas Blues']
+  }),
+  db.models.album.create({
+    name: 'Classical Music',
+    release_date: '2017-4-30',
+    genres: ['Classical', 'Instrumental']
   })
   return Promise.resolve();
 };

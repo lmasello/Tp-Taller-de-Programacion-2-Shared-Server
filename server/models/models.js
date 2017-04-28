@@ -20,7 +20,7 @@ exports.define = (db) => {
   Artist.belongsToMany(Song, { through: 'artist_song' });
   Song.belongsToMany(Artist, { through: 'artist_song' });
 
-  Song.belongsTo(Album, { foreignKey: 'albumId' } );
+  Song.belongsTo(Album, { foreignKey: 'album_id' } );
   Album.hasMany(Song, { onDelete: 'CASCADE' } );
 
   Artist.belongsToMany(Album, { through: 'artist_album' });
