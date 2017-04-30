@@ -207,7 +207,7 @@ describe('Albums Controller', function() {
         expect(response.statusCode).toBe(204);
         var album = 'http://localhost:3000/albums/4';
         request( { url: album, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).songs.length).toBe(2);
+          expect(JSON.parse(response.body).album.songs.length).toBe(2);
           done();
         });
       });
