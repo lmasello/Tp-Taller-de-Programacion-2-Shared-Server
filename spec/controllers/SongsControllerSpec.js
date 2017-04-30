@@ -15,7 +15,6 @@ describe('Tracks Controller', function() {
     it('returns three resources', function(done) {
       logger.info('Testing GET /tracks - returns three resources');
       request( { url:base_url, headers: headers }, function(error, response, body) {
-        console.log(response.body);
         expect(JSON.parse(response.body).tracks.length).toBe(3);
         done();
       });

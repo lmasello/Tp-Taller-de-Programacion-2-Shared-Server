@@ -29,14 +29,14 @@ function getAllSongs(ids) {
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.song.findAll({
-      attributes: ['id', 'name', 'duration', 'albumId'],
+      attributes: ['id', 'name', 'duration', 'album_id'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       where: { id: { $in: ids } },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.song.findAll({
-      attributes: ['id', 'name', 'duration', 'albumId'],
+      attributes: ['id', 'name', 'duration', 'album_id'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       order: [ ['id', 'ASC'] ]
     });

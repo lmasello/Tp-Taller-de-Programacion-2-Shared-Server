@@ -39,7 +39,7 @@ exports.getModel = (db) => {
       allowNull: false
     },
     images: {
-      type: Sequelize.ARRAY(Sequelize.BLOB),
+      type: Sequelize.ARRAY(Sequelize.STRING),
       allowNull: true
     }
   }, {

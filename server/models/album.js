@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 exports.getModel = (db) => {
-  var Song = db.define('song', {
+  var Album = db.define('album', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -11,19 +11,23 @@ exports.getModel = (db) => {
     name: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true
+      unique: false
     },
-    duration: {
-      type: Sequelize.INTEGER,
+    release_date: {
+      type: Sequelize.DATEONLY,
       allowNull: false
     },
-    album_id: {
-      type: Sequelize.INTEGER,
+    images: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
       allowNull: true
+    },
+    genres: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      allowNull: false
     }
   }, {
     underscored: true,
     associations: true
   });
-  return Song;
+  return Album;
 };
