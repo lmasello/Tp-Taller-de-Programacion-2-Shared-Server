@@ -49,7 +49,7 @@ exports.execute = (db) => {
     name: 'Antonio Vivaldi',
     description: 'One of the best artist ever',
     genres: ['Classical', 'Instrumental'],
-    images: ['data:image/jpeg;base64,/9j/4AAQSk=']
+    images: ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Vivaldi.jpg/220px-Vivaldi.jpg']
   });
   db.models.artist.create({
     name: 'Ludwig Van Beethoven',
@@ -65,7 +65,7 @@ exports.execute = (db) => {
     name: 'Stevie Ray Vaughan',
     description: 'Stephen "Stevie" Ray Vaughan (October 3, 1954 – August 27, 1990) was an American musician, singer, songwriter, and record producer.',
     genres: ['Rock', 'Country', 'Blues'],
-    images: ['ajsdflakjdfl']
+    images: ['http://www.guitar-muse.com/wp-content/uploads/2013/08/stevie-ray-vaughan-lenny.jpg']
   });
   db.models.album.create({
     name: 'Ghost stories',

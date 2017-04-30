@@ -30,7 +30,8 @@ exports.getModel = (db) => {
       allowNull: true
     }
   }, {
-    underscored: true
+    underscored: true,
+    associations: true
   });
   return Artist;
 };
