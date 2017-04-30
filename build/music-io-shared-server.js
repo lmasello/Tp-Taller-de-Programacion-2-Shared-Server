@@ -2,7 +2,16 @@
     'use strict';
 
     angular
-        .module('Login', ['angular-jwt', 'facebook'])
+        .module('Header', [
+            'Login'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Login', ['angular-jwt', 'facebook', 'Header'])
 
         .config(['FacebookProvider', function(FacebookProvider) {
             // Setting application id for music-io
@@ -33,7 +42,8 @@
 
     angular
         .module('Music-io', [
-            'Login'
+            'Header',
+            'ngMaterial'
         ]);
 
 }());
@@ -41,9 +51,58 @@
     'use strict';
 
     angular
-        .module('Signup', []);
+        .module('Signup', [
+            'Header',
+            'ngMaterial',
+            'ngMessages'
+        ]);
 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('Header')
+        .component('musicHeader', {
+            controller: headerCtrl,
+            bindings: {},
+            templateUrl: '/public/app/header/header.html'
+        });
+
+
+    headerCtrl.$inject = ['$scope', 'loginUtils'];
+
+    function headerCtrl($scope, loginUtils) {
+        var self = this;
+
+        this.isLogged = function isLogged() {
+            return loginUtils.isLogged();
+        };
+
+        this.login = function login() {
+            location.href = '/login';
+        };
+
+        this.home = function home() {
+            location.href = '/';
+        };
+
+        this.signUp = function signUp() {
+            location.href = '/signup';
+        };
+
+        this.logout = function logout() {
+            loginUtils.logout();
+            location.reload();
+        };
+
+        this.getFirstName = function getFirstName () {
+            return loginUtils.getFirstName();
+        };
+    }
+
+} ());
+
 (function () {
     'use strict';
 
@@ -148,7 +207,7 @@
 
         var getFirstName= function() {
             var token = this.getToken();
-            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).first_name;
+            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).firstName;
         };
 
         var logout= function() {
@@ -184,31 +243,10 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope', 'loginUtils'];
+	musicCtrl.$inject = ['$scope'];
 	
-	function musicCtrl($scope, loginUtils) {
+	function musicCtrl($scope) {
 		var self = this;
-
-		this.isLogged = function isLogged() {
-			return loginUtils.isLogged();
-		};
-
-		this.login = function login() {
-			location.href = '/login';
-		};
-
-		this.signUp = function signUp() {
-			location.href = '/signup	';
-		};
-
-		this.logout = function logout() {
-			loginUtils.logout();
-			location.reload();
-		};
-
-		this.getFirstName = function getFirstName () {
-			return loginUtils.getFirstName();
-		};
 	}
 
 } ());
@@ -230,6 +268,7 @@
         var self = this;
 
         this.signup = function() {
+            console.log(self.data);
             $http.post('/users', self.data)
                 .then(response => {
                         location.href = '/#';

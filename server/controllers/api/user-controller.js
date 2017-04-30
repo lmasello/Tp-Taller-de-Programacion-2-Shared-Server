@@ -5,7 +5,7 @@ var logger = require('../../config/logger/winston.js');
 var config = require('../../config/config');
 var jwtMiddleware = require('../../middlewares/jwtMiddleware');
 
-router.get('/users', jwtMiddleware, getAllUsers);
+router.get('/users', getAllUsers);
 router.get('/users/me', jwtMiddleware, getUserByToken);
 router.get('/users/:id', jwtMiddleware, getUserById);
 router.get('/users/me/contacts', jwtMiddleware, getContacts);

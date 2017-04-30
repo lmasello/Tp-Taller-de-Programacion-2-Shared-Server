@@ -15,6 +15,7 @@
         var self = this;
 
         this.signup = function() {
+            console.log(self.data);
             $http.post('/users', self.data)
                 .then(response => {
                         location.href = '/#';

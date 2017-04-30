@@ -3,7 +3,8 @@
 
     angular
         .module('Music-io', [
-            'Login'
+            'Header',
+            'ngMaterial'
         ]);
 
 }());

@@ -2,6 +2,10 @@
     'use strict';
 
     angular
-        .module('Signup', []);
+        .module('Signup', [
+            'Header',
+            'ngMaterial',
+            'ngMessages'
+        ]);
 
 }());

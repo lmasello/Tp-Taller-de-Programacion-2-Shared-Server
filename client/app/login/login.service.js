@@ -47,7 +47,7 @@
 
         var getFirstName= function() {
             var token = this.getToken();
-            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).first_name;
+            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).firstName;
         };
 
         var logout= function() {

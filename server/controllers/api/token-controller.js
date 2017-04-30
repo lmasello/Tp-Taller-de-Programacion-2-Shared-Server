@@ -7,18 +7,19 @@ router.post('/tokens', function (req, res, next) {
     var userName = user.userName || undefined;
     var password = user.password || undefined;
     if (userName != undefined && password != undefined) {
-      tokenService.getToken({userName : userName, password: password})
-                  .then(token => {
-                    res.status(201).json({token : token});
-                  }, error => {
-                    error.status = 404;
-                    next(error);
-                  })
+        tokenService.getToken({userName : userName, password: password})
+            .then(token => {
+                res.status(201).json({token : token});
+            })
+            .catch(error => {
+                error.status = 404;
+                next(error);
+            })
     } else {
-      var err = new Error('User and password are required');
-      err.status = 400;
-      console.log(err);
-      next(err);
+        var err = new Error('User and password are required');
+        err.status = 400;
+        console.log(err);
+        next(err);
     }
 });
 

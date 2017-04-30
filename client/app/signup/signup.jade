@@ -1,24 +1,41 @@
-header
-    img(src='public/assets/images/logo.png')
+music-header
 
-section
-    .music-io-form
+.signup
+    .signup-form
         form(data-ng-submit="$ctrl.signup()")
             input(type='first_name',
             name='first_name'
             placeholder="First name *",
-            data-ng-model="$ctrl.data.first_name",
+            data-ng-model="$ctrl.data.firstName",
             )
             input(type='last_name',
             name='last_name'
             placeholder="Last name *",
-            data-ng-model="$ctrl.data.last_name",
+            data-ng-model="$ctrl.data.lastName",
+            )
+            input(type='user_name',
+            name='user_name'
+            placeholder="User name",
+            data-ng-model="$ctrl.data.userName",
             )
             input(type='email',
             name='email'
             placeholder="test@music-io.com",
             data-ng-model="$ctrl.data.email",
             )
+            input(type='date',
+            name='birthdate'
+            data-ng-model="$ctrl.data.birthdate",
+            )
+            input(list='countries',
+            name='country',
+            placeholder='Country',
+            data-ng-model="$ctrl.data.country", required)
+            datalist#countries
+                option(value='Argentina')
+                option(value='Chile')
+                option(value='Uruguay')
+                option(value='Brasil')
             input(type='password',
             name='password',
             placeholder="Password",

@@ -1,13 +1,1 @@
-header
-    img(src='public/assets/images/logo.png')
-    ul
-        li Premium
-        li Sucursales
-        li(ng-show="$ctrl.isLogged()") Hola {{$ctrl.getFirstName()}}
-        li(ng-show="$ctrl.isLogged()")
-            a(ng-click="$ctrl.logout()") Salir
-
-        li(ng-if="!$ctrl.isLogged()")
-            a(ng-click="$ctrl.signUp()") Registrarme
-        li(ng-if="!$ctrl.isLogged()")
-            a(ng-click="$ctrl.login()") Ingresar
+music-header
