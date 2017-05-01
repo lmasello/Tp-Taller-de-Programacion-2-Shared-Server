@@ -9,6 +9,7 @@ module.exports = {
   getAlbumById: getAlbumById,
   updateAlbum: updateAlbum,
   removeAlbum: removeAlbum,
+  addSongToAlbum: addSongToAlbum,
   removeSongFromAlbum: removeSongFromAlbum
 };
 
@@ -58,8 +59,28 @@ function removeAlbum(albumId) {
   return orm.models.album.destroy( { where: { id: albumId } } );
 }
 
+function addSongToAlbum(albumId, songId) {
+  return orm.models.album.findById(albumId).then(function(album) {
+    return orm.models.song.findById(songId).then(function(song) {
+      if(!album || !song){
+        var err = new Error('Not found');
+        err.status = 404;
+        throw err;
+      }
+      return album.addSong(song);
+    });
+  });
+}
+
 function removeSongFromAlbum(albumId, songId) {
   return orm.models.album.findById(albumId).then(function(album) {
-    return album.removeSong(songId);
+    return orm.models.song.findById(songId).then(function(song) {
+      if(!album || !song){
+        var err = new Error('Not found');
+        err.status = 404;
+        throw err;
+      }
+      return album.removeSong(song);
+    });
   });
 }

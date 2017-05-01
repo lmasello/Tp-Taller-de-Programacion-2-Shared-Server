@@ -10,6 +10,7 @@ router.get('/albums', jwtMiddleware, getAllAlbums);
 router.get('/albums/:id', jwtMiddleware, getAlbumById);
 router.put('/albums/:id', jwtMiddleware, updateAlbum);
 router.delete('/albums/:id', jwtMiddleware, removeAlbum);
+router.put('/albums/:albumId/tracks/:trackId', jwtMiddleware, addSongToAlbum);
 router.delete('/albums/:albumId/tracks/:trackId', jwtMiddleware, removeSongFromAlbum);
 
 function createAlbum(req, res, next) {
@@ -81,13 +82,20 @@ function removeAlbum(req, res, next) {
               });
 }
 
+function addSongToAlbum(req, res, next) {
+  albumsService.addSongToAlbum(parseInt(req.params.albumId), parseInt(req.params.trackId))
+               .then(function (result) {
+                 logger.info('Song added to album');
+                 res.status(201).json({ album: result });
+               })
+               .catch(function (err) {
+                 next(err);
+               });
+}
+
 function removeSongFromAlbum(req, res, next) {
   albumsService.removeSongFromAlbum(parseInt(req.params.albumId), parseInt(req.params.trackId))
                .then(function (result) {
-                 if (result === 0) {
-                   var err = new Error('Not Found');
-                   return next(err);
-                 }
                  logger.info('Song removed from album');
                  res.status(204).json(true);
                })
