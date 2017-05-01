@@ -23,18 +23,23 @@ function getAllArtists(ids) {
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
+      include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       where: { id: { $in: ids } },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
+      include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       order: [ ['id', 'ASC'] ]
     });
 }
 
 function getArtistById(artistId) {
-  return orm.models.artist.findOne({ where: { id: artistId } });
+  return orm.models.artist.findOne({
+    include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+    where: { id: artistId }
+  });
 }
 
 function updateArtist(artist, id) {
