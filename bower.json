@@ -16,7 +16,8 @@
     "angular": "1.6.3",
     "angular-jwt": "^0.1.8",
     "SHA-1": "^0.1.1",
-    "angular-facebook": "^v0.2.3"
+    "angular-facebook": "^v0.2.3",
+    "angular-cookies": "^1.6.4"
   },
   "resolutions": {
     "angular": "1.6.3"

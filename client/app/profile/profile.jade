@@ -1,8 +1,9 @@
 music-header
 
 .profile
-    .profile-title {{$ctrl.getFirstName()}} profile:
-    .profile-form
+    .loader(ng-if="!$ctrl.loaded")
+    .profile-title(ng-if="$ctrl.loaded") {{$ctrl.getFirstName()}} profile:
+    .profile-form(ng-if="$ctrl.loaded")
         form
             input(type='user_name',
             name='user_name'

@@ -11,7 +11,7 @@
     'use strict';
 
     angular
-        .module('Login', ['angular-jwt', 'facebook', 'Header'])
+        .module('Login', ['angular-jwt', 'facebook', 'Header', 'ngCookies'])
 
         .config(['FacebookProvider', function(FacebookProvider) {
             // Setting application id for music-io
@@ -125,14 +125,15 @@
             templateUrl: '/public/app/login/login.html'
         });
 
-    loginCtrl.$inject = ['$http', 'Facebook'];
+    loginCtrl.$inject = ['$http', 'Facebook', '$cookies'];
 
-    function loginCtrl($http, Facebook) {
+    function loginCtrl($http, Facebook, $cookies) {
         var self = this;
 
         this.submitLogin = function() {
             $http.post('/tokens', self.data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
@@ -159,6 +160,7 @@
 
             $http.post('/social/tokens', data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
@@ -176,11 +178,11 @@
         .module('Login')
         .service('loginUtils', loginUtils);
 
-    loginUtils.$inject = ['jwtHelper'];
-    function loginUtils(jwtHelper) {
+    loginUtils.$inject = ['jwtHelper', '$cookies'];
+    function loginUtils(jwtHelper, $cookies) {
 
         var getToken = function () {
-            return localStorage.getItem('id_token');
+            return $cookies.get('id_token');
         };
 
         var getRoles = function () {
@@ -222,7 +224,7 @@
         };
 
         var logout= function() {
-            localStorage.removeItem('id_token');
+            $cookies.remove('id_token');
             localStorage.removeItem('profile');
         };
 
@@ -280,6 +282,8 @@
 
         this.$onInit = function () {
 
+            self.loaded = false;
+
             if (!loginUtils.isLogged()) {
                 location.href = '/#';
             }
@@ -293,6 +297,7 @@
                     self.data.lastName = response.data.user.lastName;
                     self.data.birthdate = new Date(response.data.user.birthdate);
                     self.data.country = response.data.user.country;
+                    self.loaded = true;
                 })
                 .catch(error => {
                     console.error(error);

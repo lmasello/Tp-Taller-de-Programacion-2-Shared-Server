@@ -5,11 +5,11 @@
         .module('Login')
         .service('loginUtils', loginUtils);
 
-    loginUtils.$inject = ['jwtHelper'];
-    function loginUtils(jwtHelper) {
+    loginUtils.$inject = ['jwtHelper', '$cookies'];
+    function loginUtils(jwtHelper, $cookies) {
 
         var getToken = function () {
-            return localStorage.getItem('id_token');
+            return $cookies.get('id_token');
         };
 
         var getRoles = function () {
@@ -51,7 +51,7 @@
         };
 
         var logout= function() {
-            localStorage.removeItem('id_token');
+            $cookies.remove('id_token');
             localStorage.removeItem('profile');
         };
 

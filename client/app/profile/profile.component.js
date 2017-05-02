@@ -16,6 +16,8 @@
 
         this.$onInit = function () {
 
+            self.loaded = false;
+
             if (!loginUtils.isLogged()) {
                 location.href = '/#';
             }
@@ -29,6 +31,7 @@
                     self.data.lastName = response.data.user.lastName;
                     self.data.birthdate = new Date(response.data.user.birthdate);
                     self.data.country = response.data.user.country;
+                    self.loaded = true;
                 })
                 .catch(error => {
                     console.error(error);

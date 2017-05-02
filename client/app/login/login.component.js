@@ -9,14 +9,15 @@
             templateUrl: '/public/app/login/login.html'
         });
 
-    loginCtrl.$inject = ['$http', 'Facebook'];
+    loginCtrl.$inject = ['$http', 'Facebook', '$cookies'];
 
-    function loginCtrl($http, Facebook) {
+    function loginCtrl($http, Facebook, $cookies) {
         var self = this;
 
         this.submitLogin = function() {
             $http.post('/tokens', self.data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
@@ -43,6 +44,7 @@
 
             $http.post('/social/tokens', data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
