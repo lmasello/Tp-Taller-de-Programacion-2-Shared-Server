@@ -3,9 +3,7 @@
 
     angular
         .module('Signup', [
-            'Header',
-            'ngMaterial',
-            'ngMessages'
+            'Header'
         ]);
 
 }());

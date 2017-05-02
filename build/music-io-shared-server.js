@@ -42,8 +42,17 @@
 
     angular
         .module('Music-io', [
+            'Header'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Profile', [
             'Header',
-            'ngMaterial'
+            'Login'
         ]);
 
 }());
@@ -52,9 +61,7 @@
 
     angular
         .module('Signup', [
-            'Header',
-            'ngMaterial',
-            'ngMessages'
+            'Header'
         ]);
 
 }());
@@ -85,6 +92,10 @@
 
         this.home = function home() {
             location.href = '/';
+        };
+
+        this.profile = function home() {
+            location.href = '/me';
         };
 
         this.signUp = function signUp() {
@@ -255,6 +266,60 @@
     'use strict';
 
     angular
+        .module('Profile')
+        .component('profile', {
+            controller: profileCtrl,
+            bindings: {},
+            templateUrl: '/public/app/profile/profile.html'
+        });
+
+    profileCtrl.$inject = ['$http', 'loginUtils'];
+
+    function profileCtrl($http, loginUtils) {
+        var self = this;
+
+        this.$onInit = function () {
+
+            if (!loginUtils.isLogged()) {
+                location.href = '/#';
+            }
+
+            $http.get('/users/me', self.data)
+                .then(response => {
+                    self.data = {};
+                    self.data.userName = response.data.user.userName;
+                    self.data.email = response.data.user.email;
+                    self.data.firstName = response.data.user.firstName;
+                    self.data.lastName = response.data.user.lastName;
+                    self.data.birthdate = new Date(response.data.user.birthdate);
+                    self.data.country = response.data.user.country;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        };
+
+        this.updateUser = function() {
+            $http.put('/users/me', self.data)
+                .then(response => {
+                    location.href = '/me';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.getFirstName = function getFirstName () {
+            return self.data.firstName;
+        };
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
         .module('Signup')
         .component('signup', {
             controller: signupCtrl,
@@ -268,7 +333,6 @@
         var self = this;
 
         this.signup = function() {
-            console.log(self.data);
             $http.post('/users', self.data)
                 .then(response => {
                         location.href = '/#';

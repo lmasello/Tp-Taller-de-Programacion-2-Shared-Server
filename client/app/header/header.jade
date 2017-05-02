@@ -2,7 +2,8 @@
     img(src='/public/assets/images/logo.png', ng-click="$ctrl.home()")
     ul
         div(ng-show="$ctrl.isLogged()")
-            li Hola {{$ctrl.getFirstName()}}
+            li
+                a(ng-click="$ctrl.profile()") Hola {{$ctrl.getFirstName()}}
             li
                 a(ng-click="$ctrl.logout()") Salir
 

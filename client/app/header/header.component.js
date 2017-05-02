@@ -27,6 +27,10 @@
             location.href = '/';
         };
 
+        this.profile = function home() {
+            location.href = '/me';
+        };
+
         this.signUp = function signUp() {
             location.href = '/signup';
         };
