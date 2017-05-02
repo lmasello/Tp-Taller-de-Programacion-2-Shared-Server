@@ -58,35 +58,38 @@
 
 .signup {
   margin: 0 auto;
-  width: 40%; }
+  width: 30%; }
   .signup p {
     text-align: center; }
   .signup .signup-form input {
     font-family: Circular, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: .9375em;
+    line-height: normal;
     float: left;
     display: inline-block;
     width: 100%;
     box-sizing: border-box;
-    background-color: #F6FDFF;
-    border: 2px solid #626262;
+    background-color: #fff;
+    color: #1c1c1f;
+    border: 1px solid #dfe0e6;
     margin-top: 20px;
-    padding: 1% 1%;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px; }
-  .signup .signup-form .submit {
+    padding: 1em .75em .6875em;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; }
+  .signup .signup-form .submit input {
     border-bottom-left-radius: 500px;
     border-bottom-right-radius: 500px;
     border-top-left-radius: 500px;
-    border-top-right-radius: 500px; }
-  .signup .signup-form .submit input {
+    border-top-right-radius: 500px;
     background-color: #4CAF50;
-    font-size: 32px;
+    font-size: 24px;
     width: 100%;
     border: none;
-    text-align: center; }
+    text-align: center;
+    padding: 7px 35px;
+    color: #fff; }
   .signup .signup-form .submit input:hover {
     background-color: #63B566;
     border: none;

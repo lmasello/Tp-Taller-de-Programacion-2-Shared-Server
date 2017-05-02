@@ -3,6 +3,21 @@ music-header
 .signup
     .signup-form
         form(data-ng-submit="$ctrl.signup()")
+            input(type='user_name',
+            name='user_name'
+            placeholder="User name",
+            data-ng-model="$ctrl.data.userName",
+            )
+            input(type='email',
+            name='email'
+            placeholder="Email",
+            data-ng-model="$ctrl.data.email",
+            )
+            input(type='email',
+            name='re_email'
+            placeholder="Confirm email",
+            data-ng-model="$ctrl.data.re_email",
+            )
             input(type='first_name',
             name='first_name'
             placeholder="First name *",
@@ -12,16 +27,6 @@ music-header
             name='last_name'
             placeholder="Last name *",
             data-ng-model="$ctrl.data.lastName",
-            )
-            input(type='user_name',
-            name='user_name'
-            placeholder="User name",
-            data-ng-model="$ctrl.data.userName",
-            )
-            input(type='email',
-            name='email'
-            placeholder="test@music-io.com",
-            data-ng-model="$ctrl.data.email",
             )
             input(type='date',
             name='birthdate'
