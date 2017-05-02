@@ -95,6 +95,37 @@ describe('Tracks Controller', function() {
     });
   });
 
+  describe('GET /tracks/{track_id}/popularity', function() {
+    logger.info('Testing GET /tracks/{track_id}/popularity');
+    orm.models.song.findById(1).then(function(song) {
+      song.addUser(2, { rate: 3 });
+    });
+    orm.models.song.findById(1).then(function(song) {
+      song.addUser(3, { rate: 5 });
+    });
+
+    it('returns http status code successful (200)', function(done) {
+      logger.info('Testing GET /tracks/{track_id}/popularity - Returns http status code successful');
+
+      var base_url = 'http://localhost:3000/tracks/1/popularity';
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+          expect(response.statusCode).toBe(200);
+          expect(JSON.parse(response.body).rate).toBe('4.0000000000000000');
+          done();
+      });
+    });
+
+    it('returns http status code not found if there is no resource', function(done) {
+      logger.info('Testing GET /tracks/{track_id}/popularity - Returns http status code not found if there is no such resource');
+
+      var wrong_url = 'http://localhost:3000/tracks/100000/popularity';
+      request( { url: wrong_url, headers: headers }, function(error, response, body) {
+          expect(response.statusCode).toBe(404);
+          done();
+      });
+    });
+  });
+
   describe('PUT /tracks/{track_id}', function() {
     logger.info('Testing PUT /tracks/{track_id}');
     var base_url = 'http://localhost:3000/tracks/2';
@@ -190,7 +221,7 @@ describe('Tracks Controller', function() {
       params = { rate: 5 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns the relation with the right value');
       request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
-        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+        return orm.models.user_song.findOne({ where: { song_id: 2, user_id: 1 } }).then(function(user_song) {
           expect(user_song.rate).toBe(5)
           done();
         });
@@ -240,7 +271,7 @@ describe('Tracks Controller', function() {
     it('sets the user song liked', function(done) {
       logger.info('Testing POST /tracks/{track_id}/like - sets the user song liked');
       request.post( { url: base_url, headers: headers }, function(error, response, body) {
-        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+        return orm.models.user_song.findOne({ where: { song_id: 2, user_id: 1 } }).then(function(user_song) {
           expect(user_song.liked).toBe(true)
           done();
         });
@@ -263,7 +294,7 @@ describe('Tracks Controller', function() {
     it('sets the user song liked', function(done) {
       logger.info('Testing DELETE /tracks/{track_id}/like - sets the user song disliked');
       request.delete( { url: base_url, headers: headers }, function(error, response, body) {
-        return orm.models.user_song.find({ userId: 1, songId: 2 }).then(function(user_song) {
+        return orm.models.user_song.findOne({ where: { song_id: 2, user_id: 1 } }).then(function(user_song) {
           expect(user_song.liked).toBe(false)
           done();
         });
