@@ -10,6 +10,7 @@ module.exports = {
   updateSong: updateSong,
   removeSong: removeSong,
   rankSong: rankSong,
+  getSongPopularity: getSongPopularity,
   likeSong: likeSong,
   dislikeSong: dislikeSong
 };
@@ -57,6 +58,21 @@ function removeSong(songId) {
 function rankSong(songId, userId, values) {
   return orm.models.song.findById(songId).then(function(song) {
     return song.addUser(userId, { rate: values.rate });
+  });
+}
+
+function getSongPopularity(songId) {
+  return orm.models.song.findById(songId).then(function(song) {
+    if (!song) {
+      var err = new Error('Not found');
+      err.status = 404;
+      throw err;
+    }
+    return orm.sequelize.query(
+      'SELECT AVG(rate) AS rate ' +
+      'FROM user_songs ' +
+      'WHERE song_id = $1 ', { bind: [songId], type: orm.sequelize.QueryTypes.SELECT }
+    );
   });
 }
 

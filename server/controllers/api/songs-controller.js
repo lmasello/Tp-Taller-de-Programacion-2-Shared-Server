@@ -10,6 +10,7 @@ router.get('/tracks', jwtMiddleware, getAllSongs);
 router.get('/tracks/:id', jwtMiddleware, getSongById);
 router.put('/tracks/:id', jwtMiddleware, updateSong);
 router.delete('/tracks/:id', jwtMiddleware, removeSong);
+router.get('/tracks/:id/popularity', jwtMiddleware, getSongPopularity);
 router.post('/tracks/:id/popularity', jwtMiddleware, rankSong);
 router.post('/tracks/:id/like', jwtMiddleware, likeSong);
 router.delete('/tracks/:id/like', jwtMiddleware, dislikeSong);
@@ -45,6 +46,20 @@ function getSongById(req, res, next) {
                   return next(err);
                 }
                 res.status(200).json({ track: data });
+              })
+              .catch(function (err) {
+                next(err);
+              });
+}
+
+function getSongPopularity(req, res, next) {
+  songsService.getSongPopularity(parseInt(req.params.id))
+              .then(function (data) {
+                if (!data) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
+                res.status(200).json(data[0]);
               })
               .catch(function (err) {
                 next(err);
