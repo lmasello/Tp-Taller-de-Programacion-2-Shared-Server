@@ -2,7 +2,16 @@
     'use strict';
 
     angular
-        .module('Login', ['angular-jwt', 'facebook'])
+        .module('Header', [
+            'Login'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Login', ['angular-jwt', 'facebook', 'Header', 'ngCookies'])
 
         .config(['FacebookProvider', function(FacebookProvider) {
             // Setting application id for music-io
@@ -33,6 +42,16 @@
 
     angular
         .module('Music-io', [
+            'Header'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Profile', [
+            'Header',
             'Login'
         ]);
 
@@ -41,9 +60,60 @@
     'use strict';
 
     angular
-        .module('Signup', []);
+        .module('Signup', [
+            'Header'
+        ]);
 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('Header')
+        .component('musicHeader', {
+            controller: headerCtrl,
+            bindings: {},
+            templateUrl: '/public/app/header/header.html'
+        });
+
+
+    headerCtrl.$inject = ['$scope', 'loginUtils'];
+
+    function headerCtrl($scope, loginUtils) {
+        var self = this;
+
+        this.isLogged = function isLogged() {
+            return loginUtils.isLogged();
+        };
+
+        this.login = function login() {
+            location.href = '/login';
+        };
+
+        this.home = function home() {
+            location.href = '/';
+        };
+
+        this.profile = function home() {
+            location.href = '/me';
+        };
+
+        this.signUp = function signUp() {
+            location.href = '/signup';
+        };
+
+        this.logout = function logout() {
+            loginUtils.logout();
+            location.reload();
+        };
+
+        this.getFirstName = function getFirstName () {
+            return loginUtils.getFirstName();
+        };
+    }
+
+} ());
+
 (function () {
     'use strict';
 
@@ -55,14 +125,15 @@
             templateUrl: '/public/app/login/login.html'
         });
 
-    loginCtrl.$inject = ['$http', 'Facebook'];
+    loginCtrl.$inject = ['$http', 'Facebook', '$cookies'];
 
-    function loginCtrl($http, Facebook) {
+    function loginCtrl($http, Facebook, $cookies) {
         var self = this;
 
         this.submitLogin = function() {
             $http.post('/tokens', self.data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
@@ -89,6 +160,7 @@
 
             $http.post('/social/tokens', data)
                 .then(response => {
+                        $cookies.put('id_token', response.data.token);
                         localStorage.setItem('id_token', response.data.token);
                         location.href = '/#';
                     },
@@ -106,11 +178,11 @@
         .module('Login')
         .service('loginUtils', loginUtils);
 
-    loginUtils.$inject = ['jwtHelper'];
-    function loginUtils(jwtHelper) {
+    loginUtils.$inject = ['jwtHelper', '$cookies'];
+    function loginUtils(jwtHelper, $cookies) {
 
         var getToken = function () {
-            return localStorage.getItem('id_token');
+            return $cookies.get('id_token');
         };
 
         var getRoles = function () {
@@ -148,11 +220,11 @@
 
         var getFirstName= function() {
             var token = this.getToken();
-            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).first_name;
+            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).firstName;
         };
 
         var logout= function() {
-            localStorage.removeItem('id_token');
+            $cookies.remove('id_token');
             localStorage.removeItem('profile');
         };
 
@@ -184,33 +256,69 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope', 'loginUtils'];
+	musicCtrl.$inject = ['$scope'];
 	
-	function musicCtrl($scope, loginUtils) {
+	function musicCtrl($scope) {
 		var self = this;
-
-		this.isLogged = function isLogged() {
-			return loginUtils.isLogged();
-		};
-
-		this.login = function login() {
-			location.href = '/login';
-		};
-
-		this.signUp = function signUp() {
-			location.href = '/signup	';
-		};
-
-		this.logout = function logout() {
-			loginUtils.logout();
-			location.reload();
-		};
-
-		this.getFirstName = function getFirstName () {
-			return loginUtils.getFirstName();
-		};
 	}
 
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('Profile')
+        .component('profile', {
+            controller: profileCtrl,
+            bindings: {},
+            templateUrl: '/public/app/profile/profile.html'
+        });
+
+    profileCtrl.$inject = ['$http', 'loginUtils'];
+
+    function profileCtrl($http, loginUtils) {
+        var self = this;
+
+        this.$onInit = function () {
+
+            self.loaded = false;
+
+            if (!loginUtils.isLogged()) {
+                location.href = '/#';
+            }
+
+            $http.get('/users/me', self.data)
+                .then(response => {
+                    self.data = {};
+                    self.data.userName = response.data.user.userName;
+                    self.data.email = response.data.user.email;
+                    self.data.firstName = response.data.user.firstName;
+                    self.data.lastName = response.data.user.lastName;
+                    self.data.birthdate = new Date(response.data.user.birthdate);
+                    self.data.country = response.data.user.country;
+                    self.loaded = true;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        };
+
+        this.updateUser = function() {
+            $http.put('/users/me', self.data)
+                .then(response => {
+                    location.href = '/me';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.getFirstName = function getFirstName () {
+            return self.data.firstName;
+        };
+    }
 } ());
 
 (function () {

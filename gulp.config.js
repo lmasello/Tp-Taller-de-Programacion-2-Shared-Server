@@ -6,9 +6,9 @@ module.exports = function () {
 	const root = './';
 	const server = './server/';
 	const client = './client/';
-	const views = `${server }views/`;
-	const scssfolder = `${client }scss/`;
-	const mainscss = `${scssfolder }main.scss`;
+	const views = `${server}views/`;
+	const scssfolder = `${client}app/`;
+	const mainscss = `${scssfolder}music-io.scss`;
 	const build = './build/';
 	const appFolder = `${client}app/`;
 	const assestFolder = `${client}assets/`;
@@ -32,7 +32,8 @@ module.exports = function () {
 			js: `${client}**/*.js`,
 			html: `${client}**/*.html`,
 			jade: `${client}**/*.jade`,
-			json: `${client}**/*.json`
+			json: `${client}**/*.json`,
+			sass: `${client}**/*.scss`
 		}
 	};
 

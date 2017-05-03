@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('Music-io', [
-            'Header'
+        .module('Header', [
+            'Login'
         ]);
 
 }());

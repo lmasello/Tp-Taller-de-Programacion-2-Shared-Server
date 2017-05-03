@@ -2,6 +2,8 @@
     'use strict';
 
     angular
-        .module('Signup', []);
+        .module('Signup', [
+            'Header'
+        ]);
 
 }());

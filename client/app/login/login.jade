@@ -1,20 +1,18 @@
-header
-    img(src='public/assets/images/logo.png')
+music-header
 
-section
-    .music-io-form
+.login
+    section
         form(ng-click="$ctrl.facebookLogin()")
             a.btn-facebook LOG IN WITH FACEBOOK
 
-p Or..
+    p Or..
 
-section
-    .music-io-form
+    section
         form
-            input(type='email',
-            name='email'
-            placeholder="test@music-io.com",
-            data-ng-model="$ctrl.data.email",
+            input(type='text',
+            name='user name'
+            placeholder="user name",
+            data-ng-model="$ctrl.data.userName",
             )
             input(type='password',
             name='password',

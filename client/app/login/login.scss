@@ -1,0 +1,70 @@
+.login {
+	margin: 0 auto;
+	width: 40%;
+
+	p {
+		text-align: center;
+	}
+
+	.btn-facebook {
+		margin: 30px auto;
+		width: 100%;
+		text-align: center;
+		padding: 7px 35px;
+		background-color: rgb(58, 97, 178);
+		border-bottom-left-radius: 500px;
+		border-bottom-right-radius: 500px;
+		border-top-left-radius: 500px;
+		border-top-right-radius: 500px;
+		border-bottom: 0 solid rgba(0, 0, 0, 0);
+		box-sizing: border-box;
+		cursor: pointer;
+		color: rgb(255, 255, 255);
+		font-family: Circular, Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		transition: background-color .15s ease,border-color .15s ease,color .15s ease;
+		letter-spacing: 1.2px;
+		text-transform: uppercase;
+		white-space: normal;
+		display: inline-block;
+	}
+
+	input {
+		font-family: Circular, Helvetica, Arial, sans-serif;
+		font-size: 15px;
+		float: left;
+		display: inline-block;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: #F6FDFF;
+		border: 2px solid #626262;
+		margin-top: 20px;
+		padding: 1% 1%;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	.submit {
+		border-bottom-left-radius: 500px;
+		border-bottom-right-radius: 500px;
+		border-top-left-radius: 500px;
+		border-top-right-radius: 500px;
+	}
+
+	.submit input {
+		background-color: #4CAF50;
+		font-size: 32px;
+		width: 100%;
+		border: none;
+		text-align: center;
+	}
+
+	.submit input:hover {
+		background-color: #63B566;
+		border: none;
+		cursor: pointer;
+	}
+}

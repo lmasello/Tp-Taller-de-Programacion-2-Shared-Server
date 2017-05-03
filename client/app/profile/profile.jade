@@ -1,0 +1,39 @@
+music-header
+
+.profile
+    .loader(ng-if="!$ctrl.loaded")
+    .profile-title(ng-if="$ctrl.loaded") {{$ctrl.getFirstName()}} profile:
+    .profile-form(ng-if="$ctrl.loaded")
+        form
+            input(type='user_name',
+            name='user_name'
+            placeholder="User name",
+            data-ng-model="$ctrl.data.userName",
+            disabled)
+            input(type='email',
+            name='email'
+            placeholder="Email",
+            data-ng-model="$ctrl.data.email",
+            disabled)
+            input(type='first_name',
+            name='first_name'
+            placeholder="First name *",
+            data-ng-model="$ctrl.data.firstName")
+            input(type='last_name',
+            name='last_name'
+            placeholder="Last name *",
+            data-ng-model="$ctrl.data.lastName")
+            input(type='date',
+            name='birthdate'
+            data-ng-model="$ctrl.data.birthdate")
+            input(list='countries',
+            name='country',
+            placeholder='Country',
+            data-ng-model="$ctrl.data.country")
+            datalist#countries
+                option(value='Argentina')
+                option(value='Chile')
+                option(value='Uruguay')
+                option(value='Brasil')
+            .submit
+                input(ng-click="$ctrl.updateUser()", value="UPDATE USER")
