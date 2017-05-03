@@ -5,11 +5,11 @@
         .module('Login')
         .service('loginUtils', loginUtils);
 
-    loginUtils.$inject = ['jwtHelper'];
-    function loginUtils(jwtHelper) {
+    loginUtils.$inject = ['jwtHelper', '$cookies'];
+    function loginUtils(jwtHelper, $cookies) {
 
         var getToken = function () {
-            return localStorage.getItem('id_token');
+            return $cookies.get('id_token');
         };
 
         var getRoles = function () {
@@ -47,11 +47,11 @@
 
         var getFirstName= function() {
             var token = this.getToken();
-            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).first_name;
+            return (token == undefined) ? undefined : jwtHelper.decodeToken(token).firstName;
         };
 
         var logout= function() {
-            localStorage.removeItem('id_token');
+            $cookies.remove('id_token');
             localStorage.removeItem('profile');
         };
 

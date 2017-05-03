@@ -10,31 +10,10 @@
 		});
 
 
-	musicCtrl.$inject = ['$scope', 'loginUtils'];
+	musicCtrl.$inject = ['$scope'];
 	
-	function musicCtrl($scope, loginUtils) {
+	function musicCtrl($scope) {
 		var self = this;
-
-		this.isLogged = function isLogged() {
-			return loginUtils.isLogged();
-		};
-
-		this.login = function login() {
-			location.href = '/login';
-		};
-
-		this.signUp = function signUp() {
-			location.href = '/signup	';
-		};
-
-		this.logout = function logout() {
-			loginUtils.logout();
-			location.reload();
-		};
-
-		this.getFirstName = function getFirstName () {
-			return loginUtils.getFirstName();
-		};
 	}
 
 } ());

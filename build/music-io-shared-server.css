@@ -1,0 +1,250 @@
+.login {
+  margin: 0 auto;
+  width: 40%; }
+  .login p {
+    text-align: center; }
+  .login .btn-facebook {
+    margin: 30px auto;
+    width: 100%;
+    text-align: center;
+    padding: 7px 35px;
+    background-color: #3a61b2;
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    border-bottom: 0 solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: white;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color .15s ease,border-color .15s ease,color .15s ease;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: normal;
+    display: inline-block; }
+  .login input {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    float: left;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #F6FDFF;
+    border: 2px solid #626262;
+    margin-top: 20px;
+    padding: 1% 1%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
+  .login .submit {
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px; }
+  .login .submit input {
+    background-color: #4CAF50;
+    font-size: 32px;
+    width: 100%;
+    border: none;
+    text-align: center; }
+  .login .submit input:hover {
+    background-color: #63B566;
+    border: none;
+    cursor: pointer; }
+
+.signup {
+  margin: 0 auto;
+  width: 30%; }
+  .signup p {
+    text-align: center; }
+  .signup .signup-form input {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: .9375em;
+    line-height: normal;
+    float: left;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #1c1c1f;
+    border: 1px solid #dfe0e6;
+    margin-top: 20px;
+    padding: 1em .75em .6875em;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; }
+  .signup .signup-form .submit input {
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    background-color: #4CAF50;
+    font-size: 24px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 7px 35px;
+    color: #fff; }
+  .signup .signup-form .submit input:hover {
+    background-color: #63B566;
+    border: none;
+    cursor: pointer; }
+  .signup .btn-facebook {
+    margin: 30px auto;
+    width: 100%;
+    text-align: center;
+    padding: 7px 35px;
+    background-color: #3a61b2;
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    border-bottom: 0 solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: white;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color .15s ease,border-color .15s ease,color .15s ease;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: normal;
+    display: inline-block; }
+
+.music-header {
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  float: left;
+  background-color: #404040;
+  color: #a0c3d2;
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  position: relative; }
+  .music-header img {
+    margin-left: 150px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    float: left;
+    height: 44px;
+    cursor: pointer; }
+  .music-header a {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #a0c3d2;
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer; }
+    .music-header a:hover {
+      text-decoration: none;
+      color: rgba(160, 195, 210, 0.8); }
+  .music-header ul {
+    float: right; }
+    .music-header ul li {
+      list-style-type: none;
+      padding: 8px 16px;
+      margin: 10px;
+      float: left;
+      box-sizing: border-box; }
+
+.profile {
+  margin: 0 auto;
+  width: 30%;
+  text-align: center;
+  font-family: Circular, Helvetica, Arial, sans-serif; }
+  .profile .profile-title {
+    font-size: 30px;
+    color: #1c1c1f;
+    padding: 1em .75em;
+    margin: 0 auto; }
+  .profile .loader {
+    margin-top: 50%;
+    margin-left: calc(50% - 120px);
+    float: left;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 10s linear infinite;
+    animation: spin 1s linear infinite; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+  .profile .profile-form input {
+    font-size: .9375em;
+    line-height: normal;
+    float: left;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #1c1c1f;
+    border: 1px solid #dfe0e6;
+    margin-top: 20px;
+    padding: 1em .75em .6875em;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; }
+  .profile .profile-form input:disabled {
+    background: #dddddd; }
+  .profile .profile-form .submit input {
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    background-color: #4CAF50;
+    font-size: 24px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 7px 35px;
+    color: #fff; }
+  .profile .profile-form .submit input:hover {
+    background-color: #63B566;
+    border: none;
+    cursor: pointer; }
+  .profile .btn-facebook {
+    margin: 30px auto;
+    width: 100%;
+    text-align: center;
+    padding: 7px 35px;
+    background-color: #3a61b2;
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    border-bottom: 0 solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: white;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color .15s ease,border-color .15s ease,color .15s ease;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: normal;
+    display: inline-block; }
+
+main {
+  display: block; }

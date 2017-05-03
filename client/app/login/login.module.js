@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('Login', ['angular-jwt', 'facebook'])
+        .module('Login', ['angular-jwt', 'facebook', 'Header', 'ngCookies'])
 
         .config(function(FacebookProvider) {
             // Setting application id for music-io

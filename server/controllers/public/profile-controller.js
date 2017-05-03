@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-router.get  ('/signup', function (req, res, next) {
+router.get('/me', function (req, res, next) {
     if(req.cookies.id_token) {
-        res.redirect('/me');
+        res.render('../views/profile', req);
     } else {
-        res.render('../views/signup', req);
+        res.redirect('/');
     }
 });
 

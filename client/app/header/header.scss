@@ -1,0 +1,48 @@
+.music-header {
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  float: left;
+  background-color: #404040;
+  color: rgba(160, 195, 210, 1);
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  position: relative;
+
+  img {
+    margin-left: 150px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    float: left;
+    height: 44px;
+    cursor: pointer;
+  }
+
+  a {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: rgba(160, 195, 210, 1);
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+      text-decoration: none;
+      color: rgba(160, 195, 210, .8);
+    }
+  }
+
+  ul {
+    float: right;
+    li {
+      list-style-type: none;
+      padding: 8px 16px;
+      margin: 10px;
+      float: left;
+      box-sizing:border-box;
+    }
+  }
+
+}
