@@ -201,7 +201,7 @@ describe('Albums Controller', function() {
     logger.info('Testing DELETE /albums/{album_id}/tracks/{track_id}');
     var base_url = 'http://localhost:3000/albums/4/tracks/3';
 
-    it('returns http status code successful (204)', function(done) {
+    it('returns http status code (204)', function(done) {
       logger.info('Testing DELETE /albums/{album_id}/tracks/{track_id} - Returns 204 if everything is alright');
       request.delete( { url: base_url, headers: headers }, function(error, response, body){
         expect(response.statusCode).toBe(204);
@@ -210,6 +210,41 @@ describe('Albums Controller', function() {
           expect(JSON.parse(response.body).album.songs.length).toBe(2);
           done();
         });
+      });
+    });
+
+    it('returns http status code (404) if there is no resource', function(done) {
+      logger.info('Testing DELETE /albums/{album_id}/tracks/{track_id} - Returns 404 if there is no resource');
+      var wrong_url = 'http://localhost:3000/albums/4/tracks/30';
+      request.delete( { url: wrong_url, headers: headers }, function(error, response, body){
+        expect(response.statusCode).toBe(404);
+        done();
+      });
+    });
+  });
+
+  describe('PUT /albums/{album_id}/tracks/{track_id}', function() {
+    logger.info('Testing PUT /albums/{album_id}/tracks/{track_id}');
+    var base_url = 'http://localhost:3000/albums/4/tracks/3';
+
+    it('returns http status code created (201)', function(done) {
+      logger.info('Testing PUT /albums/{album_id}/tracks/{track_id} - Returns 201 if everything is alright');
+      request.put( { url: base_url, headers: headers }, function(error, response, body){
+        expect(response.statusCode).toBe(201);
+        var album = 'http://localhost:3000/albums/4';
+        request( { url: album, headers: headers }, function(error, response, body) {
+          expect(JSON.parse(response.body).album.songs.length).toBe(3);
+          done();
+        });
+      });
+    });
+
+    it('returns http status code (404) if there is no resource', function(done) {
+      logger.info('Testing PUT /albums/{album_id}/tracks/{track_id} - Returns 404 if there is no resource');
+      var wrong_url = 'http://localhost:3000/albums/4/tracks/30';
+      request.put( { url: wrong_url, headers: headers }, function(error, response, body){
+        expect(response.statusCode).toBe(404);
+        done();
       });
     });
   });
