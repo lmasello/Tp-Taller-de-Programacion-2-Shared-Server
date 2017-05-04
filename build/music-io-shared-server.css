@@ -55,6 +55,10 @@
     background-color: #63B566;
     border: none;
     cursor: pointer; }
+  .login .error {
+    background-color: red;
+    float: left;
+    line-height: 1; }
 
 .signup {
   margin: 0 auto;
