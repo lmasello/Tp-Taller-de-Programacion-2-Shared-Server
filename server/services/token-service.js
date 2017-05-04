@@ -7,54 +7,72 @@ const config = require('../config/config');
 
 // add query functions
 module.exports = {
-    getToken: getToken,
-    generateJwt: generateJwt,
-    getSocialToken: getSocialToken,
+    createToken: createToken,
+    generateJwt: generateJwt
 };
 
 /**
  * Return a new access_token for the user.
  */
-function getToken(user) {
+function createToken(user) {
+    if (user.fb) {
+        return handleFb(user);
+    } else {
+        return handleUsernamePassword(user);
+    }
+}
+
+function handleFb(user) {
+    return fetchFbData(user.fb.authToken)
+        .then(createUserIfNotExists)
+        .then(user => Promise.resolve(generateJwt(user)));
+}
+
+function createUserIfNotExists(fbUser) {
+    return findUserByFb(fbUser.id)
+        .then(user => {
+            if (user) return Promise.resolve(user);
+            return orm.models.user.create({
+                fb: fbUser.id,
+                firstName: fbUser.first_name,
+                email : fbUser.email,
+                lastName: fbUser.last_name,
+                images: [fbUser.picture.data.url]
+            });
+        });
+}
+
+function handleUsernamePassword(user) {
     return findUserByUserName(user.userName)
         .then(byUserName => {
-            if (byUserName.password !== sha1(user.password)) {
-                //this message should not be exposed in the response...
-                throw new Error('Wrong password');
+            if (!byUserName || byUserName.password !== sha1(user.password)) {
+                throw new Error('Invalid userName or password');
             }
             return Promise.resolve(generateJwt(byUserName));
         }, error => {throw error});
 }
 
-/**
- * Return a new access_token for the social user.
- */
-function getSocialToken(user, callback) {
-    var fb = new FB.Facebook({
-        accessToken: user.accessToken,
-        appId: config.facebookAppId
+function fetchFbData(token) {
+    return new Promise((resolve, reject) => {
+        let fb = new FB.Facebook({
+            accessToken: token,
+            appId: config.facebookAppId
+        });
+        fb.api('me', {fields: 'email,id,age_range,name,first_name,last_name,gender,picture,birthday'}, res => {
+            if(!res || res.error) {
+                reject(new Error('Invalid authToken'));
+            }
+            resolve(res);
+        });
     });
-
-    fb.api('me', {fields: 'email,id,age_range,name,first_name,last_name,gender,picture'}, function (res) {
-        if(!res || res.error) {
-            throw new Error('Unexpected error happen while validating access_token');
-        }
-
-        var fbData = {
-            id : res.id,
-            firstName: res.first_name,
-            lastName: res.last_name,
-            email : res.email,
-            avatar: res.picture.data.url
-        };
-
-        callback(generateJwt(fbData));
-    });
-
 }
 
 function findUserByUserName(userName) {
-  return orm.models.user.findOne( { where: { userName: userName } });
+    return orm.models.user.findOne( { where: { userName: userName } });
+}
+
+function findUserByFb(userId) {
+    return orm.models.user.findOne( { where: { fb: userId } });
 }
 
 /**
