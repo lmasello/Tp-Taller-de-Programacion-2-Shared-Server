@@ -7,7 +7,8 @@ const config = require('../config/config');
 
 // add query functions
 module.exports = {
-    createToken: createToken
+    createToken: createToken,
+    generateJwt: generateJwt
 };
 
 /**
