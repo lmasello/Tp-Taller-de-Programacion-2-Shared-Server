@@ -35,14 +35,5 @@ describe('Tokens Controller', function() {
       });
     });
 
-    it('returns http status 401 if facebook login fails', done => {
-      logger.info('Testing POST /tokens - returns 401 if facebook login fails');
-      params = { fb: {authToken: 'SARASA'}};
-      request.post({ url: base_url, form: params }, function(error, response, body) {
-        expect(response.statusCode).toBe(401);
-        done();
-      });
-    });
-
   });
 });
