@@ -4,6 +4,7 @@ music-header
     section
         form(ng-click="$ctrl.facebookLogin()")
             a.btn-facebook LOG IN WITH FACEBOOK
+        .error(ng-show="$ctrl.fbLoginError") Ocurrió un problema al loggear con facebook
 
     p Or..
 
@@ -19,5 +20,6 @@ music-header
             placeholder="Password",
             data-ng-model="$ctrl.data.password",
             required)
+            .error(ng-if="$ctrl.loginError") Usuario o password incorrectos
             .submit
                 input(ng-click="$ctrl.submitLogin()", value="LOGIN")

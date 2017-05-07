@@ -25,14 +25,15 @@ describe('Tokens Controller', function() {
     });
 
 
-    it('returns http status code not found (404) if there is no resource for the \
+    it('returns http status code 401 if there is no resource for the \
         given params', function(done) {
-      logger.info('Testing POST /tokens - returns 404 if there is no user for the given param');
+      logger.info('Testing POST /tokens - returns 401 when userName or password are incorrect');
       params = { userName: 'email1+1000000@gmail.com', password: '12345678' };
       request.post({ url: base_url, form: params }, function(error, response, body) {
-        expect(response.statusCode).toBe(404);
+        expect(response.statusCode).toBe(401);
         done();
       });
     });
+
   });
 });

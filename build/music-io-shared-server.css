@@ -27,34 +27,51 @@
     display: inline-block; }
   .login input {
     font-family: Circular, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: .9375em;
+    line-height: normal;
     float: left;
     display: inline-block;
     width: 100%;
     box-sizing: border-box;
-    background-color: #F6FDFF;
-    border: 2px solid #626262;
+    background-color: #fff;
+    color: #1c1c1f;
+    border: 1px solid #dfe0e6;
     margin-top: 20px;
-    padding: 1% 1%;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px; }
+    padding: 1em .75em .6875em;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; }
   .login .submit {
     border-bottom-left-radius: 500px;
     border-bottom-right-radius: 500px;
     border-top-left-radius: 500px;
     border-top-right-radius: 500px; }
   .login .submit input {
+    border-bottom-left-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
     background-color: #4CAF50;
-    font-size: 32px;
+    font-size: 24px;
     width: 100%;
     border: none;
-    text-align: center; }
+    text-align: center;
+    padding: 7px 35px;
+    color: #fff; }
   .login .submit input:hover {
     background-color: #63B566;
     border: none;
-    cursor: pointer; }
+    cursor: pointer;
+    box-shadow: 0 0 1pt 1pt black;
+    outline: none; }
+  .login .submit input:focus {
+    box-shadow: 0 0 1pt 1pt black;
+    outline: none; }
+  .login .error {
+    background-color: red;
+    float: left;
+    line-height: 1; }
 
 .signup {
   margin: 0 auto;
@@ -90,32 +107,15 @@
     text-align: center;
     padding: 7px 35px;
     color: #fff; }
+  .signup .signup-form .submit input:focus {
+    box-shadow: 0 0 1pt 1pt black;
+    outline: none; }
   .signup .signup-form .submit input:hover {
     background-color: #63B566;
     border: none;
-    cursor: pointer; }
-  .signup .btn-facebook {
-    margin: 30px auto;
-    width: 100%;
-    text-align: center;
-    padding: 7px 35px;
-    background-color: #3a61b2;
-    border-bottom-left-radius: 500px;
-    border-bottom-right-radius: 500px;
-    border-top-left-radius: 500px;
-    border-top-right-radius: 500px;
-    border-bottom: 0 solid transparent;
-    box-sizing: border-box;
     cursor: pointer;
-    color: white;
-    font-family: Circular, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color .15s ease,border-color .15s ease,color .15s ease;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    white-space: normal;
-    display: inline-block; }
+    box-shadow: 0 0 1pt 1pt black;
+    outline: none; }
 
 .music-header {
   display: inline-block;
