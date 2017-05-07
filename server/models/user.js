@@ -10,16 +10,21 @@ exports.getModel = (db) => {
     },
     userName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
+      unique: true
+    },
+    fb: {
+      type: Sequelize.STRING,
+      allowNull: true,
       unique: true
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true
     },
     firstName: {
@@ -32,11 +37,11 @@ exports.getModel = (db) => {
     },
     country: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     birthdate: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: true
     },
     images: {
       type: Sequelize.ARRAY(Sequelize.STRING),

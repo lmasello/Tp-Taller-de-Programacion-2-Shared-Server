@@ -13,10 +13,7 @@ coverage:
       default:
         enabled: yes
         target: 75%
-    patch:
-      default:
-        enabled: yes
-        target: 75%
+    patch: no
     changes: no
 
   ignore: # files and folders for processing

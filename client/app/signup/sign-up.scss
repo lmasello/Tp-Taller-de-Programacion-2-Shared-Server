@@ -40,35 +40,18 @@
 			color: #fff;
 		}
 
+		.submit input:focus{
+			box-shadow: 0 0 1pt 1pt black;
+			outline: none;
+		}
+
 		.submit input:hover {
 			background-color: #63B566;
 			border: none;
 			cursor: pointer;
+			box-shadow: 0 0 1pt 1pt black;
+			outline: none;
 		}
-	}
-
-	.btn-facebook {
-		margin: 30px auto;
-		width: 100%;
-		text-align: center;
-		padding: 7px 35px;
-		background-color: rgb(58, 97, 178);
-		border-bottom-left-radius: 500px;
-		border-bottom-right-radius: 500px;
-		border-top-left-radius: 500px;
-		border-top-right-radius: 500px;
-		border-bottom: 0 solid rgba(0, 0, 0, 0);
-		box-sizing: border-box;
-		cursor: pointer;
-		color: rgb(255, 255, 255);
-		font-family: Circular, Helvetica, Arial, sans-serif;
-		font-size: 14px;
-		font-weight: 500;
-		transition: background-color .15s ease,border-color .15s ease,color .15s ease;
-		letter-spacing: 1.2px;
-		text-transform: uppercase;
-		white-space: normal;
-		display: inline-block;
 	}
 
 }
