@@ -3,6 +3,7 @@ const song = require('./song');
 const user_song = require('./user_song');
 const artist = require('./artist');
 const album = require('./album');
+const playlist = require('./playlist');
 
 exports.define = (db) => {
   var User = user.getModel(db);
@@ -10,6 +11,7 @@ exports.define = (db) => {
   var UserSong = user_song.getModel(db);
   var Artist = artist.getModel(db);
   var Album = album.getModel(db);
+  var Playlist = playlist.getModel(db);
 
   User.belongsToMany(Song, { through: UserSong });
   Song.belongsToMany(User, { through: UserSong });
@@ -25,4 +27,10 @@ exports.define = (db) => {
 
   Artist.belongsToMany(Album, { through: 'artist_album' });
   Album.belongsToMany(Artist, { through: 'artist_album' });
+
+  Playlist.belongsToMany(Song, { through: 'song_playlist' });
+  Song.belongsToMany(Playlist, { through: 'song_playlist' });
+
+  Playlist.belongsTo(User);
+  User.hasMany(Playlist, { onDelete: 'CASCADE' } );
 };
