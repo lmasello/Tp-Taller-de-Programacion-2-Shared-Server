@@ -11,7 +11,8 @@ module.exports = {
   removeArtist: removeArtist,
   getSongsFromArtist: getSongsFromArtist,
   followArtist: followArtist,
-  unfollowArtist: unfollowArtist
+  unfollowArtist: unfollowArtist,
+  updateArtistPopularity: updateArtistPopularity
 };
 
 function createArtist(artist) {
@@ -69,4 +70,24 @@ function unfollowArtist(userId, artistId) {
   return orm.models.user.findById(userId).then(function(user) {
     return user.removeArtist(artistId);
   })
+}
+
+function updateArtistPopularity(artistId) {
+  return orm.models.artist.findById(artistId).then(function(artist) {
+    if (!artist) {
+      var err = new Error('Not found');
+      err.status = 404;
+      throw err;
+    }
+    return artist.getSongs().then(function(songs) {
+      var sum = 0
+      var count = songs.length;
+      for (var songIndex = 0, len = songs.length; songIndex < len; songIndex++) {
+        if(songs[songIndex].dataValues.popularity)
+          sum += songs[songIndex].dataValues.popularity;
+      }
+      popularity = { popularity: parseInt(sum / count) };
+      return orm.models.artist.update(popularity, { where: { id: artistId } } );
+    })
+  });
 }

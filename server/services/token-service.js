@@ -1,3 +1,4 @@
+'use strict';
 const orm = require('./../config/orm');
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');

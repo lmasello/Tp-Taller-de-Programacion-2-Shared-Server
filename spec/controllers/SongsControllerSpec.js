@@ -129,7 +129,7 @@ describe('Tracks Controller', function() {
   describe('PUT /tracks/{track_id}', function() {
     logger.info('Testing PUT /tracks/{track_id}');
     var base_url = 'http://localhost:3000/tracks/2';
-    params = { name: 'Concerto in C minor' };
+    var params = { name: 'Concerto in C minor' };
 
     it('returns http status code No Content (200)', function(done) {
       logger.info('Testing PUT /tracks/{track_id} - returns 200 if everything is alright');
@@ -186,7 +186,7 @@ describe('Tracks Controller', function() {
     logger.info('Testing POST /tracks');
 
     it('returns http status code created (201)', function(done) {
-      params = { name: 'Viva la vida', duration: '4000000', artists: '[ 3 ]' };
+      var params = { name: 'Viva la vida', duration: '4000000', artists: '[ 3 ]' };
       logger.info('Testing POST /tracks - Returns 201');
       request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(201);
@@ -195,7 +195,7 @@ describe('Tracks Controller', function() {
     });
 
     it('returns http error if the params are invalid', function(done) {
-      params = { n: 'wrong param' };
+      var params = { n: 'wrong param' };
       logger.info('Testing POST /tracks - returns 400 if the params are invalid');
       request.post({ url: base_url, headers: headers, form: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
@@ -206,48 +206,37 @@ describe('Tracks Controller', function() {
 
   describe('POST /tracks/{track_id}/popularity', function() {
     logger.info('Testing POST /tracks/{track_id}/popularity');
-    var base_url = 'http://localhost:3000/tracks/2/popularity';
+    var base_url = 'http://localhost:3000/tracks/4/popularity';
 
     it('returns http status code Created 204', function(done) {
-      params = { rate: 5 };
+      var params = { rate: 5 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns 204 if everything is alright');
-      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+      request.post( { url: base_url, headers: headers, json: params }, function(error, response, body) {
         expect(response.statusCode).toBe(204);
         done();
       });
     });
 
-    it('returns the relation with the right value', function(done) {
-      params = { rate: 5 };
-      logger.info('Testing POST /tracks/{track_id}/popularity - returns the relation with the right value');
-      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
-        return orm.models.user_song.findOne({ where: { song_id: 2, user_id: 1 } }).then(function(user_song) {
-          expect(user_song.rate).toBe(5)
-          done();
-        });
-      });
-    });
-
     it('returns http status code bad request if the rate is more than five', function(done) {
-      params = { rate: 6 };
+      var params = { rate: 6 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the rate is more than five');
-      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+      request.post( { url: base_url, headers: headers, json: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
       });
     });
 
     it('returns http status code bad request if the rate is less than one', function(done) {
-      params = { rate: 0 };
+      var params = { rate: 0 };
       logger.info('Testing POST /tracks/{track_id}/popularity - returns 400 if the rate is less than one');
-      request.post( { url: base_url, headers: headers, form: params }, function(error, response, body) {
+      request.post( { url: base_url, headers: headers, json: params }, function(error, response, body) {
         expect(response.statusCode).toBe(400);
         done();
       });
     });
 
     it('returns http status code unauthorized if there is no token', function(done) {
-      params = { rate: 5 };
+      var params = { rate: 5 };
       logger.info('Testing PUT /tracks/{track_id} - returns 401 if there is no token');
       request.post( { url: base_url, form: params }, function(error, response, body) {
           expect(response.statusCode).toBe(401);
