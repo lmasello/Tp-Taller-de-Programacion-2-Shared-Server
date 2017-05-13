@@ -17,24 +17,24 @@ function findAll(ids) {
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.user.findAll({
-      attributes: ['id', 'userName', 'email'],
+      attributes: ['id', 'userName', 'email', 'images'],
       where: { id: { $in: ids } },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.user.findAll({
-      attributes: ['id', 'userName', 'email'],
+      attributes: ['id', 'userName', 'email', 'images'],
       order: [ ['id', 'ASC'] ]
     });
 }
 
 function findAllContactsFromUser(id) {
-  return orm.sequelize.query('SELECT friend_id, email ' +
+  return orm.sequelize.query('SELECT friend_id, email, images ' +
                              'FROM user_contacts ' +
                              'INNER JOIN users ON user_contacts.friend_id = users.id ' +
                              'WHERE user_id = $1 ' +
                              'UNION ' +
-                             'SELECT user_id, email ' +
+                             'SELECT user_id, email, images ' +
                              'FROM user_contacts ' +
                              'INNER JOIN users ON user_contacts.user_id = users.id ' +
                              'WHERE friend_id = $1 ', { bind: [id],
