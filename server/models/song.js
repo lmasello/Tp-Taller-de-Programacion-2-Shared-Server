@@ -20,6 +20,10 @@ exports.getModel = (db) => {
     album_id: {
       type: Sequelize.INTEGER,
       allowNull: true
+    },
+    popularity: {
+      type: Sequelize.INTEGER,
+      allowNull: true
     }
   }, {
     underscored: true,

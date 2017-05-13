@@ -1,6 +1,7 @@
 const orm = require('./../config/orm');
 const sha1 = require('sha1');
 const logger = require('../config/logger/winston.js');
+var artistsService = require('./artists-service');
 
 // add query functions
 module.exports = {
@@ -57,7 +58,19 @@ function removeSong(songId) {
 
 function rankSong(songId, userId, values) {
   return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { rate: values.rate });
+    return song.addUser(userId, { rate: values.rate }).then(function() {
+      getSongPopularity(songId).then(function(data) {
+        popularity = { popularity: parseInt(data[0].rate) };
+        return orm.models.song.update(popularity, { where: { id: songId } } ).then(function () {
+          return song.getArtists().then(function (artists) {
+            for (var artistIndex = 0, len = artists.length; artistIndex < len; artistIndex++) {
+              artistsService.updateArtistPopularity(artists[artistIndex].dataValues.id);
+            }
+          });
+        });
+      });
+      return song;
+    });
   });
 }
 
