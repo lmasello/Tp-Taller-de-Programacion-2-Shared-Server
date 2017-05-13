@@ -92,6 +92,11 @@ function deleteSongFromPlaylist(playlistId, songId) {
 
 function getSongsFromPlaylist(playlistId) {
   return orm.models.playlist.findById(playlistId).then(function(playlist) {
+    if(!playlist){
+      var err = new Error('Not found');
+      err.status = 404;
+      throw err;
+    }
     return playlist.getSongs({
       attributes: ['id', 'name'],
       joinTableAttributes: []
@@ -141,10 +146,15 @@ function deleteAlbumFromPlaylist(playlistId, albumId) {
 
 function getAlbumsFromPlaylist(playlistId) {
   return orm.models.playlist.findById(playlistId).then(function(playlist) {
+    if(!playlist){
+      var err = new Error('Not found');
+      err.status = 404;
+      throw err;
+    }
     return playlist.getAlbums({
       attributes: ['id', 'name'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] } },
-                 { model: orm.models.song }],      
+                 { model: orm.models.song }],
       joinTableAttributes: []
     });
   });

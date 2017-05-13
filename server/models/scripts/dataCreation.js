@@ -86,6 +86,18 @@ exports.execute = (db) => {
     name: 'Classical Music',
     release_date: '2017-4-30',
     genres: ['Classical', 'Instrumental']
+  }),
+  db.models.playlist.create({
+    name: 'This is Blues',
+    description: 'A collection of the most essential songs of the blues history.'
+  }),
+  db.models.playlist.create({
+    name: 'This is BritPop',
+    description: 'A collection of the most essential songs of the BritPop history.'
+  }),
+  db.models.playlist.create({
+    name: 'This is Classical Music',
+    description: 'A collection of the most beautiful classic pieces of work ever.'
   })
   return Promise.resolve();
 };
