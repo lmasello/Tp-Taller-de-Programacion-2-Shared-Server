@@ -31,6 +31,9 @@ exports.define = (db) => {
   Playlist.belongsToMany(Song, { through: 'song_playlist' });
   Song.belongsToMany(Playlist, { through: 'song_playlist' });
 
+  Playlist.belongsToMany(Album, { through: 'album_playlist' });
+  Album.belongsToMany(Playlist, { through: 'album_playlist' });
+
   Playlist.belongsTo(User);
   User.hasMany(Playlist, { onDelete: 'CASCADE' } );
 };
