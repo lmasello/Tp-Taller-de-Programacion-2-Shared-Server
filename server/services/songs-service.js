@@ -2,6 +2,7 @@ const orm = require('./../config/orm');
 const sha1 = require('sha1');
 const logger = require('../config/logger/winston.js');
 var artistsService = require('./artists-service');
+var songs_recommendator = require('../config/recommendation_engines/songs_recommendation_engine');
 
 // add query functions
 module.exports = {
@@ -13,7 +14,8 @@ module.exports = {
   rankSong: rankSong,
   getSongPopularity: getSongPopularity,
   likeSong: likeSong,
-  dislikeSong: dislikeSong
+  dislikeSong: dislikeSong,
+  getRecommendedSong: getRecommendedSong
 };
 
 function createSong(song_params) {
@@ -91,12 +93,20 @@ function getSongPopularity(songId) {
 
 function likeSong(songId, userId) {
   return orm.models.song.findById(songId).then(function(song) {
+    songs_recommendator.liked(userId, songId);
     return song.addUser(userId, { liked: true });
   });
 }
 
 function dislikeSong(songId, userId) {
   return orm.models.song.findById(songId).then(function(song) {
+    songs_recommendator.unliked(userId, songId);
     return song.addUser(userId, { liked: false });
+  });
+}
+
+function getRecommendedSong(userId) {
+  return songs_recommendator.recommendFor(userId, 1).then((results) => {
+    return orm.models.song.findById(results[0]);
   });
 }

@@ -7,6 +7,7 @@ var jwtMiddleware = require('../../middlewares/jwtMiddleware');
 
 router.post('/tracks', jwtMiddleware, createSong);
 router.get('/tracks', jwtMiddleware, getAllSongs);
+router.get('/tracks/me/recommended', jwtMiddleware, getRecommendedSong);
 router.get('/tracks/:id', jwtMiddleware, getSongById);
 router.put('/tracks/:id', jwtMiddleware, updateSong);
 router.delete('/tracks/:id', jwtMiddleware, removeSong);
@@ -143,6 +144,20 @@ function dislikeSong(req, res, next) {
                 err.status = 400;
                 next(err);
               });
+}
+
+function getRecommendedSong(req, res, next) {
+  songsService.getRecommendedSong(parseInt(req.user.sub))
+              .then(function (data) {
+                if (!data) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
+                res.status(200).json({ track: data });
+              })
+              .catch(function (err) {
+                next(err);
+              });  
 }
 
 module.exports = router;
