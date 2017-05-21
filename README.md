@@ -18,16 +18,6 @@ Note: Execute the following commands at the root of the project.
 ```bash
 docker-compose up
 ```
-### Contribute to the seed file
-If you want to add example data to the seed file (server/config/db/seed.sql), then you will have
-to delete the container and the associated volume:
-```bash
-docker-compose rm -v postgres
-```
-And once then, run the container again:
-```bash
-docker-compose up
-```
 ### What is the ip of the server?
 ```bash
 docker inspect tptallerdeprogramacion2sharedserver_shared-server_1
@@ -43,6 +33,18 @@ docker network list
 ```bash
 docker run -it --rm --network=[network] postgres bash
 ```
+### Env file
+By using Docker and Docker Compose, you can check your local development environment setup into source code control. To handle sensitive credentials, create a .env environment file with your credentials and reference it within your Compose YAML. Your .env should be added to your .gitignore and .dockerignore files so it is not checked into source code control or included in your Docker image, respectively.
+```yaml
+services:
+  web:
+    env_file: .env
+```
+You have to set the following variables in a file called `.docker-env`:
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+- POSTGRES_DB
+- DATABASE_URL
 
 ## Deploy to Heroku
 Execute the following commands at the root of the project:
@@ -94,3 +96,15 @@ Then, do not forget to add them to your .env file at the root of the project.
 DATABASE_URL=postgres://user:password@localhost:5432/music-io-shared-server_development
 DATABASE_TEST_URL=postgres://user:password@localhost:5432/music-io-shared-server_test
 ```
+
+## Redis configuration
+In order to support the recommendation engine for songs and artists, redis is needed.
+If you want to have redis running locally, then run:
+```bash
+sudo apt install redis-server
+redis-server
+```
+Otherwise, you will need to set the following env variables:
+- RACCOON_REDIS_URL
+- RACCOON_REDIS_PORT
+- RACCOON_REDIS_AUTH
