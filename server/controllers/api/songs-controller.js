@@ -153,11 +153,11 @@ function getRecommendedSong(req, res, next) {
                   var err = new Error('Not Found');
                   return next(err);
                 }
-                res.status(200).json({ track: data });
+                res.status(200).json({ tracks: data });
               })
               .catch(function (err) {
                 next(err);
-              });  
+              });
 }
 
 module.exports = router;

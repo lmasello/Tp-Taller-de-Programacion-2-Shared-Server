@@ -1,4 +1,3 @@
-'use strict';
 var songs_recommendator = require('raccoon');
 songs_recommendator.config.className = 'song';
 
