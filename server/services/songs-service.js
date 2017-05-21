@@ -7,6 +7,7 @@ var artistsService = require('./artists-service');
 module.exports = {
   createSong: createSong,
   getAllSongs: getAllSongs,
+  getFavorites: getFavorites,
   getSongById: getSongById,
   updateSong: updateSong,
   removeSong: removeSong,
@@ -87,6 +88,14 @@ function getSongPopularity(songId) {
       'WHERE song_id = $1 ', { bind: [songId], type: orm.sequelize.QueryTypes.SELECT }
     );
   });
+}
+
+function getFavorites(userId) {
+  return orm.models.user.findById(userId).then(function(user) {
+    return user.getSongs({
+      attributes: ['id', 'name', 'duration', 'album_id']
+    });
+  })
 }
 
 function likeSong(songId, userId) {
