@@ -14,6 +14,7 @@ npm-debug.log*
 
 # Ignore .env file for security reasons
 .env
+.docker-env
 
 # Ignore log files
 logfile.log
