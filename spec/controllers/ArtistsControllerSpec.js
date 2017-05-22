@@ -200,6 +200,21 @@ describe('Artists Controller', function() {
     });
   });
 
+  describe('GET /artists/me/favorites', function() {
+    logger.info('Testing GET /artists/me/favorites');
+
+    it('returns http status code successful (200)', function(done) {
+      logger.info('Testing GET /artists/me/favorites - Returns http status code successful');
+
+      var base_url = 'http://localhost:3000/artists/me/favorites';
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+          expect(response.statusCode).toBe(200);
+          expect(JSON.parse(response.body).artists.length).toBe(1);
+          done();
+      });
+    });
+  });
+
   describe('DELETE /artists/{artistId}/follow', function() {
     var base_url = 'http://localhost:3000/artists/1/follow';
     logger.info('Testing DELETE /artists/{artistId}/follow');
