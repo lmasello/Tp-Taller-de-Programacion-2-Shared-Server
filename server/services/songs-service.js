@@ -95,7 +95,10 @@ function getSongPopularity(songId) {
 function getFavorites(userId) {
   return orm.models.user.findById(userId).then(function(user) {
     return user.getSongs({
-      attributes: ['id', 'name', 'duration', 'album_id']
+      attributes: ['id', 'name', 'duration', 'album_id'],
+      through: {
+        where: { liked: true }
+      }
     });
   })
 }

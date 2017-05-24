@@ -10,6 +10,7 @@ router.post('/artists/:id/follow', jwtMiddleware, followArtist);
 router.delete('/artists/:id/follow', jwtMiddleware, unfollowArtist);
 router.get('/artists', jwtMiddleware, getAllArtists);
 router.get('/artists/:id', jwtMiddleware, getArtistById);
+router.get('/artists/me/favorites', jwtMiddleware, getFavorites);
 router.get('/artists/:id/tracks', jwtMiddleware, getTracksFromArtist);
 router.put('/artists/:id', jwtMiddleware, updateArtist);
 router.delete('/artists/:id', jwtMiddleware, removeArtist);
@@ -122,6 +123,16 @@ function removeArtist(req, res, next) {
               .catch(function (err) {
                 next(err);
               });
+}
+
+function getFavorites(req, res, next) {
+  artistsService.getFavorites(parseInt(req.user.sub))
+                .then(function (data) {
+                  res.status(200).json({ artists: data });
+                })
+                .catch(function (err) {
+                  next(err);
+                });
 }
 
 module.exports = router;

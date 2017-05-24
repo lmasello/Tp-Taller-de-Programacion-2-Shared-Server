@@ -10,6 +10,7 @@ module.exports = {
   updateArtist: updateArtist,
   removeArtist: removeArtist,
   getSongsFromArtist: getSongsFromArtist,
+  getFavorites: getFavorites,
   followArtist: followArtist,
   unfollowArtist: unfollowArtist,
   updateArtistPopularity: updateArtistPopularity
@@ -89,5 +90,11 @@ function updateArtistPopularity(artistId) {
       popularity = { popularity: parseInt(sum / count) };
       return orm.models.artist.update(popularity, { where: { id: artistId } } );
     })
+  });
+}
+
+function getFavorites(userId) {
+  return orm.models.user.findById(userId).then(function(user) {
+    return user.getArtists();
   });
 }
