@@ -289,5 +289,18 @@ describe('Tracks Controller', function() {
         });
       });
     });
-  })
+  });
+
+  describe('GET /tracks/me/recommended', function() {
+    logger.info('Testing GET /tracks/me/recommended');
+    var base_url = 'http://localhost:3000/tracks/me/recommended';
+
+    it('returns http status code successful (200)', function(done) {
+      logger.info('Testing GET /tracks/me/recommended - Returns 200 if everything is alright');
+      request( { url: base_url, headers: headers }, function(error, response, body){
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
+  });
 });

@@ -2,6 +2,7 @@ const orm = require('./../config/orm');
 const sha1 = require('sha1');
 const logger = require('../config/logger/winston.js');
 var artistsService = require('./artists-service');
+const songs_recommendator = require('../config/recommendation_engines/songs_recommendation_engine');
 
 // add query functions
 module.exports = {
@@ -14,7 +15,8 @@ module.exports = {
   rankSong: rankSong,
   getSongPopularity: getSongPopularity,
   likeSong: likeSong,
-  dislikeSong: dislikeSong
+  dislikeSong: dislikeSong,
+  getRecommendedSong: getRecommendedSong
 };
 
 function createSong(song_params) {
@@ -100,12 +102,27 @@ function getFavorites(userId) {
 
 function likeSong(songId, userId) {
   return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { liked: true });
+    return songs_recommendator.liked(userId, songId).then(function() {
+      return song.addUser(userId, { liked: true });
+    });
   });
 }
 
 function dislikeSong(songId, userId) {
   return orm.models.song.findById(songId).then(function(song) {
-    return song.addUser(userId, { liked: false });
+    return songs_recommendator.unliked(userId, songId).then(function() {
+      return song.addUser(userId, { liked: false });
+    });
+  });
+}
+
+function getRecommendedSong(userId) {
+  return songs_recommendator.recommendFor(userId, 5).then((results) => {
+    return orm.models.song.findAll({
+      attributes: ['id', 'name', 'duration', 'album_id'],
+      include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      where: { id: { $in: results } },
+      order: [ ['id', 'ASC'] ]
+    });
   });
 }

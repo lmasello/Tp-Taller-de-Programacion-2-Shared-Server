@@ -20,6 +20,7 @@ jasmine.Runner.prototype.finishCallback = function () {
       exports.models = db.models;
       exports.sequelize = db;
       server.closeServer();
+      process.exit()
     });
 };
 

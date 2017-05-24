@@ -3,6 +3,7 @@ node_js:
   - "6"
 services:
   - postgresql
+  - redis-server
 env:
   - DATABASE_TEST_URL=postgres://postgres@localhost:5432/music-io-shared-server_test JWT_SECRET_KEY=shhhh
 before_script:
