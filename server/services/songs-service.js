@@ -47,8 +47,11 @@ function getAllSongs(ids) {
     });
 }
 
-function getSongById(songId) {
-  return orm.models.song.findOne({ where: { id: songId } });
+function getSongById(songId, userId) {
+  return orm.models.song.findOne({
+    where: { id: songId },
+    include: [ { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'] }]
+  });
 }
 
 function updateSong(song, id) {
