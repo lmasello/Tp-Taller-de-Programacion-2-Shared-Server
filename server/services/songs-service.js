@@ -50,12 +50,13 @@ function getAllSongs(ids) {
     });
 }
 
-function getSongById(songId) {
+function getSongById(songId, userId) {
   return orm.models.song.findOne({
     where: { id: songId },
     include: [
       { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }},
       { model: orm.models.album },
+      { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'] }
     ]    
   });
 }
