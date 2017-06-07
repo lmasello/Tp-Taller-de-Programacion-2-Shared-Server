@@ -41,7 +41,7 @@ function getAllSongs(req, res, next) {
 }
 
 function getSongById(req, res, next) {
-  songsService.getSongById(parseInt(req.params.id))
+  songsService.getSongById(parseInt(req.params.id), parseInt(req.user.sub))
               .then(function (data) {
                 if (!data) {
                   var err = new Error('Not Found');
