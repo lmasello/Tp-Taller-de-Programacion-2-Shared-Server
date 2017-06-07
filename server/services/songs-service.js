@@ -34,15 +34,18 @@ function getAllSongs(ids) {
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.song.findAll({
-      attributes: ['id', 'name', 'duration', 'album_id'],
+      attributes: ['id', 'name', 'duration'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       where: { id: { $in: ids } },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.song.findAll({
-      attributes: ['id', 'name', 'duration', 'album_id'],
-      include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      attributes: ['id', 'name', 'duration'],
+      include: [
+        { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }},
+        { model: orm.models.album },
+      ],
       order: [ ['id', 'ASC'] ]
     });
 }
@@ -50,7 +53,11 @@ function getAllSongs(ids) {
 function getSongById(songId, userId) {
   return orm.models.song.findOne({
     where: { id: songId },
-    include: [ { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'] }]
+    include: [
+      { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }},
+      { model: orm.models.album },
+      { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'] }
+    ]    
   });
 }
 
