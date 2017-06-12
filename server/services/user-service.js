@@ -5,6 +5,7 @@ const logger = require('../config/logger/winston.js');
 // add query functions
 module.exports = {
   getAllUsers: findAll,
+  getUserActivity: getUserActivity,
   getSingleUser: findUserById,
   getContacts: findAllContactsFromUser,
   addContact: addContact,
@@ -64,4 +65,20 @@ function updateUser(user, id) {
 
 function removeUser(userId) {
   return orm.models.user.destroy( { where: { id: userId }} );
+}
+
+function getUserActivity(userId) {
+  return orm.models.user.find({
+    attributes: ['id', 'userName'],
+    where: { id: userId },
+    include: [
+      { model: orm.models.artist },
+      { model: orm.models.song },
+    ],
+    order: [
+      [orm.models.artist, orm.models.user_artist, 'updated_at', 'DESC'],
+      [orm.models.song, orm.models.user_song, 'updatedAt', 'DESC']
+    ],
+    limit: 1
+  });
 }
