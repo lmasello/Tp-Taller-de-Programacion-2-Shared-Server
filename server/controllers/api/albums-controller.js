@@ -27,7 +27,7 @@ function createAlbum(req, res, next) {
 }
 
 function getAllAlbums(req, res, next) {
-  albumsService.getAllAlbums(req.query.ids)
+  albumsService.getAllAlbums(req.query.ids, req.query.name)
               .then(function (data) {
                 res.status(200).json({ albums: data });
               })

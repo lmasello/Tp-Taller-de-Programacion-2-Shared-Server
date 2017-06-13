@@ -24,20 +24,28 @@ function createAlbum(album_params) {
   });
 }
 
-function getAllAlbums(ids) {
+function getAllAlbums(ids, name) {
+  if (!name)
+    var name = '';
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.album.findAll({
       attributes: ['id', 'name', 'release_date', 'genres', 'images'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] } },
                  { model: orm.models.song }],
-      where: { id: { $in: ids } },
+      where: {
+        id: { $in: ids },
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.album.findAll({
       attributes: ['id', 'name', 'release_date', 'genres', 'images'],
       include: [ { model: orm.models.artist}, { model: orm.models.song }],
+      where: {
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
 }

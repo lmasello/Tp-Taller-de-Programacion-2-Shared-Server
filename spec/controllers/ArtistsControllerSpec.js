@@ -27,27 +27,41 @@ describe('Artists Controller', function() {
           done();
       });
     });
+  })
 
-    describe('GET /artists?ids=1,2', function() {
-      var base_url = 'http://localhost:3000/artists?ids=1';
-      logger.info('Testing GET /artists?ids=1');
+  describe('GET /artists?name=Cold', function() {
+    var base_url = 'http://localhost:3000/artists?name=Cold';
+    logger.info('Testing GET /artists?name=Cold');
 
-      it('returns http status code successful (200)', function(done) {
-        logger.info('Testing GET /artists?ids=1 - returns http status code successful');
+    it('returns one resource', function(done) {
+      logger.info('Testing GET /artists?name=Cold - returns one resource');
 
-        request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(response.statusCode).toBe(200);
-          done();
-        });
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(JSON.parse(response.body).artists.length).toBe(1);
+        done();
       });
+    });
+  });
 
-      it('returns two resources', function(done) {
-        logger.info('Testing GET /artists?ids=1 - returns two resources');
+  describe('GET /artists?ids=1,2', function() {
+    var base_url = 'http://localhost:3000/artists?ids=1';
+    logger.info('Testing GET /artists?ids=1');
 
-        request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).artists.length).toBe(1);
-          done();
-        });
+    it('returns http status code successful (200)', function(done) {
+      logger.info('Testing GET /artists?ids=1 - returns http status code successful');
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
+
+    it('returns one resource', function(done) {
+      logger.info('Testing GET /artists?ids=1 - returns one resource');
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(JSON.parse(response.body).artists.length).toBe(1);
+        done();
       });
     });
 

@@ -31,6 +31,8 @@ function createSong(song_params) {
 }
 
 function getAllSongs(ids, name) {
+  if (!name)
+    var name = '';
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.song.findAll({
@@ -38,7 +40,7 @@ function getAllSongs(ids, name) {
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
       where: {
         id: { $in: ids },
-        name: { $like: '%' + name + '%' }
+        name: { $ilike: '%' + name + '%' }
       },
       order: [ ['id', 'ASC'] ]
     });
@@ -50,7 +52,7 @@ function getAllSongs(ids, name) {
         { model: orm.models.album },
       ],
       where: {
-        name: { $like: '%' + name + '%' }
+        name: { $ilike: '%' + name + '%' }
       },
       order: [ ['id', 'ASC'] ]
     });

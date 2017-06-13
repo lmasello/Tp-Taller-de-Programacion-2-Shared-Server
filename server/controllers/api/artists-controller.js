@@ -56,7 +56,7 @@ function unfollowArtist(req, res, next) {
 }
 
 function getAllArtists(req, res, next) {
-  artistsService.getAllArtists(req.query.ids)
+  artistsService.getAllArtists(req.query.ids, req.query.name)
               .then(function (data) {
                 res.status(200).json({ artists: data });
               })
