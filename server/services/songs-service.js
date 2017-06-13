@@ -30,13 +30,18 @@ function createSong(song_params) {
   })
 }
 
-function getAllSongs(ids) {
+function getAllSongs(ids, name) {
+  if (!name)
+    var name = '';
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.song.findAll({
       attributes: ['id', 'name', 'duration'],
       include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
-      where: { id: { $in: ids } },
+      where: {
+        id: { $in: ids },
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
   } else
@@ -46,6 +51,9 @@ function getAllSongs(ids) {
         { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }},
         { model: orm.models.album },
       ],
+      where: {
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
 }
@@ -57,7 +65,7 @@ function getSongById(songId, userId) {
       { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }},
       { model: orm.models.album },
       { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'] }
-    ]    
+    ]
   });
 }
 

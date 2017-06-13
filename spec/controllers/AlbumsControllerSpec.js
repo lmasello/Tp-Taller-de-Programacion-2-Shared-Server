@@ -33,35 +33,49 @@ describe('Albums Controller', function() {
       });
     });
 
-    describe('GET /albums?ids=1,2', function() {
-      var base_url = 'http://localhost:3000/albums?ids=1,2';
-      logger.info('Testing GET /albums?ids=1,2');
-
-      it('returns http status code successful (200)', function(done) {
-        logger.info('Testing GET /albums?ids=1,2 - returns http status code successful');
-
-        request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(response.statusCode).toBe(200);
-          done();
-        });
-      });
-
-      it('returns two resources', function(done) {
-        logger.info('Testing GET /albums?ids=1,2 - returns two resources');
-
-        request( { url:base_url, headers: headers }, function(error, response, body) {
-          expect(JSON.parse(response.body).albums.length).toBe(2);
-          done();
-        });
-      });
-    });
-
     // If it does not provide authentication
     it('returns http status code Unauthorized(401)', function(done) {
       logger.info('Testing If the request does not provide authentication, it returns 401');
       request( { url:base_url }, function(error, response, body) {
           expect(response.statusCode).toBe(401);
           done();
+      });
+    });
+  });
+
+  describe('GET /albums?ids=1,2', function() {
+    var base_url = 'http://localhost:3000/albums?ids=1,2';
+    logger.info('Testing GET /albums?ids=1,2');
+
+    it('returns http status code successful (200)', function(done) {
+      logger.info('Testing GET /albums?ids=1,2 - returns http status code successful');
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
+
+    it('returns two resources', function(done) {
+      logger.info('Testing GET /albums?ids=1,2 - returns two resources');
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(JSON.parse(response.body).albums.length).toBe(2);
+        done();
+      });
+    });
+  });
+
+  describe('GET /albums?name=step', function() {
+    var base_url = 'http://localhost:3000/albums?name=step';
+    logger.info('Testing GET /albums?name=step');
+
+    it('returns one resource', function(done) {
+      logger.info('Testing GET /albums?name=step - returns one resource');
+
+      request( { url:base_url, headers: headers }, function(error, response, body) {
+        expect(JSON.parse(response.body).albums.length).toBe(1);
+        done();
       });
     });
   });

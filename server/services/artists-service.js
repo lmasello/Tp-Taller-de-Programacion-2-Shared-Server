@@ -20,19 +20,27 @@ function createArtist(artist) {
   return orm.models.artist.create(artist);
 }
 
-function getAllArtists(ids) {
+function getAllArtists(ids, name) {
+  if (!name)
+    var name = '';
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
       include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
-      where: { id: { $in: ids } },
+      where: {
+        id: { $in: ids },
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
   } else
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
       include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      where: {
+        name: { $ilike: '%' + name + '%' }
+      },
       order: [ ['id', 'ASC'] ]
     });
 }

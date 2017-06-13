@@ -28,6 +28,19 @@ describe('Tracks Controller', function() {
       });
     });
 
+    describe('GET /tracks with filter', function() {
+      var base_url = 'http://localhost:3000/tracks?name=Quattro';
+      logger.info('Testing GET /tracks with filter');
+
+      it('returns one resource', function(done) {
+        logger.info('Testing GET /tracks with filter - returns one resource');
+        request( { url:base_url, headers: headers }, function(error, response, body) {
+          expect(JSON.parse(response.body).tracks.length).toBe(1);
+          done();
+        });
+      });
+    });
+
     describe('GET /tracks?ids=1,2', function() {
       var base_url = 'http://localhost:3000/tracks?ids=1,2';
       logger.info('Testing GET /tracks?ids=1,2');

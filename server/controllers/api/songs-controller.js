@@ -31,7 +31,7 @@ function createSong(req, res, next) {
 }
 
 function getAllSongs(req, res, next) {
-  songsService.getAllSongs(req.query.ids)
+  songsService.getAllSongs(req.query.ids, req.query.name)
               .then(function (data) {
                 res.status(200).json({ tracks: data });
               })
