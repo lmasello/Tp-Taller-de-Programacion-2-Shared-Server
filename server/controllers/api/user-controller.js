@@ -7,6 +7,7 @@ var jwtMiddleware = require('../../middlewares/jwtMiddleware');
 
 router.get('/users', jwtMiddleware, getAllUsers);
 router.get('/users/me', jwtMiddleware, getUserByToken);
+router.get('/users/me/activity', jwtMiddleware, getUserActivity);
 router.get('/users/:id', jwtMiddleware, getUserById);
 router.get('/users/me/contacts', jwtMiddleware, getContacts);
 router.post('/users/me/contacts', jwtMiddleware, addContact);
@@ -111,6 +112,16 @@ function updateUserByToken(req, res, next) {
              .catch(function (err) {
                var err = new Error(err.message);
                err.status = 400;
+               next(err);
+             });
+}
+
+function getUserActivity(req, res, next) {
+  userService.getUserActivity(parseInt(req.user.sub))
+             .then(function (data) {
+               res.status(200).json({ activity: data });
+             })
+             .catch(function (err) {
                next(err);
              });
 }
