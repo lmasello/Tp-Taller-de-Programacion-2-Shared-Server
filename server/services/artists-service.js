@@ -20,14 +20,17 @@ function createArtist(artist) {
   return orm.models.artist.create(artist);
 }
 
-function getAllArtists(ids, name) {
+function getAllArtists(ids, name, userId) {
   if (!name)
     var name = '';
   if (ids){
     var ids = JSON.parse("[" + ids + "]");
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
-      include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      include: [
+        { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }},
+        { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'], through: {attributes:[] }, as: 'followed' },
+      ],
       where: {
         id: { $in: ids },
         name: { $ilike: '%' + name + '%' }
@@ -37,7 +40,10 @@ function getAllArtists(ids, name) {
   } else
     return orm.models.artist.findAll({
       attributes: ['id', 'name', 'genres', 'images', 'popularity'],
-      include: [ { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      include: [
+        { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }},
+        { model: orm.models.user, where: { id: userId} , required: false, attributes: ['id', 'userName'], through: {attributes:[] }, as: 'followed' },
+      ],
       where: {
         name: { $ilike: '%' + name + '%' }
       },
