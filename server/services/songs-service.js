@@ -140,8 +140,11 @@ function dislikeSong(songId, userId) {
 function getRecommendedSong(userId) {
   return songs_recommendator.recommendFor(userId, 5).then((results) => {
     return orm.models.song.findAll({
-      attributes: ['id', 'name', 'duration', 'album_id'],
-      include: [ { model: orm.models.artist, attributes: [ 'id', 'name' ], through: {attributes:[] }}],
+      attributes: ['id', 'name', 'duration'],
+      include: [
+        { model: orm.models.artist, attributes: [ 'id', 'name' ], through: { attributes:[] }},
+        { model: orm.models.album },
+      ],
       where: { id: { $in: results } },
       order: [ ['id', 'ASC'] ]
     });
