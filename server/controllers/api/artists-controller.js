@@ -11,6 +11,7 @@ router.delete('/artists/:id/follow', jwtMiddleware, unfollowArtist);
 router.get('/artists', jwtMiddleware, getAllArtists);
 router.get('/artists/:id', jwtMiddleware, getArtistById);
 router.get('/artists/me/favorites', jwtMiddleware, getFavorites);
+router.get('/artists/me/recommended', jwtMiddleware, getRecommendedArtists);
 router.get('/artists/:id/tracks', jwtMiddleware, getTracksFromArtist);
 router.put('/artists/:id', jwtMiddleware, updateArtist);
 router.delete('/artists/:id', jwtMiddleware, removeArtist);
@@ -133,6 +134,39 @@ function getFavorites(req, res, next) {
                 .catch(function (err) {
                   next(err);
                 });
+}
+
+function getRecommendedArtists(req, res, next) {
+  artistsService.getRecommendedArtists(parseInt(req.user.sub))
+              .then(function (data) {
+                if (!data) {
+                  var err = new Error('Not Found');
+                  return next(err);
+                }
+                res.status(200).json({ artists: serialize_recommended_artist(data) });
+              })
+              .catch(function (err) {
+                next(err);
+              });
+}
+
+function serialize_recommended_artist(data) {
+  var response = [];
+  var ids = [];
+  for(var i = 0; i < data.length; i++){
+    var recommended_song = data[i];
+    if (recommended_song["artists"]){
+      var song_artists = recommended_song["artists"];
+      for(var j = 0; j < song_artists.length; j++){
+        response.push(song_artists[j].dataValues);
+        ids.push(song_artists[j].dataValues.id)
+      }
+    }
+  }
+  // Remove duplicates
+  return response.filter(function(value, index) {
+    return ids.indexOf(value.id) == index
+  });
 }
 
 module.exports = router;
