@@ -284,4 +284,25 @@ describe('Artists Controller', function() {
       });
     });
   });
+
+  describe('GET /artists/me/recommended', function() {
+    var base_url = 'http://localhost:3000/artists/me/recommended';
+    logger.info('Testing GET /artists/me/recommended');
+
+    it('returns http status code created (200)', function(done) {
+      logger.info('Testing GET /artists/me/recommended - Returns 200');
+      request.get({ url: base_url, headers: headers }, function(error, response, body) {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
+
+    it('returns http status code unauthorized if there is no token', function(done) {
+      logger.info('Testing GET /artists/me/recommended - returns 401 if there is no token');
+      request.get( { url: base_url }, function(error, response, body) {
+        expect(response.statusCode).toBe(401);
+        done();
+      });
+    });
+  });
 });
