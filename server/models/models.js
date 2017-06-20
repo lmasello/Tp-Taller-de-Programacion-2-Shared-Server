@@ -16,7 +16,7 @@ exports.define = (db) => {
   User.belongsToMany(Song, { through: UserSong });
   Song.belongsToMany(User, { through: UserSong });
 
-  Artist.belongsToMany(User, { through: 'user_artist' });
+  Artist.belongsToMany(User, { through: 'user_artist', as: 'followed' });
   User.belongsToMany(Artist, { through: 'user_artist' });
 
   Artist.belongsToMany(Song, { through: 'artist_song' });
