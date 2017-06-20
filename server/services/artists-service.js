@@ -1,6 +1,7 @@
 const orm = require('./../config/orm');
 const sha1 = require('sha1');
 const logger = require('../config/logger/winston.js');
+const songs_recommendator = require('../config/recommendation_engines/songs_recommendation_engine');
 
 // add query functions
 module.exports = {
@@ -13,7 +14,8 @@ module.exports = {
   getFavorites: getFavorites,
   followArtist: followArtist,
   unfollowArtist: unfollowArtist,
-  updateArtistPopularity: updateArtistPopularity
+  updateArtistPopularity: updateArtistPopularity,
+  getRecommendedArtists: getRecommendedArtists
 };
 
 function createArtist(artist) {
@@ -104,5 +106,16 @@ function updateArtistPopularity(artistId) {
 function getFavorites(userId) {
   return orm.models.user.findById(userId).then(function(user) {
     return user.getArtists();
+  });
+}
+
+function getRecommendedArtists(userId) {
+  return songs_recommendator.recommendFor(userId, 5).then((results) => {
+    return orm.models.song.findAll({
+      attributes: ['id'],
+      include: [ { model: orm.models.artist, through: { attributes: [] } }],
+      where: { id: { $in: results } },
+      order: [ ['id', 'ASC'] ]
+    });
   });
 }
