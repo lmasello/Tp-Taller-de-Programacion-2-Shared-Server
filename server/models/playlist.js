@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 exports.getModel = (db) => {
-  var Song = db.define('playlist', {
+  var Playlist = db.define('playlist', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -21,5 +21,5 @@ exports.getModel = (db) => {
     underscored: true,
     associations: true
   });
-  return Song;
+  return Playlist;
 };

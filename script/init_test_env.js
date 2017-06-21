@@ -1,7 +1,7 @@
 require('dotenv').load();
 const Sequelize = require('sequelize'),
   models = require('./../server/models/models'),
-  dataCreation = require('./../server/models/scripts/dataCreation'),
+  dataCreation = require('./../server/models/scripts/dataForTests'),
   db = new Sequelize(process.env.DATABASE_TEST_URL, { logging: false });
 
 process.env.NODE_ENV='test';
