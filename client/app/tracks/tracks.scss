@@ -1,21 +1,21 @@
 .tracks {
-  float: left;
-  width: 100%;
+  width: 90%;
+  max-width: 1080px;
+  display: block;
+  margin: auto;
 
   .p {
     font-size: 20px;
   }
 
   h1 {
-    text-align: center;
+    text-align: left;
     margin: 1em 0 0.5em 0;
     color: #343434;
     font-weight: normal;
-    font-family: 'Ultra', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 36px;
     line-height: 42px;
-    text-transform: uppercase;
-    text-shadow: 0 2px white, 0 3px #777;
   }
 
   h2 {
@@ -25,6 +25,33 @@
     font-size: 30px;
     line-height: 40px;
     font-family: 'Orienta', sans-serif;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  form p {
+    font-family: roboto;
+    margin-bottom: 10px;
+  }
+  form.ng-pristine.ng-valid {
+    float: right;
+  }
+  input[type="button"] {
+    width: 80px;
+    background-color: lightgray;
+    color: dimgrey;
+    border: 0;
+    border-bottom: 3px solid rgba(0,0,0,0.2);
   }
 
   .loader {
@@ -41,9 +68,10 @@
   }
 
   a {
-    font-family: Circular, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    color: rgba(160, 195, 210, 1);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+    color: rgb(0, 13, 210);
     line-height: 24px;
     text-decoration: none;
     cursor: pointer;
@@ -51,6 +79,16 @@
       text-decoration: none;
       color: rgba(160, 195, 210, .8);
     }
+  }
+
+  .add-song {
+    width: 40%;
+    display: inline-block;
+  }
+
+  .tracks-list {
+    width: 60%;
+    display: inline-block;
   }
 
   .edit-song{
