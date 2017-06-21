@@ -2,7 +2,8 @@ music-header
 
 .tracks
     h1 Canciones
-    .loader(ng-if='$ctrl.loaded && $ctrl.show==="list"')
+    .loader(ng-if='!$ctrl.loaded')
+    .content(ng-if='$ctrl.show==="list"')
         form(action='')
             p Agregar
             input(type='name', placeholder='Nombre', ng-model='$ctrl.newTrack.name')

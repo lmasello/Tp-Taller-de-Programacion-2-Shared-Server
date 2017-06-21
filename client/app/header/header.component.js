@@ -39,6 +39,10 @@
             location.href = '/canciones';
         };
 
+        this.artists = function artists() {
+            location.href = '/artistas';
+        };
+
         this.logout = function logout() {
             loginUtils.logout();
             location.reload();
