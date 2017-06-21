@@ -1,0 +1,15 @@
+music-header
+
+.albums
+    h1 Albums
+    .loader(ng-if='!$ctrl.loaded')
+    .content(ng-if='$ctrl.show==="list"')
+        form(action='')
+            p Agregar
+            input(type='name', placeholder='Nombre', ng-model='$ctrl.newAlbum.name')
+            input(type='duration', placeholder='Duración', ng-model='$ctrl.newAlbum.duration')
+            input(type='artist', placeholder='Artista', ng-model='$ctrl.newAlbum.artist')
+            input(type='button', value='Agregar', ng-click='$ctrl.addAlbum()')
+        .albums-list(ng-repeat="album in $ctrl.albums")
+            a(href='#' ng-click='$ctrl.editAlbum(album)') {{album.id}} {{album.name}}
+    edit-album(album='$ctrl.albumToEdit', ng-if='$ctrl.show==="edit"')

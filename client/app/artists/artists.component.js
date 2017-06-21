@@ -25,7 +25,6 @@
                 .then(response => {
                     self.loaded = true;
                     self.artists = response.data.artists;
-                    console.log(self.artists);
                 })
                 .catch(error => {
                     console.error(error);

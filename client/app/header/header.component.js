@@ -43,6 +43,10 @@
             location.href = '/artistas';
         };
 
+        this.albums = function albums() {
+            location.href = '/album';
+        };
+
         this.logout = function logout() {
             loginUtils.logout();
             location.reload();

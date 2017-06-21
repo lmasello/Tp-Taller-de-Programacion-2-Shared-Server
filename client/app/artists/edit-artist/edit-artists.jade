@@ -1,14 +1,6 @@
-music-header
-
-.artists
-    h1 Artistas
-    .loader(ng-if='$ctrl.loaded && $ctrl.show==="list"')
-        form(action='')
-            p Agregar
-            input(type='name', placeholder='Nombre', ng-model='$ctrl.newArtists.name')
-            input(type='description', placeholder='Descripción', ng-model='$ctrl.newArtist.description')
-            input(type='genre', placeholder='Género', ng-model='$ctrl.newArtist.genre')
-            input(type='button', value='Agregar', ng-click='$ctrl.addArtist()')
-        .tracks-list(ng-repeat="artist in $ctrl.artists")
-            a(href='#' ng-click='$ctrl.editArtist(artist)') {{track.id}} {{track.name}}
-    edit-artist(track='$ctrl.artistToEdit', ng-if='$ctrl.show==="edit"')
+.edit-artist
+    h2 Editar artista
+    form(action='')
+        input(type='name', placeholder='Nombre', ng-model='$ctrl.artist.name')
+        input(type='duration', placeholder='Descripción', ng-model='$ctrl.artist.description')
+        input(type='button', value='Editar', ng-click='$ctrl.editArtist()')

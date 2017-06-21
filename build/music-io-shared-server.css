@@ -248,5 +248,109 @@
     white-space: normal;
     display: inline-block; }
 
+.artists {
+  float: left;
+  width: 100%; }
+  .artists .circle {
+    border-radius: 50%; }
+  .artists .loader {
+    margin-top: 50%;
+    margin-left: calc(50% - 120px);
+    float: left;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 10s linear infinite;
+    animation: spin 1s linear infinite; }
+  .artists h1 {
+    text-align: center;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+    width: 100%; }
+
+.tracks {
+  float: left;
+  width: 100%; }
+  .tracks .p {
+    font-size: 20px; }
+  .tracks h1 {
+    text-align: center;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777; }
+  .tracks h2 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif; }
+  .tracks .loader {
+    margin-top: 50%;
+    margin-left: calc(50% - 120px);
+    float: left;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 10s linear infinite;
+    animation: spin 1s linear infinite; }
+  .tracks a {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #a0c3d2;
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer; }
+    .tracks a:hover {
+      text-decoration: none;
+      color: rgba(160, 195, 210, 0.8); }
+  .tracks .edit-song {
+    color: #00B7FF; }
+  .tracks .edit-song:hover {
+    text-decoration: none; }
+
+.albums {
+  float: left;
+  width: 100%; }
+  .albums .circle {
+    border-radius: 50%; }
+  .albums .loader {
+    margin-top: 50%;
+    margin-left: calc(50% - 120px);
+    float: left;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 10s linear infinite;
+    animation: spin 1s linear infinite; }
+  .albums h1 {
+    text-align: center;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+    width: 100%; }
+
 main {
   display: block; }

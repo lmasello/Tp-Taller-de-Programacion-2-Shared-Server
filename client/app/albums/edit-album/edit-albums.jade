@@ -1,0 +1,6 @@
+.edit-album
+    h2 Editar canción
+    form(action='')
+        input(type='name', placeholder='Nombre', ng-model='$ctrl.album.name')
+        input(type='date', placeholder='Fecha de lanzamiento', ng-model='$ctrl.album.release_date')
+        input(type='button', value='Editar', ng-click='$ctrl.editAlbum()')

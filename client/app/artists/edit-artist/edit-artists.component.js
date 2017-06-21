@@ -17,6 +17,7 @@
         var self = this;
 
         this.$onInit = function () {
+            console.log(self.artist);
         };
 
         this.editArtist = function () {

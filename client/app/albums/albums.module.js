@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('Artists', [
+        .module('Albums', [
             'Header',
             'Login',
-            'EditArtist'
+            'EditAlbum'
         ]);
 
 }());
