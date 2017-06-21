@@ -1,0 +1,40 @@
+.tracks {
+  float: left;
+
+  .p {
+    font-size: 120px;
+  }
+  .loader {
+    margin-top: 50%;
+    margin-left: calc(50% - 120px);
+    float: left;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 10s linear infinite;
+    animation: spin 1s linear infinite;
+  }
+
+  a {
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: rgba(160, 195, 210, 1);
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+      text-decoration: none;
+      color: rgba(160, 195, 210, .8);
+    }
+  }
+
+  .edit-song{
+    color: #00B7FF;
+  }
+
+  .edit-song:hover {
+    text-decoration:none;
+  }
+}

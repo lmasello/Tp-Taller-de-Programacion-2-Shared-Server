@@ -35,6 +35,10 @@
             location.href = '/signup';
         };
 
+        this.tracks = function tracks() {
+            location.href = '/canciones';
+        };
+
         this.logout = function logout() {
             loginUtils.logout();
             location.reload();

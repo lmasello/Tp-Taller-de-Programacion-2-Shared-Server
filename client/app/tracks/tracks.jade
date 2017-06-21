@@ -1,0 +1,14 @@
+music-header
+
+.tracks
+    h1 Canciones
+    .loader(ng-if='$ctrl.loaded && $ctrl.show==="list"')
+        form(action='')
+            p Agregar
+            input(type='name', placeholder='Nombre', ng-model='$ctrl.newTrack.name')
+            input(type='duration', placeholder='Duración', ng-model='$ctrl.newTrack.duration')
+            input(type='artist', placeholder='Artista', ng-model='$ctrl.newTrack.artist')
+            input(type='button', value='Agregar', ng-click='$ctrl.addTrack()')
+        .tracks-list(ng-repeat="track in $ctrl.tracks")
+            a(href='#' ng-click='$ctrl.editTrack(track)') {{track.id}} {{track.name}}
+    edit-track(track='$ctrl.trackToEdit', ng-if='$ctrl.show==="edit"')

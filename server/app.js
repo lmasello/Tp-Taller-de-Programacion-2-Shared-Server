@@ -24,6 +24,7 @@ app.use('/', require('./controllers/public/home-controller'));
 app.use('/', require('./controllers/public/login-controller'));
 app.use('/', require('./controllers/public/signup-controller'));
 app.use('/', require('./controllers/public/profile-controller'));
+app.use('/', require('./controllers/public/tracks-controller'));
 
 //Api controllers
 app.use('/', require('./controllers/api/token-controller'));
