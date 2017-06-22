@@ -9,14 +9,25 @@
             templateUrl: '/public/app/tracks/tracks.html'
         });
 
-    tracksCtrl.$inject = ['$http'];
+    tracksCtrl.$inject = ['$http', '$scope'];
 
-    function tracksCtrl($http) {
+    function tracksCtrl($http, $scope) {
         var self = this;
 
         this.$onInit = function () {
+            $scope.artistSettings = {enableSearch: true };
+            $scope.artistModel = [];
+            $scope.translations = {
+                checkAll: "Seleccionar todos los artistas",
+                uncheckAll: "Deseleccionar todos los artistas",
+                searchPlaceholder: "Buscar artista",
+                dynamicButtonTextSuffix: "artistas seleccionado",
+                buttonDefaultText: "Buscar artistas"
+            };
+
             self.show='list';
             this.reloadTracks();
+            this.findArtists();
         };
 
         this.reloadTracks = function () {
@@ -31,12 +42,31 @@
                 });
         };
 
+        function convertArtist(artist) {
+            return {
+                id: artist.id,
+                label: artist.name
+            }
+        }
+
+        this.findArtists = function () {
+            $http.get('/artists', self.data)
+                .then(response => {
+                    $scope.artistData = response.data.artists.map(convertArtist);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
         this.addTrack = function () {
             var body = {
                 "name" : self.newTrack.name,
                 "duration" : self.newTrack.duration,
-                "artists" : [self.newTrack.artist]
+                "artists" : $scope.artistModel.map(artist => artist.id)
             };
+
+            console.log(body);
 
             $http.post('/tracks', body)
                 .then(response => {

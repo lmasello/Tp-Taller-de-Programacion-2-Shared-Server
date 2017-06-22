@@ -4,14 +4,20 @@ music-header
     h1 Artistas
     .loader(ng-if='!$ctrl.loaded')
     .content(ng-if='$ctrl.show==="list"')
-        form(action='')
-            p Agregar
-            input(type='name', placeholder='Nombre', ng-model='$ctrl.newArtists.name')
-            input(type='description', placeholder='Descripción', ng-model='$ctrl.newArtist.description')
-            input(type='genre', placeholder='Género', ng-model='$ctrl.newArtist.genre')
-            input(type='button', value='Agregar', ng-click='$ctrl.addArtist()')
-        .artists-list(ng-repeat="artist in $ctrl.artists")
-            object.circle(data='{{artist.images[0]}}', type='image/png' height="30" width="30" ng-if="artist.images[0]")
-            img.circle(src='./public/assets/images/user-photo.jpg' height="30" width="30" ng-if="!artist.images[0]")
-            a(href='#' ng-click='$ctrl.editArtist(artist)') {{artist.id}} {{artist.name}}
+        .artists-list
+            ul
+                li(ng-repeat="artist in $ctrl.artists")
+                    object.circle(data='{{artist.images[0]}}', type='image/png' height="30" width="30" ng-if="artist.images[0]")
+                    img.circle(src='./public/assets/images/user-photo.jpg' height="30" width="30" ng-if="!artist.images[0]")
+                    a(href='#' ng-click='$ctrl.editArtist(artist)') {{artist.id}} {{artist.name}}
+                    .delete-artist
+                        a(href='#' ng-click='$ctrl.editArtist(artist)') X
+        .add-artist
+            form(action='')
+                p Agregar
+                input(type='name', placeholder='Nombre', ng-model='$ctrl.newArtists.name')
+                input(type='description', placeholder='Descripción', ng-model='$ctrl.newArtist.description')
+                input(type='genre', placeholder='Género', ng-model='$ctrl.newArtist.genre')
+                input(type='button', value='Agregar', ng-click='$ctrl.addArtist()')
+
     edit-artist(artist='$ctrl.artistToEdit', ng-if='$ctrl.show==="edit"')

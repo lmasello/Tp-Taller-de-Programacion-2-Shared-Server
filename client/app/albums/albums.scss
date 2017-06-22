@@ -1,9 +1,57 @@
 .albums {
-  float: left;
-  width: 100%;
+  width: 90%;
+  max-width: 1080px;
+  display: block;
+  margin: auto;
 
-  .circle {
-    border-radius: 50%;
+  .p {
+    font-size: 20px;
+  }
+
+  h1 {
+    text-align: left;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    line-height: 42px;
+  }
+
+  h2 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  form p {
+    font-family: roboto;
+    margin-bottom: 10px;
+  }
+  form.ng-pristine.ng-valid {
+    float: right;
+  }
+  input[type="button"] {
+    width: 80px;
+    background-color: lightgray;
+    color: dimgrey;
+    border: 0;
+    border-bottom: 3px solid rgba(0,0,0,0.2);
   }
 
   .loader {
@@ -19,17 +67,47 @@
     animation: spin 1s linear infinite;
   }
 
-  h1 {
-    text-align: center;
-    margin: 1em 0 0.5em 0;
-    color: #343434;
-    font-weight: normal;
-    font-family: 'Ultra', sans-serif;
-    font-size: 36px;
-    line-height: 42px;
-    text-transform: uppercase;
-    text-shadow: 0 2px white, 0 3px #777;
-    width: 100%;
+  a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: rgb(0, 13, 210);
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+      text-decoration: none;
+      color: rgba(160, 195, 210, .8);
+    }
   }
 
+  .delete-album {
+    float: right;
+  }
+
+  .add-album {
+    display: inline-block;
+    width: 37%;
+    margin-left: 3%;
+    vertical-align: top;
+  }
+
+  .albums-list {
+    width: 60%;
+    display: inline-block;
+  }
+
+  li {
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 10px;
+    margin-top: -1px;
+  }
+
+  .edit-album{
+    color: #00B7FF;
+  }
+
+  .edit-album:hover {
+    text-decoration:none;
+  }
 }

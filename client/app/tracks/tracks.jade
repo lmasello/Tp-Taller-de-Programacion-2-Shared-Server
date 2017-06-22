@@ -8,12 +8,14 @@ music-header
             ul
                 li(ng-repeat="track in $ctrl.tracks")
                     a(href='#' ng-click='$ctrl.editTrack(track)') {{track.id}} {{track.name}}
-        .add-song
+                    .delete-track
+                        a(href='#' ng-click='$ctrl.editTrack(track)') X
+        .add-track
             form(action='')
                 p Agregar
                 input(type='name', placeholder='Nombre', ng-model='$ctrl.newTrack.name')
                 input(type='duration', placeholder='Duración', ng-model='$ctrl.newTrack.duration')
-                input(type='artist', placeholder='Artista', ng-model='$ctrl.newTrack.artist')
+                .artist-dropdown.button(ng-dropdown-multiselect='', translation-texts='translations', options='artistData', selected-model='artistModel', extra-settings='artistSettings')
                 input(type='button', value='Agregar', ng-click='$ctrl.addTrack()')
 
     edit-track(track='$ctrl.trackToEdit', ng-if='$ctrl.show==="edit"')

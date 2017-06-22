@@ -5,7 +5,8 @@
         .module('Tracks', [
             'Header',
             'Login',
-            'EditTrack'
+            'EditTrack',
+            'angularjs-dropdown-multiselect'
         ]);
 
 }());
