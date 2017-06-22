@@ -71,7 +71,8 @@ function removeArtist(artistId) {
 function getSongsFromArtist(artistId) {
   return orm.models.artist.findById(artistId).then(function(artist) {
     return artist.getSongs({
-      attributes: ['id', 'name' ]
+      attributes: ['id', 'name' ],
+      include: [{ model: orm.models.album }],
     });
   })
 }
@@ -119,7 +120,16 @@ function getRecommendedArtists(userId) {
   return songs_recommendator.recommendFor(userId, 5).then((results) => {
     return orm.models.song.findAll({
       attributes: ['id'],
-      include: [ { model: orm.models.artist, through: { attributes: [] } }],
+      include: [
+        {
+          model: orm.models.artist, through: { attributes: [] },
+          include: [
+            { model: orm.models.album, attributes: [ 'id', 'name' ], through: {attributes:[] }},
+            { model: orm.models.user, where: { id: userId } , required: false,
+              attributes: ['id', 'userName'], through: {attributes:[] }, as: 'followed' },
+          ]
+        }
+      ],
       where: { id: { $in: results } },
       order: [ ['id', 'ASC'] ]
     });

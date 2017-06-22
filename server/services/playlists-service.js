@@ -99,6 +99,7 @@ function getSongsFromPlaylist(playlistId) {
     }
     return playlist.getSongs({
       attributes: ['id', 'name'],
+      include: [{ model: orm.models.album }],
       joinTableAttributes: []
     });
   });
