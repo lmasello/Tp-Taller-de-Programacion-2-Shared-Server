@@ -8,13 +8,17 @@ music-header
             ul
                 li(ng-repeat="track in $ctrl.tracks")
                     a(href='#' ng-click='$ctrl.editTrack(track)') {{track.id}} {{track.name}}
-                    .delete-track
-                        a(href='#' ng-click='$ctrl.deleteTrack(track)') X
+                    .delete-track(ng-click='$ctrl.deleteTrack(track)')
+                        svg#Capa_1(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', version='1.1', x='0px', y='0px', width='10px', height='10px', viewbox='0 0 612 612', style='enable-background:new 0 0 612 612;', xml:space='preserve')
+                            g
+                                g#cross
+                                    g
+                                        polygon(points='612,36.004 576.521,0.603 306,270.608 35.478,0.603 0,36.004 270.522,306.011 0,575.997 35.478,611.397      306,341.411 576.521,611.397 612,575.997 341.459,306.011    ')
         .add-track
             form(action='')
                 p Agregar
                 input(type='name', placeholder='Nombre', ng-model='$ctrl.newTrack.name')
-                input(type='duration', placeholder='Duración', ng-model='$ctrl.newTrack.duration')
+                input(type='number', placeholder='Duración', ng-model='$ctrl.newTrack.duration')
                 .artist-dropdown.button(ng-dropdown-multiselect='', translation-texts='translations', options='artistData', selected-model='artistModel', extra-settings='artistSettings')
                 input(type='button', value='Agregar', ng-click='$ctrl.addTrack()')
 

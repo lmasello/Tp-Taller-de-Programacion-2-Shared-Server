@@ -80,6 +80,7 @@
                 "duration" : self.newTrack.duration,
                 "artists" : $scope.artistModel.map(artist => artist.id)
             };
+            console.log(body);
             $http.post('/tracks', body)
                 .then(response => {
                     this.reloadTracks();

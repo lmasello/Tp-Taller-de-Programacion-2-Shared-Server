@@ -171,8 +171,11 @@
                 "name" : self.newAlbum.name,
                 "genres" : [self.newAlbum.genre],
                 "release_date" : self.newAlbum.release_date.toISOString().slice(0, 10),
+                "images" : [self.newAlbum.image],
                 "artists" : $scope.artistModel.map(artist => artist.id)
             };
+            console.log(body);
+
             $http.post('/albums', body)
                 .then(response => {
                     this.reloadAlbums();
@@ -286,10 +289,13 @@
         };
 
         this.addArtist = function () {
+
+            var genres = [self.newArtist.genre];
             var body = {
                 "name" : self.newArtist.name,
-                "description" : self.newArtist.duration,
-                "genres" : [self.newArtist.genre]
+                "description" : self.newArtist.description,
+                "genres" : JSON.stringify(genres),
+                "images" : [self.newArtist.image]
             };
 
             $http.post('/artists', body)
@@ -771,6 +777,7 @@
                 "duration" : self.newTrack.duration,
                 "artists" : $scope.artistModel.map(artist => artist.id)
             };
+            console.log(body);
             $http.post('/tracks', body)
                 .then(response => {
                     this.reloadTracks();

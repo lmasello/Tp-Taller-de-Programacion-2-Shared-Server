@@ -254,7 +254,9 @@
   .artists .p {
     font-size: 20px; }
   .artists .circle {
-    border-radius: 50%; }
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 10px; }
   .artists h1 {
     text-align: left;
     margin: 1em 0 0.5em 0;
@@ -312,7 +314,9 @@
       text-decoration: none;
       color: rgba(160, 195, 210, 0.8); }
   .artists .delete-artist {
-    float: right; }
+    float: right;
+    cursor: pointer;
+    margin-top: 8px; }
   .artists .add-artist {
     display: inline-block;
     width: 37%;
@@ -394,7 +398,9 @@
       text-decoration: none;
       color: rgba(160, 195, 210, 0.8); }
   .tracks .delete-track {
-    float: right; }
+    float: right;
+    cursor: pointer;
+    margin-top: 8px; }
   .tracks .add-track {
     display: inline-block;
     width: 37%;
@@ -490,8 +496,14 @@
     .albums a:hover {
       text-decoration: none;
       color: rgba(160, 195, 210, 0.8); }
+  .albums .circle {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 10px; }
   .albums .delete-album {
-    float: right; }
+    float: right;
+    cursor: pointer;
+    margin-top: 8px; }
   .albums .add-album {
     display: inline-block;
     width: 37%;

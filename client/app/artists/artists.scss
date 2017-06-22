@@ -9,6 +9,8 @@
   }
   .circle {
     border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 10px;
   }
   h1 {
     text-align: left;
@@ -85,6 +87,8 @@
 
   .delete-artist {
     float: right;
+    cursor: pointer;
+    margin-top: 8px;
   }
 
   .add-artist {

@@ -46,8 +46,11 @@
                 "name" : self.newAlbum.name,
                 "genres" : [self.newAlbum.genre],
                 "release_date" : self.newAlbum.release_date.toISOString().slice(0, 10),
+                "images" : [self.newAlbum.image],
                 "artists" : $scope.artistModel.map(artist => artist.id)
             };
+            console.log(body);
+
             $http.post('/albums', body)
                 .then(response => {
                     this.reloadAlbums();

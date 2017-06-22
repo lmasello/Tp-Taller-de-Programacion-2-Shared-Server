@@ -32,10 +32,13 @@
         };
 
         this.addArtist = function () {
+
+            var genres = [self.newArtist.genre];
             var body = {
                 "name" : self.newArtist.name,
-                "description" : self.newArtist.duration,
-                "genres" : [self.newArtist.genre]
+                "description" : self.newArtist.description,
+                "genres" : JSON.stringify(genres),
+                "images" : [self.newArtist.image]
             };
 
             $http.post('/artists', body)

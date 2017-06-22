@@ -81,8 +81,16 @@
     }
   }
 
+  .circle {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 10px;
+  }
+
   .delete-album {
     float: right;
+    cursor: pointer;
+    margin-top: 8px;
   }
 
   .add-album {
