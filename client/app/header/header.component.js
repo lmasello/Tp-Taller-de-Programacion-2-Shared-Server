@@ -35,6 +35,18 @@
             location.href = '/signup';
         };
 
+        this.tracks = function tracks() {
+            location.href = '/canciones';
+        };
+
+        this.artists = function artists() {
+            location.href = '/artistas';
+        };
+
+        this.albums = function albums() {
+            location.href = '/album';
+        };
+
         this.logout = function logout() {
             loginUtils.logout();
             location.reload();

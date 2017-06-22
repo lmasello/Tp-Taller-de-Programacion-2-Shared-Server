@@ -1,14 +1,24 @@
 .music-header
     img(src='/public/assets/images/logo.png', ng-click="$ctrl.home()")
-    ul
-        div(ng-show="$ctrl.isLogged()")
-            li
-                a(ng-click="$ctrl.profile()") Hola {{$ctrl.getFirstName()}}
-            li
-                a(ng-click="$ctrl.logout()") Salir
+    .left-bar
+        ul
+            div(ng-show="$ctrl.isLogged()")
+                li
+                    a(ng-click="$ctrl.tracks()") Canciones
+                li
+                    a(ng-click="$ctrl.artists()") Artistas
+                li
+                    a(ng-click="$ctrl.albums()") Albums
+    .right-bar
+        ul
+            div(ng-show="$ctrl.isLogged()")
+                li
+                    a(ng-click="$ctrl.profile()") Hola {{$ctrl.getFirstName()}}
+                li
+                    a(ng-click="$ctrl.logout()") Salir
 
-        div(ng-show="!$ctrl.isLogged()")
-            li
-                a(ng-click="$ctrl.signUp()") Registrarme
-            li
-                a(ng-click="$ctrl.login()") Entrar
+            div(ng-show="!$ctrl.isLogged()")
+                li
+                    a(ng-click="$ctrl.signUp()") Registrarme
+                li
+                    a(ng-click="$ctrl.login()") Entrar

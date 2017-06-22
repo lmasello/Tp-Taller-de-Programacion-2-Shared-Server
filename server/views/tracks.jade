@@ -3,16 +3,14 @@ html(lang='es')
     head
         meta(charset='UTF-8')
         title Music-io
-
-        link(rel="stylesheet", href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:100,400")
         link(rel="stylesheet", href="https://meyerweb.com/eric/tools/css/reset/reset.css")
         //- inject:css
-        link(rel="stylesheet", href="/build/music-io-shared-server-lib.css")
         link(rel="stylesheet", href="/build/music-io-shared-server.css")
         //- endinject
 
-    body(data-ng-app='Music-io')
-        main
+body(data-ng-app='Tracks')
+    tracks
 
     //- inject:js
     script(src="/build/music-io-shared-server-lib.js")

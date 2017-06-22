@@ -1,0 +1,28 @@
+music-header
+
+.artists
+    h1 Artistas
+    .loader(ng-if='!$ctrl.loaded')
+    .content(ng-if='$ctrl.show==="list"')
+        .artists-list
+            ul
+                li(ng-repeat="artist in $ctrl.artists")
+                    object.circle(data='{{artist.images[0]}}', type='image/png' height="30" width="30" ng-if="artist.images[0]")
+                    img.circle(src='./public/assets/images/user-photo.jpg' height="30" width="30" ng-if="!artist.images[0]")
+                    a(href='#' ng-click='$ctrl.editArtist(artist)') {{artist.id}} {{artist.name}}
+                    .delete-artist(ng-click='$ctrl.deleteArtist(artist)')
+                        svg#Capa_1(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', version='1.1', x='0px', y='0px', width='10px', height='10px', viewbox='0 0 612 612', style='enable-background:new 0 0 612 612;', xml:space='preserve')
+                            g
+                                g#cross
+                                    g
+                                        polygon(points='612,36.004 576.521,0.603 306,270.608 35.478,0.603 0,36.004 270.522,306.011 0,575.997 35.478,611.397      306,341.411 576.521,611.397 612,575.997 341.459,306.011    ')
+        .add-artist
+            form(action='')
+                p Agregar
+                input(type='text', placeholder='Nombre', ng-model='$ctrl.newArtist.name')
+                input(type='text', placeholder='Descripción', ng-model='$ctrl.newArtist.description')
+                input(type='text', placeholder='Género', ng-model='$ctrl.newArtist.genre')
+                input(type='text', placeholder='Url imagen', ng-model='$ctrl.newArtist.image')
+                input(type='button', value='Agregar', ng-click='$ctrl.addArtist()')
+
+    edit-artist(artist='$ctrl.artistToEdit', ng-if='$ctrl.show==="edit"')

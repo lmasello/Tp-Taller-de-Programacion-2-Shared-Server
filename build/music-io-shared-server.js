@@ -2,6 +2,44 @@
     'use strict';
 
     angular
+        .module('Albums', [
+            'Header',
+            'Login',
+            'EditAlbum',
+            'angularjs-dropdown-multiselect'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('EditAlbum', [
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Artists', [
+            'Header',
+            'Login',
+            'EditArtist'
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('EditArtist', []);
+
+}());
+(function(){
+    'use strict';
+
+    angular
         .module('Header', [
             'Login'
         ]);
@@ -65,6 +103,263 @@
         ]);
 
 }());
+(function(){
+    'use strict';
+
+    angular
+        .module('EditTrack', [
+        ]);
+
+}());
+(function(){
+    'use strict';
+
+    angular
+        .module('Tracks', [
+            'Header',
+            'Login',
+            'EditTrack',
+            'angularjs-dropdown-multiselect'
+        ]);
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('Albums')
+        .component('albums', {
+            controller: albumsCtrl,
+            bindings: {},
+            templateUrl: '/public/app/albums/albums.html'
+        });
+
+    albumsCtrl.$inject = ['$http', '$scope'];
+
+    function albumsCtrl($http, $scope) {
+        var self = this;
+
+        this.$onInit = function () {
+            self.show='list';
+            $scope.artistSettings = {enableSearch: true, styleActive: true };
+            $scope.artistModel = [];
+            $scope.translations = {
+                checkAll: "Seleccionar todos los artistas",
+                uncheckAll: "Deseleccionar todos los artistas",
+                searchPlaceholder: "Buscar artista",
+                dynamicButtonTextSuffix: "artistas seleccionado",
+                buttonDefaultText: "Buscar artistas"
+            };
+            this.reloadAlbums();
+            this.findArtists();
+        };
+
+        this.reloadAlbums = function () {
+            self.loaded = false;
+            $http.get('/albums', self.data)
+                .then(response => {
+                    self.loaded = true;
+                    self.albums = response.data.albums;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.addAlbum = function () {
+            var body = {
+                "name" : self.newAlbum.name,
+                "genres" : [self.newAlbum.genre],
+                "release_date" : self.newAlbum.release_date.toISOString().slice(0, 10),
+                "images" : [self.newAlbum.image],
+                "artists" : $scope.artistModel.map(artist => artist.id)
+            };
+            console.log(body);
+
+            $http.post('/albums', body)
+                .then(response => {
+                    this.reloadAlbums();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.findArtists = function () {
+            $http.get('/artists', self.data)
+                .then(response => {
+                    $scope.artistData = response.data.artists.map(convertArtist);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        function convertArtist(artist) {
+            return {
+                id: artist.id,
+                label: artist.name
+            }
+        }
+
+        this.editAlbum = function (album) {
+            self.show='edit';
+            self.albumToEdit = album;
+        };
+
+        this.deleteAlbum = function (album) {
+            $http.delete('/albums/' + album.id)
+                .then(response => {
+                    this.reloadAlbums();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('EditAlbum')
+        .component('editAlbum', {
+            controller: editAlbumsCtrl,
+            bindings: {
+                album:'<'
+            },
+            templateUrl: '/public/app/albums/edit-album/edit-albums.html'
+        });
+
+    editAlbumsCtrl.$inject = ['$http'];
+
+    function editAlbumsCtrl($http) {
+        var self = this;
+
+        this.$onInit = function () {
+            self.album.release_date = new Date(self.album.release_date);
+        };
+
+        this.editAlbum = function () {
+            var uri = '/albums/' + self.album.id;
+            $http.put(uri, self.album)
+                .then(response => {
+                    location.href = '/album';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        };
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('Artists')
+        .component('artists', {
+            controller: artistsCtrl,
+            bindings: {},
+            templateUrl: '/public/app/artists/artists.html'
+        });
+
+    artistsCtrl.$inject = ['$http'];
+
+    function artistsCtrl($http) {
+        var self = this;
+
+        this.$onInit = function () {
+            self.show='list';
+            this.reloadArtists();
+        };
+
+        this.reloadArtists = function () {
+            self.loaded = false;
+            $http.get('/artists')
+                .then(response => {
+                    self.loaded = true;
+                    self.artists = response.data.artists;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.addArtist = function () {
+
+            var genres = [self.newArtist.genre];
+            var body = {
+                "name" : self.newArtist.name,
+                "description" : self.newArtist.description,
+                "genres" : JSON.stringify(genres),
+                "images" : [self.newArtist.image]
+            };
+
+            $http.post('/artists', body)
+                .then(response => {
+                    this.reloadArtists();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.editArtist = function (artist) {
+            self.show='edit';
+            self.artistToEdit = artist;
+        };
+
+        this.deleteArtist = function (artist) {
+            $http.delete('/artists/' + artist.id)
+                .then(response => {
+                    this.reloadArtists();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('EditArtist')
+        .component('editArtist', {
+            controller: editArtistCtrl,
+            bindings: {
+                artist:'<'
+            },
+            templateUrl: '/public/app/artists/edit-artist/edit-artists.html'
+        });
+
+    editArtistCtrl.$inject = ['$http'];
+
+    function editArtistCtrl($http) {
+        var self = this;
+
+        this.$onInit = function () {
+            console.log(self.artist);
+        };
+
+        this.editArtist = function () {
+            var uri = '/artists/' + self.artist.id;
+            $http.put(uri, self.artist)
+                .then(response => {
+                    location.href = '/artistas';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        };
+    }
+} ());
+
 (function () {
     'use strict';
 
@@ -100,6 +395,18 @@
 
         this.signUp = function signUp() {
             location.href = '/signup';
+        };
+
+        this.tracks = function tracks() {
+            location.href = '/canciones';
+        };
+
+        this.artists = function artists() {
+            location.href = '/artistas';
+        };
+
+        this.albums = function albums() {
+            location.href = '/album';
         };
 
         this.logout = function logout() {
@@ -349,5 +656,135 @@
                         console.error(error);
                     });
         }
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('EditTrack')
+        .component('editTrack', {
+            controller: editTrackCtrl,
+            bindings: {
+                track:'<'
+            },
+            templateUrl: '/public/app/tracks/edit-track/edit-tracks.html'
+        });
+
+    editTrackCtrl.$inject = ['$http'];
+
+    function editTrackCtrl($http) {
+        var self = this;
+
+        this.$onInit = function () {
+            self.track.artists = undefined;
+        };
+
+        this.editTrack = function () {
+            var uri = '/tracks/' + self.track.id;
+            $http.put(uri, self.track)
+                .then(response => {
+                    location.href = '/canciones';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        };
+    }
+} ());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('Tracks')
+        .component('tracks', {
+            controller: tracksCtrl,
+            bindings: {},
+            templateUrl: '/public/app/tracks/tracks.html'
+        });
+
+    tracksCtrl.$inject = ['$http', '$scope'];
+
+    function tracksCtrl($http, $scope) {
+        var self = this;
+
+        this.$onInit = function () {
+            $scope.artistSettings = {enableSearch: true, styleActive: true };
+            $scope.artistModel = [];
+            $scope.translations = {
+                checkAll: "Seleccionar todos los artistas",
+                uncheckAll: "Deseleccionar todos los artistas",
+                searchPlaceholder: "Buscar artista",
+                dynamicButtonTextSuffix: "artistas seleccionado",
+                buttonDefaultText: "Buscar artistas"
+            };
+
+            self.show='list';
+            this.reloadTracks();
+            this.findArtists();
+        };
+
+        this.reloadTracks = function () {
+            self.loaded = false;
+            $http.get('/tracks', self.data)
+                .then(response => {
+                    self.loaded = true;
+                    self.tracks = response.data.tracks;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        function convertArtist(artist) {
+            return {
+                id: artist.id,
+                label: artist.name
+            }
+        }
+
+        this.findArtists = function () {
+            $http.get('/artists', self.data)
+                .then(response => {
+                    $scope.artistData = response.data.artists.map(convertArtist);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.deleteTrack = function (track) {
+            $http.delete('/tracks/' + track.id)
+                .then(response => {
+                    this.reloadTracks();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
+
+        this.editTrack = function (track) {
+            self.show='edit';
+            self.trackToEdit = track;
+        };
+
+        this.addTrack = function () {
+            var body = {
+                "name" : self.newTrack.name,
+                "duration" : self.newTrack.duration,
+                "artists" : $scope.artistModel.map(artist => artist.id)
+            };
+            console.log(body);
+            $http.post('/tracks', body)
+                .then(response => {
+                    this.reloadTracks();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
     }
 } ());

@@ -1,19 +1,25 @@
 .music-header {
-  display: inline-block;
+  display: block;
   width: 100%;
   height: 60px;
   text-align: center;
-  float: left;
   background-color: #404040;
-  color: rgba(160, 195, 210, 1);
-  font-family: Circular, Helvetica, Arial, sans-serif;
+  color: #a0c3d2;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
   position: relative;
 
+  .right-bar {
+    float: right;
+  }
+
+  .left-bar {
+    float: left;
+  }
+
   img {
-    margin-left: 150px;
+    margin-left: 134px;
     margin-top: 8px;
     margin-bottom: 8px;
     float: left;
@@ -35,7 +41,6 @@
   }
 
   ul {
-    float: right;
     li {
       list-style-type: none;
       padding: 8px 16px;
