@@ -114,6 +114,10 @@ function getFavorites(userId) {
   return orm.models.user.findById(userId).then(function(user) {
     return user.getSongs({
       attributes: ['id', 'name', 'duration', 'album_id'],
+      include: [
+        { model: orm.models.artist, attributes: [ 'id', 'name' ], through: { attributes:[] }},
+        { model: orm.models.album },
+      ],      
       through: {
         where: { liked: true }
       }
