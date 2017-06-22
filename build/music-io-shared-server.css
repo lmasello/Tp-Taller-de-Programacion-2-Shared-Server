@@ -118,14 +118,12 @@
     outline: none; }
 
 .music-header {
-  display: inline-block;
+  display: block;
   width: 100%;
   height: 60px;
   text-align: center;
-  float: left;
   background-color: #404040;
   color: #a0c3d2;
-  font-family: Circular, Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -135,7 +133,7 @@
   .music-header .left-bar {
     float: left; }
   .music-header img {
-    margin-left: 150px;
+    margin-left: 134px;
     margin-top: 8px;
     margin-bottom: 8px;
     float: left;
@@ -249,10 +247,48 @@
     display: inline-block; }
 
 .artists {
-  float: left;
-  width: 100%; }
+  width: 90%;
+  max-width: 1080px;
+  display: block;
+  margin: auto; }
+  .artists .p {
+    font-size: 20px; }
   .artists .circle {
     border-radius: 50%; }
+  .artists h1 {
+    text-align: left;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    line-height: 42px; }
+  .artists h2 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif; }
+  .artists form {
+    width: 100%; }
+  .artists form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box; }
+  .artists form p {
+    font-family: roboto;
+    margin-bottom: 10px; }
+  .artists form.ng-pristine.ng-valid {
+    float: right; }
+  .artists input[type="button"] {
+    width: 80px;
+    background-color: lightgray;
+    color: dimgrey;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2); }
   .artists .loader {
     margin-top: 50%;
     margin-left: calc(50% - 120px);
@@ -264,33 +300,51 @@
     height: 120px;
     -webkit-animation: spin 10s linear infinite;
     animation: spin 1s linear infinite; }
-  .artists h1 {
-    text-align: center;
-    margin: 1em 0 0.5em 0;
-    color: #343434;
-    font-weight: normal;
-    font-family: 'Ultra', sans-serif;
-    font-size: 36px;
-    line-height: 42px;
-    text-transform: uppercase;
-    text-shadow: 0 2px white, 0 3px #777;
-    width: 100%; }
+  .artists a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: #000dd2;
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer; }
+    .artists a:hover {
+      text-decoration: none;
+      color: rgba(160, 195, 210, 0.8); }
+  .artists .delete-artist {
+    float: right; }
+  .artists .add-artist {
+    display: inline-block;
+    width: 37%;
+    margin-left: 3%;
+    vertical-align: top; }
+  .artists .artists-list {
+    width: 60%;
+    display: inline-block; }
+  .artists li {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: -1px; }
+  .artists .edit-artist {
+    color: #00B7FF; }
+  .artists .edit-artist:hover {
+    text-decoration: none; }
 
 .tracks {
-  float: left;
-  width: 100%; }
+  width: 90%;
+  max-width: 1080px;
+  display: block;
+  margin: auto; }
   .tracks .p {
     font-size: 20px; }
   .tracks h1 {
-    text-align: center;
+    text-align: left;
     margin: 1em 0 0.5em 0;
     color: #343434;
     font-weight: normal;
-    font-family: 'Ultra', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 36px;
-    line-height: 42px;
-    text-transform: uppercase;
-    text-shadow: 0 2px white, 0 3px #777; }
+    line-height: 42px; }
   .tracks h2 {
     margin: 1em 0 0.5em 0;
     color: #343434;
@@ -298,6 +352,25 @@
     font-size: 30px;
     line-height: 40px;
     font-family: 'Orienta', sans-serif; }
+  .tracks form {
+    width: 100%; }
+  .tracks form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box; }
+  .tracks form p {
+    font-family: roboto;
+    margin-bottom: 10px; }
+  .tracks form.ng-pristine.ng-valid {
+    float: right; }
+  .tracks input[type="button"] {
+    width: 80px;
+    background-color: lightgray;
+    color: dimgrey;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2); }
   .tracks .loader {
     margin-top: 50%;
     margin-left: calc(50% - 120px);
@@ -310,25 +383,91 @@
     -webkit-animation: spin 10s linear infinite;
     animation: spin 1s linear infinite; }
   .tracks a {
-    font-family: Circular, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
     font-size: 16px;
-    color: #a0c3d2;
+    color: #000dd2;
     line-height: 24px;
     text-decoration: none;
     cursor: pointer; }
     .tracks a:hover {
       text-decoration: none;
       color: rgba(160, 195, 210, 0.8); }
-  .tracks .edit-song {
+  .tracks .delete-track {
+    float: right; }
+  .tracks .add-track {
+    display: inline-block;
+    width: 37%;
+    margin-left: 3%;
+    vertical-align: top; }
+  .tracks .tracks-list {
+    width: 60%;
+    display: inline-block; }
+  .tracks li {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: -1px; }
+  .tracks .edit-track {
     color: #00B7FF; }
-  .tracks .edit-song:hover {
+  .tracks .edit-track:hover {
     text-decoration: none; }
+  .tracks .active {
+    background: #9d9594; }
+  .tracks button.dropdown-toggle.ng-binding.btn.btn-default {
+    font-family: roboto;
+    border-style: none;
+    width: 100%;
+    display: inline-flex;
+    background: white; }
+  .tracks .dropdown-multiselect {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.3); }
 
 .albums {
-  float: left;
-  width: 100%; }
-  .albums .circle {
-    border-radius: 50%; }
+  width: 90%;
+  max-width: 1080px;
+  display: block;
+  margin: auto; }
+  .albums .p {
+    font-size: 20px; }
+  .albums h1 {
+    text-align: left;
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    line-height: 42px; }
+  .albums h2 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif; }
+  .albums form {
+    width: 100%; }
+  .albums form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box; }
+  .albums form p {
+    font-family: roboto;
+    margin-bottom: 10px; }
+  .albums form.ng-pristine.ng-valid {
+    float: right; }
+  .albums input[type="button"] {
+    width: 80px;
+    background-color: lightgray;
+    color: dimgrey;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2); }
   .albums .loader {
     margin-top: 50%;
     margin-left: calc(50% - 120px);
@@ -340,17 +479,50 @@
     height: 120px;
     -webkit-animation: spin 10s linear infinite;
     animation: spin 1s linear infinite; }
-  .albums h1 {
-    text-align: center;
-    margin: 1em 0 0.5em 0;
-    color: #343434;
-    font-weight: normal;
-    font-family: 'Ultra', sans-serif;
-    font-size: 36px;
-    line-height: 42px;
-    text-transform: uppercase;
-    text-shadow: 0 2px white, 0 3px #777;
-    width: 100%; }
+  .albums a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: #000dd2;
+    line-height: 24px;
+    text-decoration: none;
+    cursor: pointer; }
+    .albums a:hover {
+      text-decoration: none;
+      color: rgba(160, 195, 210, 0.8); }
+  .albums .delete-album {
+    float: right; }
+  .albums .add-album {
+    display: inline-block;
+    width: 37%;
+    margin-left: 3%;
+    vertical-align: top; }
+  .albums .albums-list {
+    width: 60%;
+    display: inline-block; }
+  .albums li {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: -1px; }
+  .albums .edit-album {
+    color: #00B7FF; }
+  .albums .edit-album:hover {
+    text-decoration: none; }
+  .albums .active {
+    background: #9d9594; }
+  .albums button.dropdown-toggle.ng-binding.btn.btn-default {
+    font-family: roboto;
+    border-style: none;
+    width: 100%;
+    display: inline-flex;
+    background: white; }
+  .albums .dropdown-multiselect {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.3); }
 
 main {
   display: block; }

@@ -11,7 +11,7 @@ music-header
                     img.circle(src='./public/assets/images/user-photo.jpg' height="30" width="30" ng-if="!artist.images[0]")
                     a(href='#' ng-click='$ctrl.editArtist(artist)') {{artist.id}} {{artist.name}}
                     .delete-artist
-                        a(href='#' ng-click='$ctrl.editArtist(artist)') X
+                        a(href='#' ng-click='$ctrl.deleteArtist(artist)') X
         .add-artist
             form(action='')
                 p Agregar

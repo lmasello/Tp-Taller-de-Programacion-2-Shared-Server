@@ -9,7 +9,7 @@ music-header
                 li(ng-repeat="track in $ctrl.tracks")
                     a(href='#' ng-click='$ctrl.editTrack(track)') {{track.id}} {{track.name}}
                     .delete-track
-                        a(href='#' ng-click='$ctrl.editTrack(track)') X
+                        a(href='#' ng-click='$ctrl.deleteTrack(track)') X
         .add-track
             form(action='')
                 p Agregar

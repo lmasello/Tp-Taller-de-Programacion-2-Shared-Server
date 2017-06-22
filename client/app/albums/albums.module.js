@@ -5,7 +5,8 @@
         .module('Albums', [
             'Header',
             'Login',
-            'EditAlbum'
+            'EditAlbum',
+            'angularjs-dropdown-multiselect'
         ]);
 
 }());

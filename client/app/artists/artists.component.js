@@ -51,5 +51,15 @@
             self.show='edit';
             self.artistToEdit = artist;
         };
+
+        this.deleteArtist = function (artist) {
+            $http.delete('/artists/' + artist.id)
+                .then(response => {
+                    this.reloadArtists();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        };
     }
 } ());

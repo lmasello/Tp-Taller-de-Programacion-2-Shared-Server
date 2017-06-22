@@ -15,7 +15,7 @@
         var self = this;
 
         this.$onInit = function () {
-            $scope.artistSettings = {enableSearch: true };
+            $scope.artistSettings = {enableSearch: true, styleActive: true };
             $scope.artistModel = [];
             $scope.translations = {
                 checkAll: "Seleccionar todos los artistas",
@@ -59,16 +59,8 @@
                 });
         };
 
-        this.addTrack = function () {
-            var body = {
-                "name" : self.newTrack.name,
-                "duration" : self.newTrack.duration,
-                "artists" : $scope.artistModel.map(artist => artist.id)
-            };
-
-            console.log(body);
-
-            $http.post('/tracks', body)
+        this.deleteTrack = function (track) {
+            $http.delete('/tracks/' + track.id)
                 .then(response => {
                     this.reloadTracks();
                 })
@@ -80,6 +72,21 @@
         this.editTrack = function (track) {
             self.show='edit';
             self.trackToEdit = track;
+        };
+
+        this.addTrack = function () {
+            var body = {
+                "name" : self.newTrack.name,
+                "duration" : self.newTrack.duration,
+                "artists" : $scope.artistModel.map(artist => artist.id)
+            };
+            $http.post('/tracks', body)
+                .then(response => {
+                    this.reloadTracks();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         };
     }
 } ());
