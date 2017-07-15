@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "npm": "3.10.10",
-    "node": "6.10.0"
+    "node": "6.11.1"
   },
   "description": "This application handles common data used by the application which consists of artists, songs, albums, song rankings and a recommendation system.",
   "main": "server.js",
